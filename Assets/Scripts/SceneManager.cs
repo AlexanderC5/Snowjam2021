@@ -14,7 +14,9 @@ public class SceneManager : MonoBehaviour
     private GameObject[] interfaces;
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
-    public Image fadeImage;
+    public float animationSpeed = 1.0f;
+
+    public Animator crossFade; // Cross fade
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +24,28 @@ public class SceneManager : MonoBehaviour
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
         characters = GameObject.FindGameObjectsWithTag("Char");
         interfaces = GameObject.FindGameObjectsWithTag("UI");
-        fadeImage.rectTransform.sizeDelta = new Vector2(0, 0);
+
+        crossFade.speed = animationSpeed;
+
+        HideAll();
         LoadScene(initialScene); // Load main menu, begin the game
     }
 
-    public void LoadScene(int n)
+    public void LoadScene(int n) // This function is just to make life easier
     {
-        StartCoroutine(fadeToast(0.5f));
+        StartCoroutine(LoadScn(n));
+    }
+
+    IEnumerator LoadScn(int n)
+    {
+        crossFade.SetTrigger("FadeToBlack");
+        yield return new WaitForSeconds(1f / animationSpeed);
+        crossFade.SetTrigger("UnFade");
+
         HideAll();
         switch (n)
         {
+
             case 0: // Title Scene
                 LoadBackground(0);
                 LoadUI(2); // Play Button
@@ -51,7 +65,7 @@ public class SceneManager : MonoBehaviour
                 break;
         }
     }
-    
+
     public void SetVolume(int n)
     {
         if (n > 100) n = 100;
@@ -84,12 +98,14 @@ public class SceneManager : MonoBehaviour
     public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
     public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
 
-    public void DisableDialogue() {
+    public void DisableDialogue()
+    {
         isDialogueEnabled = false;
         UnloadUI(0); // Unload dialogue box
         UnloadUI(1); // Unload nameplate
     }
-    public void EnableDialogue() {
+    public void EnableDialogue()
+    {
         isDialogueEnabled = true;
         LoadUI(0); // Load dialogue box (make sure dialogue box is first UI element)
         LoadUI(1); // Load Nameplate
@@ -101,37 +117,20 @@ public class SceneManager : MonoBehaviour
         LoadScene(1);
     }
 
-    public void OptionsButtonPressed()
+    public void OptionsWindowOpened()
     {
         LoadUI(5);
+        DisableDialogue();
+    }
+
+    public void OptionsWindowClosed()
+    {
+        UnloadUI(5);
+        EnableDialogue();
     }
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
     {
         Application.Quit();
-    }
-
-    IEnumerator fadeToast(float duration) // Toast fade effect between scenes (Completely unnecessary)
-    {
-        float totalDur = duration;
-
-        fadeImage.gameObject.SetActive(true);
-
-        /** // Grow the toast!
-        for (; duration >= 0; duration -= Time.deltaTime)
-        {
-            fadeImage.rectTransform.sizeDelta = new Vector2(1500 * (1 - duration / totalDur), 1000 * (1 - duration / totalDur));
-            yield return null;
-        }
-        duration = totalDur;
-        **/
-
-        // Shrink the toast!
-        for (; duration >= 0; duration -= Time.deltaTime)
-        {
-            fadeImage.rectTransform.sizeDelta = new Vector2(1500 * (duration / totalDur), 1000 * (duration / totalDur));
-            yield return null;  
-        }
-        fadeImage.gameObject.SetActive(false);
     }
 }
