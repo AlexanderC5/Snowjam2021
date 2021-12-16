@@ -12,7 +12,7 @@ public class SceneManager : MonoBehaviour
     private GameObject[] characters;
     private GameObject[] interfaces;
 
-    public int initialScene = 0;
+    public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
 
     // Start is called before the first frame update
     void Start()
@@ -46,29 +46,28 @@ public class SceneManager : MonoBehaviour
         hideAll();
         loadBackground(0);
         loadUI(1);
+        // Add UI elements and stuff that should be active when the main menu is active
     }
     
-    public void ChangeVolume(int n)
+    public void SetVolume(int n)
     {
         if (n > 100) n = 100;
         if (n < 0) n = 0;
         musicVolume = n;
     }
 
+    public void ChangeVolume(int n)
+    {
+        musicVolume += n;
+        if (musicVolume > 100) musicVolume = 100;
+        if (musicVolume < 0) musicVolume = 0;
+    }
+
     public void hideAll()
     {
-        for (int i = 0; i < backgrounds.Length; i++)
-        {
-            backgrounds[i].SetActive(false);
-        }
-        for (int i = 0; i < characters.Length; i++)
-        {
-            characters[i].SetActive(false);
-        }
-        for (int i = 0; i < interfaces.Length; i++)
-        {
-            interfaces[i].SetActive(false);
-        }
+        for (int i = 0; i < backgrounds.Length; i++) { backgrounds[i].SetActive(false); }
+        for (int i = 0; i < characters.Length; i++) { characters[i].SetActive(false); }
+        for (int i = 0; i < interfaces.Length; i++) { interfaces[i].SetActive(false); }
     }
 
     public void loadCharacter(int n) { characters[n].SetActive(true); }
@@ -81,4 +80,8 @@ public class SceneManager : MonoBehaviour
     public void unloadAllCharacters() { for (int n = 0; n < characters.Length; n++) { characters[n].SetActive(false); } }
     public void unloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
     public void unloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
+
+    public void disableDialogue() { isDialogueEnabled = false; }
+    public void enableDialogue() { isDialogueEnabled = true; }
+    public bool dialogueOn() { return isDialogueEnabled; }
 }
