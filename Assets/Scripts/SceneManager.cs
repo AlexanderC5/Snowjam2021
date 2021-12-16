@@ -23,13 +23,8 @@ public class SceneManager : MonoBehaviour
         LoadScene(initialScene); // Load main menu, begin the game
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void LoadScene(int n)
+    public void LoadScene(int n) // 
     {
         switch(n)
         {
@@ -82,4 +77,8 @@ public class SceneManager : MonoBehaviour
     public void unloadBackground(int n) { backgrounds[n].SetActive(false); }
     public void loadUI(int n) { interfaces[n].SetActive(true); }
     public void unloadUI(int n) { interfaces[n].SetActive(false); }
+
+    public void unloadAllCharacters() { for (int n = 0; n < characters.Length; n++) { characters[n].SetActive(false); } }
+    public void unloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
+    public void unloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
 }
