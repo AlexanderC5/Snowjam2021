@@ -101,7 +101,7 @@ public class SceneManager : MonoBehaviour
 
     public void OptionsButtonPressed()
     {
-        
+        LoadUI(4);
     }
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
