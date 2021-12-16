@@ -34,9 +34,9 @@ public class SceneManager : MonoBehaviour
         {
             case 0: // Title Scene
                 LoadBackground(0);
-                LoadUI(1); // Play Button
-                LoadUI(2); // Options Button
-                LoadUI(3); // Exit Button
+                LoadUI(2); // Play Button
+                LoadUI(3); // Options Button
+                LoadUI(4); // Exit Button
                 break;
             case 1: // Scene 1
                 EnableDialogue(); // Allows clicking to progress text?
@@ -87,10 +87,12 @@ public class SceneManager : MonoBehaviour
     public void DisableDialogue() {
         isDialogueEnabled = false;
         UnloadUI(0); // Unload dialogue box
+        UnloadUI(1); // Unload nameplate
     }
     public void EnableDialogue() {
         isDialogueEnabled = true;
         LoadUI(0); // Load dialogue box (make sure dialogue box is first UI element)
+        LoadUI(1); // Load Nameplate
     }
     public bool DialogueOn() { return isDialogueEnabled; }
 
@@ -101,7 +103,7 @@ public class SceneManager : MonoBehaviour
 
     public void OptionsButtonPressed()
     {
-        
+        LoadUI(5);
     }
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)

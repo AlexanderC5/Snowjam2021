@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
