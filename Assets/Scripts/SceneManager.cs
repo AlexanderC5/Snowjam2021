@@ -13,20 +13,30 @@ public class SceneManager : MonoBehaviour
     private GameObject[] characters;
     private GameObject[] interfaces;
 
+    // These enum types should list the game objects in the order they appear in Unity!
+    public enum BGs { TITLE, KITCHEN, COUNTERTOP };
+    public enum CHARs { };
+    public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
+
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
 
-    public Animator crossFade; // Cross fade
+    // Animation Animators
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
-
+    public Animator crossFade; // Cross fade
     public Animator optionsMenu;
+    public Animator sceneTitle;
     //private byte windowOpacity;
 
     private GameObject[] sliders; // Stores all of the sliders present in the options menu
     private AudioSource music; // Plays music
     private AudioSource sound; // Plays sfx
+    public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
-    // Start is called before the first frame update
+    // ===== //////////////////////////////////////////////////////////////////////////////////////
+    // START //////////////////////////////////////////////////////////////////////////////////////
+    // ===== //////////////////////////////////////////////////////////////////////////////////////
+
     void Start()
     {
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
@@ -41,6 +51,8 @@ public class SceneManager : MonoBehaviour
         crossFade.speed = animationSpeed;
         optionsMenu.gameObject.SetActive(true);
         optionsMenu.speed = animationSpeed;
+        sceneTitle.gameObject.SetActive(true);
+        sceneTitle.speed = animationSpeed;
 
         HideAll();
         LoadScene(initialScene); // Load main menu, begin the game
@@ -53,6 +65,7 @@ public class SceneManager : MonoBehaviour
         animationSpeed = sliders[2].GetComponent<Slider>().value;
         crossFade.speed = animationSpeed;
         optionsMenu.speed = animationSpeed;
+        sceneTitle.speed = animationSpeed;
         //windowOpacity = (byte) sliders[3].GetComponent<Slider>().value;
         //interfaces[0].GetComponent<Image>().color = new Color32(255, 255, 255, windowOpacity);
     }
@@ -70,25 +83,26 @@ public class SceneManager : MonoBehaviour
         {
 
             case 0: // Title Scene
-                LoadBackground(0);
-                LoadUI(2); // Play Button
-                LoadUI(3); // Options Button
-                LoadUI(4); // Exit Button
+                sceneType = "menu";
+                LoadBackground((int)BGs.TITLE);
+                LoadUI((int)UIs.START); // Play Button
+                LoadUI((int)UIs.OPTIONS); // Options Button
+                LoadUI((int)UIs.EXIT); // Exit Button
+                startMusic(0); // Play Title Screen Music
                 break;
             case 1: // Scene 1
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
-                LoadBackground(1);
-                LoadUI(6); // Settings Button
+                LoadBackground((int)BGs.KITCHEN);
+                LoadUI((int)UIs.SETTINGS); // Settings Button
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 break;
             case 2: // Minigame 1
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
-                LoadUI(6); // Settings Button
-                LoadBackground(3); // Cutting board background
-                // Load first UI/BG/characters
+                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int)UIs.SETTINGS); // Settings Button
                 break;
         }
     }
@@ -102,8 +116,9 @@ public class SceneManager : MonoBehaviour
         sound.PlayOneShot(sfx[n]);
     }
 
-    public void startMusic()
+    public void startMusic(int n)
     {
+        music.clip = musics[n];
         music.Play();
     }
 
@@ -141,17 +156,33 @@ public class SceneManager : MonoBehaviour
     public void DisableDialogue()
     {
         isDialogueEnabled = false;
-        UnloadUI(0); // Unload dialogue box
-        UnloadUI(1); // Unload nameplate
+        UnloadUI((int)UIs.DIALOGUE); // Unload dialogue box
+        UnloadUI((int)UIs.NAMEPLATE); // Unload nameplate
     }
     public void EnableDialogue()
     {
         isDialogueEnabled = true;
-        LoadUI(0); // Load dialogue box (make sure dialogue box is first UI element)
-        LoadUI(1); // Load Nameplate
+        LoadUI((int)UIs.DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
+        LoadUI((int)UIs.NAMEPLATE); // Load Nameplate
     }
     public bool DialogueOn() { return isDialogueEnabled; }
 
+    public void DisplaySceneTitle(string str)
+    {
+        StartCoroutine(DispSceneTitle(str));
+    }
+
+    IEnumerator DispSceneTitle(string str)
+    {
+        yield return new WaitForSeconds(1f / animationSpeed); // Wait for scene fade transition to finish
+        LoadUI((int)UIs.SCENE_TITLE);
+        interfaces[(int)UIs.SCENE_TITLE].GetComponentInChildren<Text>().text = str;
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
+        yield return new WaitForSeconds(3f / animationSpeed); // Scene Title Stays on screen for this long
+        optionsMenu.SetTrigger("SlideOff");
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
+        UnloadUI((int)UIs.SCENE_TITLE);
+    }
 
     // =========================== //
     // BUTTONS & SCENE TRANSITIONS //
@@ -166,9 +197,8 @@ public class SceneManager : MonoBehaviour
     public void OptionsWindowOpened() { StartCoroutine(OptnOpen()); }
     IEnumerator OptnOpen()
     {
-        LoadUI(5);
+        LoadUI((int)UIs.OPT_MENU);
         DisableDialogue();
-        // optionsMenu.SetTrigger("SlideOn");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
     }
     public void OptionsWindowClosed() { StartCoroutine(OptnClose()); }
@@ -176,7 +206,7 @@ public class SceneManager : MonoBehaviour
     {
         optionsMenu.SetTrigger("SlideOff");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
-        UnloadUI(5);
+        UnloadUI((int)UIs.OPT_MENU);
         if (sceneType == "VN") EnableDialogue();
     }
 

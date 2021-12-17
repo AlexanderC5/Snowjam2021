@@ -11,6 +11,7 @@ TagManager:
   - DialogueText
   - SFX
   - Slider
+  - SceneTitle
   layers:
   - Default
   - TransparentFX
