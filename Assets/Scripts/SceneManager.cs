@@ -75,6 +75,7 @@ public class SceneManager : MonoBehaviour
         {
 
             case 0: // Title Scene
+                sceneType = "menu";
                 LoadBackground((int) BGs.TITLE);
                 LoadUI((int) UIs.START); // Play Button
                 LoadUI((int) UIs.OPTIONS); // Options Button
