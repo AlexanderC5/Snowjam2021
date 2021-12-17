@@ -6,23 +6,37 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    private bool isDialogueEnabled = false; // VN mode or Minigame/Options mode? Should clicking advance text?
+    private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
+    private string sceneType = "menu"; // VN, cooking
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
     private GameObject[] interfaces;
 
+    // These enum types should list the game objects in the order they appear in Unity!
+    public enum BGs { TITLE, KITCHEN, COUNTERTOP };
+    public enum CHARs { };
+    public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
+
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
 
-    public Animator crossFade; // Cross fade
+    // Animation Animators
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
+    public Animator crossFade; // Cross fade
+    public Animator optionsMenu;
+    public Animator sceneTitle;
+    //private byte windowOpacity;
 
-    private int musicVolume = 100; // Max volume = 100
+    private GameObject[] sliders; // Stores all of the sliders present in the options menu
     private AudioSource music; // Plays music
     private AudioSource sound; // Plays sfx
+    public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
-    // Start is called before the first frame update
+    // ===== //////////////////////////////////////////////////////////////////////////////////////
+    // START //////////////////////////////////////////////////////////////////////////////////////
+    // ===== //////////////////////////////////////////////////////////////////////////////////////
+
     void Start()
     {
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
@@ -31,9 +45,14 @@ public class SceneManager : MonoBehaviour
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
+        sliders = GameObject.FindGameObjectsWithTag("Slider");
 
         crossFade.gameObject.SetActive(true); // Do this upon start so we can disable the black screen during testing
         crossFade.speed = animationSpeed;
+        optionsMenu.gameObject.SetActive(true);
+        optionsMenu.speed = animationSpeed;
+        sceneTitle.gameObject.SetActive(true);
+        sceneTitle.speed = animationSpeed;
 
         HideAll();
         LoadScene(initialScene); // Load main menu, begin the game
@@ -41,14 +60,17 @@ public class SceneManager : MonoBehaviour
 
     void Update()
     {
-        music.volume = 0.01f * musicVolume;
-        sound.volume = 0.01f * musicVolume; // Music/SFX use the same volume slider
+        music.volume = 0.01f * sliders[0].GetComponent<Slider>().value; // Make sure the music volume slider is sorted above the sfx vol slider!
+        sound.volume = 0.01f * sliders[1].GetComponent<Slider>().value;
+        animationSpeed = sliders[2].GetComponent<Slider>().value;
+        crossFade.speed = animationSpeed;
+        optionsMenu.speed = animationSpeed;
+        sceneTitle.speed = animationSpeed;
+        //windowOpacity = (byte) sliders[3].GetComponent<Slider>().value;
+        //interfaces[0].GetComponent<Image>().color = new Color32(255, 255, 255, windowOpacity);
     }
 
-    public void LoadScene(int n) // This function is just to make life easier
-    {
-        StartCoroutine(LoadScn(n));
-    }
+    public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
 
     IEnumerator LoadScn(int n)
     {
@@ -61,14 +83,18 @@ public class SceneManager : MonoBehaviour
         {
 
             case 0: // Title Scene
-                LoadBackground(0);
-                LoadUI(2); // Play Button
-                LoadUI(3); // Options Button
-                LoadUI(4); // Exit Button
+                sceneType = "menu";
+                LoadBackground((int)BGs.TITLE);
+                LoadUI((int)UIs.START); // Play Button
+                LoadUI((int)UIs.OPTIONS); // Options Button
+                LoadUI((int)UIs.EXIT); // Exit Button
+                startMusic(0); // Play Title Screen Music
                 break;
             case 1: // Scene 1
+                sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
-                LoadBackground(1);
+                LoadBackground((int)BGs.KITCHEN);
+                LoadUI((int)UIs.SETTINGS); // Settings Button
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 //private DialogueManager playScene;
@@ -76,9 +102,10 @@ public class SceneManager : MonoBehaviour
                 //may need to edit so that txtAsset is parameter of DialogueManager
                 break;
             case 2: // Minigame 1
+                sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground(3); // Cutting board background
-                // Load first UI/BG/characters
+                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int)UIs.SETTINGS); // Settings Button
                 break;
         }
     }
@@ -87,27 +114,14 @@ public class SceneManager : MonoBehaviour
     // MUSIC & SOUND //
     // ============= //
 
-    public void SetVolume(int n)
-    {
-        if (n > 100) n = 100;
-        if (n < 0) n = 0;
-        musicVolume = n;
-    }
-
-    public void ChangeVolume(int n)
-    {
-        musicVolume += n;
-        if (musicVolume > 100) musicVolume = 100;
-        if (musicVolume < 0) musicVolume = 0;
-    }
-
     public void playSFX(int n)
     {
         sound.PlayOneShot(sfx[n]);
     }
 
-    public void startMusic()
+    public void startMusic(int n)
     {
+        music.clip = musics[n];
         music.Play();
     }
 
@@ -145,17 +159,33 @@ public class SceneManager : MonoBehaviour
     public void DisableDialogue()
     {
         isDialogueEnabled = false;
-        UnloadUI(0); // Unload dialogue box
-        UnloadUI(1); // Unload nameplate
+        UnloadUI((int)UIs.DIALOGUE); // Unload dialogue box
+        UnloadUI((int)UIs.NAMEPLATE); // Unload nameplate
     }
     public void EnableDialogue()
     {
         isDialogueEnabled = true;
-        LoadUI(0); // Load dialogue box (make sure dialogue box is first UI element)
-        LoadUI(1); // Load Nameplate
+        LoadUI((int)UIs.DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
+        LoadUI((int)UIs.NAMEPLATE); // Load Nameplate
     }
     public bool DialogueOn() { return isDialogueEnabled; }
 
+    public void DisplaySceneTitle(string str)
+    {
+        StartCoroutine(DispSceneTitle(str));
+    }
+
+    IEnumerator DispSceneTitle(string str)
+    {
+        yield return new WaitForSeconds(1f / animationSpeed); // Wait for scene fade transition to finish
+        LoadUI((int)UIs.SCENE_TITLE);
+        interfaces[(int)UIs.SCENE_TITLE].GetComponentInChildren<Text>().text = str;
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
+        yield return new WaitForSeconds(3f / animationSpeed); // Scene Title Stays on screen for this long
+        optionsMenu.SetTrigger("SlideOff");
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
+        UnloadUI((int)UIs.SCENE_TITLE);
+    }
 
     // =========================== //
     // BUTTONS & SCENE TRANSITIONS //
@@ -167,17 +197,20 @@ public class SceneManager : MonoBehaviour
         LoadScene(1);
     }
 
-    public void OptionsWindowOpened()
+    public void OptionsWindowOpened() { StartCoroutine(OptnOpen()); }
+    IEnumerator OptnOpen()
     {
-        LoadUI(5);
-        playSFX(0);
+        LoadUI((int)UIs.OPT_MENU);
         DisableDialogue();
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
     }
-
-    public void OptionsWindowClosed()
+    public void OptionsWindowClosed() { StartCoroutine(OptnClose()); }
+    IEnumerator OptnClose()
     {
-        UnloadUI(5);
-        EnableDialogue();
+        optionsMenu.SetTrigger("SlideOff");
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
+        UnloadUI((int)UIs.OPT_MENU);
+        if (sceneType == "VN") EnableDialogue();
     }
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
