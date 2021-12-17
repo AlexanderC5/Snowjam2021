@@ -36,7 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\TEST\scripts\Testing.cs" />
+     <Compile Include="Assets\TEST\scripts\DialogueManager.cs" />
      <Compile Include="Assets\Scripts\SceneManager.cs" />
      <Compile Include="Assets\Scripts\DialogueSystem.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
