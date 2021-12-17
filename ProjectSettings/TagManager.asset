@@ -7,6 +7,9 @@ TagManager:
   - BG
   - Char
   - UI
+  - Nameplate
+  - DialogueText
+  - SFX
   layers:
   - Default
   - TransparentFX
