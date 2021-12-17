@@ -6,60 +6,39 @@ public class DragAndDrop : MonoBehaviour
 {
     MinigameManager m_minigameManager;
 
-    //bool canMove;
-    bool dragging;
+    bool dragging = false; // Is the ingredient currently being dragged?
     new Collider2D collider;
-    new Collider2D cutCollider;
-    new Collider2D sinkCollider;
 
-    private void Awake()
+    private void Awake() // Link to the necessary game objects / componenets
     {
         m_minigameManager = FindObjectOfType<MinigameManager>();
-    }
-
-    void Start()
-    {
         collider = GetComponent<Collider2D>();
-        //cutCollider = m_minigameManager.getIngr(0).GetComponent<Collider2D>(); // Cutting Board
-        //sinkCollider = m_minigameManager.getIngr(1).GetComponent<Collider2D>(); // Sink
-        //canMove = false;
-        dragging = false;
-        //win = false;
-        //endCollide = GameObject.Find("EndGoal").GetComponent<Collider2D>(); //target object
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Doesn't work with the canvas
         Vector2 mousePos = Input.mousePosition;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // If mouse down on an ingredient, you can drag it
         {
-            if (collider == Physics2D.OverlapPoint(mousePos))
-            {
-                dragging = true;
-            }
-            else
-            {
-                //dragging = false;
-            }
+            if (collider == Physics2D.OverlapPoint(mousePos)) { dragging = true; }
         }
-        if (dragging)
-        {
-            this.transform.position = mousePos;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            //Debug.Log(mousePos);
+        if (dragging) { this.transform.position = mousePos; }
 
+        if (Input.GetMouseButtonUp(0)) // When lifting the mouse, stop dragging and check for any potential actions
+        {
             if (dragging)
             {
                 dragging = false;
+
+                // Some Console logs to check the bounds of the ingredient as percentages of the screen
+                //Debug.Log("X1= " + (collider.bounds.center.x - collider.bounds.size.x / 2) / m_minigameManager.getScreenX());
+                //Debug.Log("X2= " + (collider.bounds.center.x + collider.bounds.size.x / 2) / m_minigameManager.getScreenX());
                 //Debug.Log("Y1= " + (collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY());
                 //Debug.Log("Y2= " + (collider.bounds.center.y + collider.bounds.size.y / 2) / m_minigameManager.getScreenY());
 
-                // if touching cutting board, tell the minigameManager to check the recipe list
+                // If touching cutting board, tell the minigameManager to check the recipe list
                 if (((collider.bounds.center.x - collider.bounds.size.x / 2) / m_minigameManager.getScreenX() >= m_minigameManager.cutbXbounds[0])
                  && ((collider.bounds.center.x + collider.bounds.size.x / 2) / m_minigameManager.getScreenX() <= m_minigameManager.cutbXbounds[1])
                  && ((collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY() >= m_minigameManager.cutbYbounds[0])
@@ -68,7 +47,7 @@ public class DragAndDrop : MonoBehaviour
                     m_minigameManager.onCuttingBoard(this.name);
                 }
 
-                // If touching sink, check if it can be filled with water
+                // If touching the sink, check if it can be filled with water
                 if (((collider.bounds.center.x - collider.bounds.size.x / 2) / m_minigameManager.getScreenX() >= m_minigameManager.sinkXbounds[0])
                  && ((collider.bounds.center.x + collider.bounds.size.x / 2) / m_minigameManager.getScreenX() <= m_minigameManager.sinkXbounds[1])
                  && ((collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY() >= m_minigameManager.sinkYbounds[0])

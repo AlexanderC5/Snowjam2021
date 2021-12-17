@@ -120,8 +120,18 @@ public class SceneManager : MonoBehaviour
                 LoadUI((int)UIs.SETTINGS); // Settings Button
                 m_minigameManager.startCooking(0);
                 break;
+            default: // Back to title for now
+                sceneType = "menu";
+                LoadBackground((int)BGs.TITLE);
+                LoadUI((int)UIs.START); // Play Button
+                LoadUI((int)UIs.OPTIONS); // Options Button
+                LoadUI((int)UIs.EXIT); // Exit Button
+                startMusic(0);
+                break;
         }
     }
+
+    public int getScene() { return currentScene; }
 
     // ============= //
     // MUSIC & SOUND //
@@ -173,6 +183,7 @@ public class SceneManager : MonoBehaviour
     public void UnloadAllIngredients(int n) { ingredients[n].SetActive(false); }
 
     public GameObject getIngredient(int n) { return ingredients[n]; }
+    public int numIngredients() { return ingredients.Length; }
 
     // =============== //
     // TEXT & DIALOGUE //

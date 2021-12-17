@@ -453,8 +453,8 @@ RectTransform:
   - {fileID: 1102123356}
   - {fileID: 755252787}
   - {fileID: 1717671124}
-  - {fileID: 513023566}
   - {fileID: 866556236}
+  - {fileID: 513023566}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 137569021}
   - component: {fileID: 137569020}
   - component: {fileID: 137569019}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: 1) SINK
   m_TagString: Ingr
   m_Icon: {fileID: 0}
@@ -544,7 +544,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137569017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1654,7 +1654,7 @@ RectTransform:
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_Children: []
   m_Father: {fileID: 61928941}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2774,11 +2774,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingrXbounds:
-  - 45
-  - 700
+  - 0.05
+  - 0.95
   ingrYbounds:
-  - 345
-  - 390
+  - 0.75
+  - 0.95
+  cutbXbounds:
+  - 0
+  - 0.62
+  cutbYbounds:
+  - 0
+  - 0.7
+  sinkXbounds:
+  - 0.62
+  - 1
+  sinkYbounds:
+  - 0
+  - 0.7
 --- !u!4 &763808273
 Transform:
   m_ObjectHideFlags: 0
@@ -3121,7 +3133,7 @@ RectTransform:
   - {fileID: 1532725340}
   - {fileID: 2032555598}
   m_Father: {fileID: 61928941}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4082,7 +4094,7 @@ GameObject:
   - component: {fileID: 1403554324}
   - component: {fileID: 1403554323}
   - component: {fileID: 1403554322}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: 0) CUT_BOARD
   m_TagString: Ingr
   m_Icon: {fileID: 0}
@@ -4115,7 +4127,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403554320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
