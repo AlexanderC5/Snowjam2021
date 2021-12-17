@@ -12,6 +12,7 @@ TagManager:
   - SFX
   - Slider
   - SceneTitle
+  - Ingr
   layers:
   - Default
   - TransparentFX

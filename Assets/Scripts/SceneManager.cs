@@ -6,19 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
+    private MinigameManager m_minigameManager;
+    
     private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
     private string sceneType = "menu"; // VN, cooking
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
     private GameObject[] interfaces;
+    private GameObject[] ingredients;
 
     // These enum types should list the game objects in the order they appear in Unity!
-    public enum BGs { TITLE, KITCHEN, COUNTERTOP };
+    public enum BGs { TITLE, KITCHEN, COUNTERTOP, ROOM, CELEBRATION };
     public enum CHARs { };
     public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
+    private int currentScene;
 
     // Animation Animators
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
@@ -33,15 +37,21 @@ public class SceneManager : MonoBehaviour
     public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
+    private float sceneXSize; // Required to deal with changes in screen resolution
+    private float sceneYSize;
+
     // ===== //////////////////////////////////////////////////////////////////////////////////////
     // START //////////////////////////////////////////////////////////////////////////////////////
     // ===== //////////////////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
+        m_minigameManager = GameObject.FindObjectOfType<MinigameManager>();
+
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
         characters = GameObject.FindGameObjectsWithTag("Char");
         interfaces = GameObject.FindGameObjectsWithTag("UI");
+        ingredients = GameObject.FindGameObjectsWithTag("Ingr");
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
@@ -68,6 +78,11 @@ public class SceneManager : MonoBehaviour
         sceneTitle.speed = animationSpeed;
         //windowOpacity = (byte) sliders[3].GetComponent<Slider>().value;
         //interfaces[0].GetComponent<Image>().color = new Color32(255, 255, 255, windowOpacity);
+
+        // Get the dimensions of the player's window. Origin is at bottom left corner.
+        sceneXSize = Screen.width;
+        sceneYSize = Screen.height;
+        //Debug.Log(sceneXSize);
     }
 
     public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
@@ -79,9 +94,9 @@ public class SceneManager : MonoBehaviour
         crossFade.SetTrigger("UnFade");
 
         HideAll();
+        currentScene = n; // Set the scene!
         switch (n)
         {
-
             case 0: // Title Scene
                 sceneType = "menu";
                 LoadBackground((int)BGs.TITLE);
@@ -101,14 +116,25 @@ public class SceneManager : MonoBehaviour
                 //playScene.txtAsset = //whatever text asset corresponds to scene 1
                 //may need to edit so that txtAsset is parameter of DialogueManager
                 break;
-            case 2: // Minigame 1
+            case 2: // Cooking Minigame 1
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                m_minigameManager.startCooking(0);
+                break;
+            default: // Back to title for now
+                sceneType = "menu";
+                LoadBackground((int)BGs.TITLE);
+                LoadUI((int)UIs.START); // Play Button
+                LoadUI((int)UIs.OPTIONS); // Options Button
+                LoadUI((int)UIs.EXIT); // Exit Button
+                startMusic(0);
                 break;
         }
     }
+
+    public int getScene() { return currentScene; }
 
     // ============= //
     // MUSIC & SOUND //
@@ -139,18 +165,28 @@ public class SceneManager : MonoBehaviour
         for (int i = 0; i < backgrounds.Length; i++) { backgrounds[i].SetActive(false); }
         for (int i = 0; i < characters.Length; i++) { characters[i].SetActive(false); }
         for (int i = 0; i < interfaces.Length; i++) { interfaces[i].SetActive(false); }
+        for (int i = 0; i < ingredients.Length; i++) { ingredients[i].SetActive(false); }
     }
 
     public void LoadCharacter(int n) { characters[n].SetActive(true); }
-    public void UnloadCharacter(int n) { characters[n].SetActive(false); }
     public void LoadBackground(int n) { backgrounds[n].SetActive(true); }
-    public void UnloadBackground(int n) { backgrounds[n].SetActive(false); }
     public void LoadUI(int n) { interfaces[n].SetActive(true); }
+    public void LoadIngredient(int n, float x, float y) { // x and y are percentages (0 to 1) of total screen size
+        if (x != -1) ingredients[n].transform.position = new Vector3(x * sceneXSize, y * sceneYSize, 0);
+        ingredients[n].SetActive(true);
+    }
+    public void UnloadCharacter(int n) { characters[n].SetActive(false); }
+    public void UnloadBackground(int n) { backgrounds[n].SetActive(false); }
     public void UnloadUI(int n) { interfaces[n].SetActive(false); }
+    public void UnloadIngredient(int n) { ingredients[n].SetActive(false); }
 
     public void UnloadAllCharacters() { for (int n = 0; n < characters.Length; n++) { characters[n].SetActive(false); } }
     public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
     public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
+    public void UnloadAllIngredients(int n) { ingredients[n].SetActive(false); }
+
+    public GameObject getIngredient(int n) { return ingredients[n]; }
+    public int numIngredients() { return ingredients.Length; }
 
     // =============== //
     // TEXT & DIALOGUE //
@@ -217,4 +253,17 @@ public class SceneManager : MonoBehaviour
     {
         Application.Quit();
     }
+    
+    public void sceneCleared()
+    {
+        LoadScene(currentScene + 1);
+    }
+
+    // ================= //
+    // SCREEN RESOLUTION //
+    // ================= //
+
+    public float getScreenX() { return sceneXSize; }
+    public float getScreenY() { return sceneYSize; }
+
 }
