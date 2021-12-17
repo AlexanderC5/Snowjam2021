@@ -6,17 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    private bool isDialogueEnabled = false; // VN mode or Minigame mode?
-    private int musicVolume;
+    private bool isDialogueEnabled = false; // VN mode or Minigame/Options mode? Should clicking advance text?
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
     private GameObject[] interfaces;
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
-    public float animationSpeed = 1.0f;
 
     public Animator crossFade; // Cross fade
+    public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
+
+    private int musicVolume = 100; // Max volume = 100
+    private AudioSource music; // Plays music
+    private AudioSource sound; // Plays sfx
+    public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +29,20 @@ public class SceneManager : MonoBehaviour
         characters = GameObject.FindGameObjectsWithTag("Char");
         interfaces = GameObject.FindGameObjectsWithTag("UI");
 
+        music = GetComponent<AudioSource>();
+        sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
+
+        crossFade.gameObject.SetActive(true); // Do this upon start so we can disable the black screen during testing
         crossFade.speed = animationSpeed;
 
         HideAll();
         LoadScene(initialScene); // Load main menu, begin the game
+    }
+
+    void Update()
+    {
+        music.volume = 0.01f * musicVolume;
+        sound.volume = 0.01f * musicVolume; // Music/SFX use the same volume slider
     }
 
     public void LoadScene(int n) // This function is just to make life easier
@@ -66,6 +80,10 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    // ============= //
+    // MUSIC & SOUND //
+    // ============= //
+
     public void SetVolume(int n)
     {
         if (n > 100) n = 100;
@@ -79,6 +97,25 @@ public class SceneManager : MonoBehaviour
         if (musicVolume > 100) musicVolume = 100;
         if (musicVolume < 0) musicVolume = 0;
     }
+
+    public void playSFX(int n)
+    {
+        sound.PlayOneShot(sfx[n]);
+    }
+
+    public void startMusic()
+    {
+        music.Play();
+    }
+
+    public void stopAllMusic()
+    {
+        music.Pause();
+    }
+
+    // ======================== //
+    // LOADING SPRITES & IMAGES //
+    // ======================== //
 
     public void HideAll()
     {
@@ -98,6 +135,10 @@ public class SceneManager : MonoBehaviour
     public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
     public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
 
+    // =============== //
+    // TEXT & DIALOGUE //
+    // =============== //
+
     public void DisableDialogue()
     {
         isDialogueEnabled = false;
@@ -112,6 +153,12 @@ public class SceneManager : MonoBehaviour
     }
     public bool DialogueOn() { return isDialogueEnabled; }
 
+
+    // =========================== //
+    // BUTTONS & SCENE TRANSITIONS //
+    // =========================== //
+    
+
     public void PlayButtonPressed()
     {
         LoadScene(1);
@@ -120,6 +167,7 @@ public class SceneManager : MonoBehaviour
     public void OptionsWindowOpened()
     {
         LoadUI(5);
+        playSFX(0);
         DisableDialogue();
     }
 

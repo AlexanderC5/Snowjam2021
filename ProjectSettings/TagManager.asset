@@ -9,6 +9,7 @@ TagManager:
   - UI
   - Nameplate
   - DialogueText
+  - SFX
   layers:
   - Default
   - TransparentFX
