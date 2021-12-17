@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+//plays script
 
 public class DialogueManager : MonoBehaviour
 {
+    private SceneManager m_SceneManager;
     DialogueSystem dialogue;
 
     //script stores text to be displayed
@@ -56,7 +58,14 @@ public class DialogueManager : MonoBehaviour
                         script.Add(curr);
                         speaking.Add(" ");
                     }
-
+                    //character expression (facial expression in following format)
+                    //[EXPRESSION]expressionType
+                    else if (special == "EXPRESSION")
+                    {
+                        lineType.Add('A');
+                        script.Add(curr);
+                        speaking.Add(speaking[speaking.Count-1]);
+                    }
                     //thought in following format:
                     //[THOUGHT]
                     //thought dialouge... (may be multiple lines)
@@ -108,6 +117,12 @@ public class DialogueManager : MonoBehaviour
                         script.Add("");
                         speaking.Add(" ");
                     }
+                    else if (special == "BG")
+                    {
+                        lineType.Add('B');
+                        script.Add("");
+                        speaking.Add(speaking[speaking.Count-1]);
+                    }
                     //a speaker is speaking in following format
                     //[NAME]
                     //NAME's dialogue (may be multiple lines)
@@ -123,8 +138,6 @@ public class DialogueManager : MonoBehaviour
                 //dialogue
                 else
                 {
-                    
-                    addedAgain = true;
                     script.Add(line);
                     lineType.Add('L');                   
                     speaking.Add(speaking[speaking.Count-1]);
@@ -134,7 +147,6 @@ public class DialogueManager : MonoBehaviour
             }            
             else if (counter % 2 == 0)
             {
-                print(line);
                 script.Add("");
                 lineType.Add('E'); //empty = new dialogue
                 speaking.Add(speaking[speaking.Count-1]);
@@ -144,27 +156,29 @@ public class DialogueManager : MonoBehaviour
     }
 
     int index = 0;
-    bool isLine = false;
+    int temp;
+    bool isLine = false; //used to make sure a line is shown after each input
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown())
+        if (Input.GetMouseButtonDown(0))
         {
             isLine = false;
             while (!isLine){
                 if (!dialogue.isSpeaking || dialogue.isWaitingForUserInput)
                 {
-                    //print(index);
-                    //print(index-1);
+                    //END OF SCRIPT
                     if (index >= script.Count)
                     {
                         return;
                     }
+                    //play sound effect
                     if (lineType[index] == 'S')
                     {
-                        //TODO: PLAY SOUND EFFECT ASSOCIATED WITH THIS LINE (stored in script at index)
+                        temp = Int32.Parse(script[index]);
+                        m_SceneManager.playSFX(temp);
                     }
-                    
+                    //dialogue/text to display
                     else if (lineType[index] == 'L')
                     {
                         isLine = true;
@@ -173,14 +187,56 @@ public class DialogueManager : MonoBehaviour
                             
                             //clear speech box and output line
                             dialogue.Say(script[index], speaking[index]);
-                            while (lineType[index + 1] == 'L')
-                            {
-                                index++;
-                                dialogue.SayAdd(script[index], speaking[index]);
-                            }
+                            
+                        }else
+                        {
+                            dialogue.Say(script[index], speaking[index]);
                         }                        
                         
                     }
+                    //character expression
+                    else if (lineType[index] == 'A')
+                    {
+                        temp = Int32.Parse(script[index]);
+                        if(speaking[index] == "Toa")
+                        {
+                            //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                        }else //STUART
+                        {
+                            //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                        }
+                    }
+                    //display title from script
+                    else if (lineType[index] == 'T')
+                    {
+                        //m_SceneManager.sceneTitle(script[index]);
+                    }
+                    //enter character
+                    else if (lineType[index] == 'N')
+                    {
+                        temp = Int32.Parse(script[index]);
+                        m_SceneManager.LoadCharacter(temp);
+                    }
+                    //exit character
+                    else if (lineType[index] == 'X')
+                    {
+                        temp = Int32.Parse(script[index]);
+                        m_SceneManager.UnloadCharacter(temp);
+                    }
+                    //end scene
+                    else if (lineType[index] == 'D')
+                    {
+                        m_SceneManager.UnloadAllBackgrounds();
+                        m_SceneManager.UnloadAllCharacters();
+                        m_SceneManager.UnloadAllUI();
+
+                    }
+                    else if (lineType[index] == 'B')
+                    {
+                        temp = Int32.Parse(script[index]);
+                        m_SceneManager.LoadBackground(temp);
+                    }
+                    
                     
                                                      
                     index++;
