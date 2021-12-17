@@ -18,7 +18,7 @@ public class SceneManager : MonoBehaviour
 
     // These enum types should list the game objects in the order they appear in Unity!
     public enum BGs { TITLE, KITCHEN, COUNTERTOP, ROOM, CELEBRATION };
-    public enum CHARs { };
+    public enum CHARs { STUART, TOA };
     public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
@@ -110,8 +110,7 @@ public class SceneManager : MonoBehaviour
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
                 LoadUI((int)UIs.SETTINGS); // Settings Button
-                //LoadBackground((int)BGs.KITCHEN);
-                //LoadCharacter(0);
+                LoadCharacter((int)CHARs.STUART);
                 m_dialogueManager.beginDialogueSegment(0); // Load Dialogue #1
                 break;
             case 2: // Cooking Minigame 1

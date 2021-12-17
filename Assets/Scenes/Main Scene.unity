@@ -2408,9 +2408,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is a bunch of test dialogue that is only temporary but will probably
-    get replaced via some code magic and stuff yay. Seems like three lines is the
-    maximum before it cuts
+  m_Text: 
 --- !u!222 &699026039
 CanvasRenderer:
   m_ObjectHideFlags: 0

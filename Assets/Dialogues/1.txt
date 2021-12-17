@@ -1,4 +1,4 @@
-[Scene]Act 1 - Appetizer
+[SCENE]Act 1 - Appetizer
 [MUSIC]3
 [BG]1
 
