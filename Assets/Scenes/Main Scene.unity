@@ -174,7 +174,10 @@ MonoBehaviour:
   optionsMenu: {fileID: 1396452308}
   sceneTitle: {fileID: 1445456021}
   musics:
-  - {fileID: 8300000, guid: 2e5a76b596ece6b4b98dfd3603fddb82, type: 3}
+  - {fileID: 8300000, guid: 77be7e618c4dce9499d51bdd22e749d4, type: 3}
+  - {fileID: 8300000, guid: 0e3c8c99bc54b3e45b0cea107d23ed23, type: 3}
+  - {fileID: 8300000, guid: c79f4ec3293dcc94882ee4fdd154edef, type: 3}
+  - {fileID: 8300000, guid: c45a1fd2877bd8f43bcaeeb1273b3af2, type: 3}
   sfx: []
 --- !u!82 &2541470
 AudioSource:
@@ -2311,11 +2314,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingrXbounds:
-  - 400
+  - 45
   - 700
   ingrYbounds:
-  - 70
-  - 350
+  - 345
+  - 390
 --- !u!4 &763808273
 Transform:
   m_ObjectHideFlags: 0
