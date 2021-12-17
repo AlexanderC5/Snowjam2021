@@ -26,3 +26,7 @@ Library/StateCache/SceneView/fc/fc01b909adf031a978a1c23b08114814.json
 Temp/__Backupscenes/0.backup
 Library/ArtifactDB
 *.log
+.vs/Snowjam Team 9/v16/.suo
+Library/ArtifactDB
+Library/SourceAssetDB
+Logs/AssetImportWorker0.log
