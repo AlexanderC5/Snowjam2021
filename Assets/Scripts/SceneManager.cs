@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    private bool isDialogueEnabled = false; // VN mode or Minigame/Options mode? Should clicking advance text?
+    private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
+    private string sceneType = "menu"; // VN, cooking
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
@@ -17,7 +18,10 @@ public class SceneManager : MonoBehaviour
     public Animator crossFade; // Cross fade
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
 
-    private int musicVolume = 100; // Max volume = 100
+    public Animator optionsMenu;
+    //private byte windowOpacity;
+
+    private GameObject[] sliders; // Stores all of the sliders present in the options menu
     private AudioSource music; // Plays music
     private AudioSource sound; // Plays sfx
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
@@ -31,9 +35,12 @@ public class SceneManager : MonoBehaviour
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
+        sliders = GameObject.FindGameObjectsWithTag("Slider");
 
         crossFade.gameObject.SetActive(true); // Do this upon start so we can disable the black screen during testing
         crossFade.speed = animationSpeed;
+        optionsMenu.gameObject.SetActive(true);
+        optionsMenu.speed = animationSpeed;
 
         HideAll();
         LoadScene(initialScene); // Load main menu, begin the game
@@ -41,14 +48,16 @@ public class SceneManager : MonoBehaviour
 
     void Update()
     {
-        music.volume = 0.01f * musicVolume;
-        sound.volume = 0.01f * musicVolume; // Music/SFX use the same volume slider
+        music.volume = 0.01f * sliders[0].GetComponent<Slider>().value; // Make sure the music volume slider is sorted above the sfx vol slider!
+        sound.volume = 0.01f * sliders[1].GetComponent<Slider>().value;
+        animationSpeed = sliders[2].GetComponent<Slider>().value;
+        crossFade.speed = animationSpeed;
+        optionsMenu.speed = animationSpeed;
+        //windowOpacity = (byte) sliders[3].GetComponent<Slider>().value;
+        //interfaces[0].GetComponent<Image>().color = new Color32(255, 255, 255, windowOpacity);
     }
 
-    public void LoadScene(int n) // This function is just to make life easier
-    {
-        StartCoroutine(LoadScn(n));
-    }
+    public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
 
     IEnumerator LoadScn(int n)
     {
@@ -67,12 +76,14 @@ public class SceneManager : MonoBehaviour
                 LoadUI(4); // Exit Button
                 break;
             case 1: // Scene 1
+                sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
                 LoadBackground(1);
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 break;
             case 2: // Minigame 1
+                sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground(3); // Cutting board background
                 // Load first UI/BG/characters
@@ -83,20 +94,6 @@ public class SceneManager : MonoBehaviour
     // ============= //
     // MUSIC & SOUND //
     // ============= //
-
-    public void SetVolume(int n)
-    {
-        if (n > 100) n = 100;
-        if (n < 0) n = 0;
-        musicVolume = n;
-    }
-
-    public void ChangeVolume(int n)
-    {
-        musicVolume += n;
-        if (musicVolume > 100) musicVolume = 100;
-        if (musicVolume < 0) musicVolume = 0;
-    }
 
     public void playSFX(int n)
     {
@@ -164,17 +161,21 @@ public class SceneManager : MonoBehaviour
         LoadScene(1);
     }
 
-    public void OptionsWindowOpened()
+    public void OptionsWindowOpened() { StartCoroutine(OptnOpen()); }
+    IEnumerator OptnOpen()
     {
         LoadUI(5);
-        playSFX(0);
         DisableDialogue();
+        // optionsMenu.SetTrigger("SlideOn");
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
     }
-
-    public void OptionsWindowClosed()
+    public void OptionsWindowClosed() { StartCoroutine(OptnClose()); }
+    IEnumerator OptnClose()
     {
+        optionsMenu.SetTrigger("SlideOff");
+        yield return new WaitForSeconds(2f / 3 / animationSpeed);
         UnloadUI(5);
-        EnableDialogue();
+        if (sceneType == "VN") EnableDialogue();
     }
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
