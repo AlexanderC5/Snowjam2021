@@ -171,8 +171,7 @@ MonoBehaviour:
   initialScene: 0
   crossFade: {fileID: 513023567}
   animationSpeed: 1
-  sfx:
-  - {fileID: 8300000, guid: 2e5a76b596ece6b4b98dfd3603fddb82, type: 3}
+  sfx: []
 --- !u!82 &2541470
 AudioSource:
   m_ObjectHideFlags: 0
@@ -187,7 +186,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

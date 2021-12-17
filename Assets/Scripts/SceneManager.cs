@@ -17,10 +17,10 @@ public class SceneManager : MonoBehaviour
     public Animator crossFade; // Cross fade
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
 
-    private int musicVolume = 100;
-    private AudioSource music;
-    private AudioSource sound;
-    public List<AudioClip> sfx;
+    private int musicVolume = 100; // Max volume = 100
+    private AudioSource music; // Plays music
+    private AudioSource sound; // Plays sfx
+    public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,7 @@ public class SceneManager : MonoBehaviour
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
         characters = GameObject.FindGameObjectsWithTag("Char");
         interfaces = GameObject.FindGameObjectsWithTag("UI");
+
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
 
@@ -41,7 +42,7 @@ public class SceneManager : MonoBehaviour
     void Update()
     {
         music.volume = 0.01f * musicVolume;
-        sound.volume = 0.01f * musicVolume;
+        sound.volume = 0.01f * musicVolume; // Music/SFX use the same volume slider
     }
 
     public void LoadScene(int n) // This function is just to make life easier
@@ -104,7 +105,7 @@ public class SceneManager : MonoBehaviour
 
     public void startMusic()
     {
-        sound.Play();
+        music.Play();
     }
 
     public void stopAllMusic()
