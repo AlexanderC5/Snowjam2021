@@ -97,6 +97,9 @@ public class SceneManager : MonoBehaviour
                 LoadUI((int)UIs.SETTINGS); // Settings Button
                 LoadCharacter(0);
                 // Load first UI/BG/characters
+                //private DialogueManager playScene;
+                //playScene.txtAsset = //whatever text asset corresponds to scene 1
+                //may need to edit so that txtAsset is parameter of DialogueManager
                 break;
             case 2: // Minigame 1
                 sceneType = "cooking";
