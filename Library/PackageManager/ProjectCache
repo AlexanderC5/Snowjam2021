@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637752211743620216
-    m_Hash: 1925581752
+      ticks: 637753260542233210
+    m_Hash: 3737777759
   m_LockFileStatus:
     m_FilePath: C:/Users/bluep/Documents/GitHub/Snowjam2021/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637752211743630179
-    m_Hash: 3207447393
+      ticks: 637753260542422583
+    m_Hash: 2390669526
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -118,6 +118,7 @@ m_PackageAssets:
         - 7.0.2
         - 7.0.3
         - 8.0.0-pre.3
+        - 8.0.0-pre.4
         compatible:
         - 5.0.9
         - 5.0.10
@@ -322,6 +323,7 @@ m_PackageAssets:
         - 6.0.1
         - 6.0.2
         - 7.0.0-pre.3
+        - 7.0.0-pre.4
         compatible:
         - 4.1.2
         - 4.1.3
@@ -516,6 +518,7 @@ m_PackageAssets:
         - 7.0.2
         - 7.0.3
         - 8.0.0-pre.4
+        - 8.0.0-pre.5
         compatible:
         - 5.1.6
         - 5.1.7
@@ -832,7 +835,7 @@ m_PackageAssets:
         version: 1.1.1
       resolvedDependencies:
       - name: com.unity.test-framework
-        version: 1.1.29
+        version: 1.1.30
       - name: com.unity.ext.nunit
         version: 1.0.6
       - name: com.unity.modules.imgui
@@ -921,7 +924,7 @@ m_PackageAssets:
         version: 1.1.9
       resolvedDependencies:
       - name: com.unity.test-framework
-        version: 1.1.29
+        version: 1.1.30
       - name: com.unity.ext.nunit
         version: 1.0.6
       - name: com.unity.modules.imgui
@@ -1020,12 +1023,12 @@ m_PackageAssets:
         url: git+https://github.com/Unity-Technologies/com.unity.ide.vscode.git
         revision: 1f4f605d5c988cb610c372b5c5216c46cc8f5d30
         path: 
-    - packageId: com.unity.test-framework@1.1.29
+    - packageId: com.unity.test-framework@1.1.30
       testable: 0
       isDirectDependency: 1
-      version: 1.1.29
+      version: 1.1.30
       source: 1
-      resolvedPath: C:\Users\bluep\Documents\GitHub\Snowjam2021\Library\PackageCache\com.unity.test-framework@1.1.29
+      resolvedPath: C:\Users\bluep\Documents\GitHub\Snowjam2021\Library\PackageCache\com.unity.test-framework@1.1.30
       assetPath: Packages/com.unity.test-framework
       name: com.unity.test-framework
       displayName: Test Framework
@@ -1105,13 +1108,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637647922650000000
+      datePublishedTicks: 637702469360000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
-        url: git+https://github.com/Unity-Technologies/com.unity.test-framework.git
-        revision: dac53542acdab7a12e9ebf111ac588d0e53cf483
+        url: https://github.com/Unity-Technologies/com.unity.test-framework.git
+        revision: 4a3f541cb46e2f6875b3a938daba8c7113020873
         path: 
     - packageId: com.unity.textmeshpro@3.0.6
       testable: 0
@@ -3401,8 +3404,20 @@ m_PackageAssets:
       versions:
         all:
         - 1.0.1
+        - 1.1.0-pre.7
+        - 1.1.0-pre.8
+        - 1.1.0-pre.9
+        - 1.1.0-pre.10
+        - 1.1.0-pre.11
+        - 1.1.0-pre.41
         compatible:
         - 1.0.1
+        - 1.1.0-pre.7
+        - 1.1.0-pre.8
+        - 1.1.0-pre.9
+        - 1.1.0-pre.10
+        - 1.1.0-pre.11
+        - 1.1.0-pre.41
         verified: 1.0.1
       dependencies:
       - name: com.unity.modules.unitywebrequest
@@ -3423,7 +3438,7 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 0
+      datePublishedTicks: 637604883250000000
       documentationUrl: 
       hasRepository: 1
       repository:
@@ -3547,6 +3562,7 @@ m_PackageAssets:
         - 4.0.1
         - 4.0.2
         - 4.0.3
+        - 4.0.4
         - 5.0.0-pre.1
         - 5.0.0-pre.2
         - 5.0.0
@@ -3554,10 +3570,14 @@ m_PackageAssets:
         - 6.0.0-pre.3
         - 6.0.0-pre.4
         - 6.0.0
+        - 6.0.1
+        - 6.0.2
         - 7.0.0-pre.3
+        - 7.0.0-pre.4
         compatible:
         - 4.0.3
-        verified: 4.0.3
+        - 4.0.4
+        verified: 4.0.4
       dependencies:
       - name: com.unity.2d.sprite
         version: 1.0.0

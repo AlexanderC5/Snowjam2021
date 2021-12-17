@@ -120,7 +120,7 @@ public class DialogueManager : MonoBehaviour
                     else if (special == "BG")
                     {
                         lineType.Add('B');
-                        script.Add("");
+                        script.Add(curr);
                         speaking.Add(speaking[speaking.Count-1]);
                     }
                     //a speaker is speaking in following format
@@ -176,7 +176,10 @@ public class DialogueManager : MonoBehaviour
                     if (lineType[index] == 'S')
                     {
                         temp = Int32.Parse(script[index]);
-                        m_SceneManager.playSFX(temp);
+                        print("SFX WORKED");
+                        print(temp);
+                        
+                        //m_SceneManager.playSFX(temp);
                     }
                     //dialogue/text to display
                     else if (lineType[index] == 'L')
@@ -200,41 +203,50 @@ public class DialogueManager : MonoBehaviour
                         temp = Int32.Parse(script[index]);
                         if(speaking[index] == "Toa")
                         {
+                            print("TOA EXPRESSION WORKED");
                             //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
                         }else //STUART
                         {
+                            print("STUART EXPRESSION WORKED");
                             //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
                         }
                     }
                     //display title from script
                     else if (lineType[index] == 'T')
                     {
-                        //m_SceneManager.sceneTitle(script[index]);
+                        m_SceneManager.DisplaySceneTitle(script[index]);
                     }
                     //enter character
                     else if (lineType[index] == 'N')
                     {
                         temp = Int32.Parse(script[index]);
-                        m_SceneManager.LoadCharacter(temp);
+                        print("ENTER CHARACTER WORKED");
+                        print(temp);
+                        //m_SceneManager.LoadCharacter(temp);
                     }
                     //exit character
                     else if (lineType[index] == 'X')
                     {
                         temp = Int32.Parse(script[index]);
-                        m_SceneManager.UnloadCharacter(temp);
+                        print("EXIT CHARACTER WORKED");
+                        print(temp);
+                        //m_SceneManager.UnloadCharacter(temp);
                     }
                     //end scene
                     else if (lineType[index] == 'D')
                     {
-                        m_SceneManager.UnloadAllBackgrounds();
-                        m_SceneManager.UnloadAllCharacters();
-                        m_SceneManager.UnloadAllUI();
+                        print("END WORKED");
+                        //m_SceneManager.UnloadAllBackgrounds();
+                        //m_SceneManager.UnloadAllCharacters();
+                        //m_SceneManager.UnloadAllUI();
 
                     }
                     else if (lineType[index] == 'B')
                     {
                         temp = Int32.Parse(script[index]);
-                        m_SceneManager.LoadBackground(temp);
+                        print("BG LOADED");
+                        print(temp);
+                        //m_SceneManager.LoadBackground(temp);
                     }
                     
                     
