@@ -16,18 +16,22 @@ public class DialogueManager : MonoBehaviour
     //speaking stores who is speaking
     new List <string> speaking = new List<string>();
 
-    [SerializeField] private TextAsset txtAsset;
+    [SerializeField] private TextAsset[] txtAsset; // Array of text file assets
     private string txt;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {
+        m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
+    }
+
+    public void beginDialogueSegment(int n) // This is called by Scene Manager when a dialogue scene is loaded
     {
         dialogue = DialogueSystem.instance;
-        txt = txtAsset.ToString();
+        //txtAsset = new TextAsset(textDirectory + n + ".txt");
+        txt = txtAsset[n].text; // Grab the correct text file for the dialogue segment
         ReadTextFile();
     }
 
-    
     private void ReadTextFile()
     {
         //string txt = this.TextFileAsset.text;
@@ -161,10 +165,13 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_SceneManager.sceneType != "VN") return; // If not in VN segment, don't register clicks
+        if (!m_SceneManager.DialogueOn()) return; // If in menu, don't register clicks
+
         if (Input.GetMouseButtonDown(0))
         {
             isLine = false;
-            while (!isLine){
+            while (!isLine) {
                 if (!dialogue.isSpeaking || dialogue.isWaitingForUserInput)
                 {
                     //END OF SCRIPT
@@ -178,34 +185,34 @@ public class DialogueManager : MonoBehaviour
                         temp = Int32.Parse(script[index]);
                         print("SFX WORKED");
                         print(temp);
-                        
+
                         //m_SceneManager.playSFX(temp);
                     }
                     //dialogue/text to display
                     else if (lineType[index] == 'L')
                     {
                         isLine = true;
-                        if(lineType[index-1] == 'E')
+                        if (lineType[index - 1] == 'E')
                         {
-                            
+
                             //clear speech box and output line
                             dialogue.Say(script[index], speaking[index]);
-                            
-                        }else
+
+                        } else
                         {
                             dialogue.Say(script[index], speaking[index]);
-                        }                        
-                        
+                        }
+
                     }
                     //character expression
                     else if (lineType[index] == 'A')
                     {
                         temp = Int32.Parse(script[index]);
-                        if(speaking[index] == "Toa")
+                        if (speaking[index] == "Toa")
                         {
                             print("TOA EXPRESSION WORKED");
                             //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
-                        }else //STUART
+                        } else //STUART
                         {
                             print("STUART EXPRESSION WORKED");
                             //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
@@ -239,7 +246,7 @@ public class DialogueManager : MonoBehaviour
                         //m_SceneManager.UnloadAllBackgrounds();
                         //m_SceneManager.UnloadAllCharacters();
                         //m_SceneManager.UnloadAllUI();
-
+                        StartCoroutine(endDialogueScene());
                     }
                     else if (lineType[index] == 'B')
                     {
@@ -248,13 +255,20 @@ public class DialogueManager : MonoBehaviour
                         print(temp);
                         //m_SceneManager.LoadBackground(temp);
                     }
-                    
-                    
-                                                     
+
+
+
                     index++;
-                    
+
                 }
             }
         }
+    }
+
+    IEnumerator endDialogueScene()
+    {
+        StopAllCoroutines();
+        yield return new WaitForSeconds(2f / m_SceneManager.animationSpeed);
+        m_SceneManager.LoadScene(m_SceneManager.getScene() + 1); // Move on to next scene
     }
 }

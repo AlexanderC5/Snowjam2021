@@ -11,31 +11,20 @@ public class DialogueSystem : MonoBehaviour
     public static DialogueSystem instance;
     public ELEMENTS elements;
 
-
-    // Start is called before the first frame update
-    //used for initialization
-    void Start()
-    {
-        
-    }
-
     void Awake()
     {
         //instance is only dialogue system in this scene
         instance = this;
     }
 
-    
-
     // Say something and show it on the speech box
     public void Say(string speech, string speaker = "")
     {
         StopSpeaking();
         speaking = StartCoroutine(Speaking(speech, false, speaker));
-        
     }
 
-    //add to what is already in speech box
+    // Add to what is already in speech box
     public void SayAdd(string speech, string speaker = "")
     {
         StopSpeaking();

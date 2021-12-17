@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
     private MinigameManager m_minigameManager;
+    private DialogueManager m_dialogueManager;
     
     private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
-    private string sceneType = "menu"; // VN, cooking
+    public string sceneType = "menu"; // VN, cooking
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
@@ -47,6 +47,7 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         m_minigameManager = GameObject.FindObjectOfType<MinigameManager>();
+        m_dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
         characters = GameObject.FindGameObjectsWithTag("Char");
@@ -108,13 +109,10 @@ public class SceneManager : MonoBehaviour
             case 1: // Scene 1
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
-                LoadBackground((int)BGs.KITCHEN);
                 LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter(0);
-                // Load first UI/BG/characters
-                //private DialogueManager playScene;
-                //playScene.txtAsset = //whatever text asset corresponds to scene 1
-                //may need to edit so that txtAsset is parameter of DialogueManager
+                //LoadBackground((int)BGs.KITCHEN);
+                //LoadCharacter(0);
+                m_dialogueManager.beginDialogueSegment(0); // Load Dialogue #1
                 break;
             case 2: // Cooking Minigame 1
                 sceneType = "cooking";
