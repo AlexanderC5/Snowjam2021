@@ -164,6 +164,8 @@ public class SceneManager : MonoBehaviour
     public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
     public void UnloadAllIngredients(int n) { ingredients[n].SetActive(false); }
 
+    public GameObject getIngredient(int n) { return ingredients[n]; }
+
     // =============== //
     // TEXT & DIALOGUE //
     // =============== //
