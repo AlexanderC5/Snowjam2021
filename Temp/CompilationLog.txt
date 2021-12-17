@@ -1,6 +1,6 @@
+# Starting compiling UnityEngine.TestRunner.dll
+C:\Program Files\Unity Editors\2020.3.24f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-142eef5151bb57c42b5a32c4c01d33d2
+# Starting compiling UnityEditor.TestRunner.dll
+C:\Program Files\Unity Editors\2020.3.24f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-ace57dd5d90fbb242b8f9a4981d65637
 # Starting compiling Assembly-CSharp.dll
-<<<<<<< HEAD
-C:\Program Files\Unity\Hub\Editor\2020.3.24f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-b4f70d5010e28b044bce0f0cbbd39101
-=======
-C:\Program Files\Unity Editors\2020.3.24f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-f05a00e6046c64f45afac9a2b4b223fb
->>>>>>> Alex
+C:\Program Files\Unity Editors\2020.3.24f1\Editor\Data\Tools\RoslynScripts\unity_csc.bat /noconfig @Temp/UnityTempFile-9431192c43a17ed42bd3387f589fc9bb
