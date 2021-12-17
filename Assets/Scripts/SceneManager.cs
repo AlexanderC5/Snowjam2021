@@ -13,6 +13,11 @@ public class SceneManager : MonoBehaviour
     private GameObject[] characters;
     private GameObject[] interfaces;
 
+    // These enum types should list the game objects in the order they appear in Unity!
+    public enum BGs { TITLE, KITCHEN, COUNTERTOP };
+    public enum CHARs { };
+    public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS };
+
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
 
     public Animator crossFade; // Cross fade
@@ -70,25 +75,24 @@ public class SceneManager : MonoBehaviour
         {
 
             case 0: // Title Scene
-                LoadBackground(0);
-                LoadUI(2); // Play Button
-                LoadUI(3); // Options Button
-                LoadUI(4); // Exit Button
+                LoadBackground((int) BGs.TITLE);
+                LoadUI((int) UIs.START); // Play Button
+                LoadUI((int) UIs.OPTIONS); // Options Button
+                LoadUI((int) UIs.EXIT); // Exit Button
                 break;
             case 1: // Scene 1
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
-                LoadBackground(1);
-                LoadUI(6); // Settings Button
+                LoadBackground((int) BGs.KITCHEN);
+                LoadUI((int) UIs.SETTINGS); // Settings Button
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 break;
             case 2: // Minigame 1
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
-                LoadUI(6); // Settings Button
-                LoadBackground(3); // Cutting board background
-                // Load first UI/BG/characters
+                LoadBackground((int) BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int) UIs.SETTINGS); // Settings Button
                 break;
         }
     }
@@ -141,14 +145,14 @@ public class SceneManager : MonoBehaviour
     public void DisableDialogue()
     {
         isDialogueEnabled = false;
-        UnloadUI(0); // Unload dialogue box
-        UnloadUI(1); // Unload nameplate
+        UnloadUI((int) UIs.DIALOGUE); // Unload dialogue box
+        UnloadUI((int) UIs.NAMEPLATE); // Unload nameplate
     }
     public void EnableDialogue()
     {
         isDialogueEnabled = true;
-        LoadUI(0); // Load dialogue box (make sure dialogue box is first UI element)
-        LoadUI(1); // Load Nameplate
+        LoadUI((int) UIs.DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
+        LoadUI((int) UIs.NAMEPLATE); // Load Nameplate
     }
     public bool DialogueOn() { return isDialogueEnabled; }
 
@@ -166,7 +170,7 @@ public class SceneManager : MonoBehaviour
     public void OptionsWindowOpened() { StartCoroutine(OptnOpen()); }
     IEnumerator OptnOpen()
     {
-        LoadUI(5);
+        LoadUI((int) UIs.OPT_MENU);
         DisableDialogue();
         // optionsMenu.SetTrigger("SlideOn");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
@@ -176,7 +180,7 @@ public class SceneManager : MonoBehaviour
     {
         optionsMenu.SetTrigger("SlideOff");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
-        UnloadUI(5);
+        UnloadUI((int) UIs.OPT_MENU);
         if (sceneType == "VN") EnableDialogue();
     }
 
