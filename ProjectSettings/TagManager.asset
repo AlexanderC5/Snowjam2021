@@ -10,6 +10,7 @@ TagManager:
   - Nameplate
   - DialogueText
   - SFX
+  - Slider
   layers:
   - Default
   - TransparentFX
