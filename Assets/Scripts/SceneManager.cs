@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
+    private MinigameManager m_minigameManager;
+    
     private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
     private string sceneType = "menu"; // VN, cooking
 
     private GameObject[] backgrounds;
     private GameObject[] characters;
     private GameObject[] interfaces;
+    private GameObject[] ingredients;
 
     // These enum types should list the game objects in the order they appear in Unity!
     public enum BGs { TITLE, KITCHEN, COUNTERTOP };
@@ -39,9 +42,12 @@ public class SceneManager : MonoBehaviour
 
     void Start()
     {
+        m_minigameManager = GameObject.FindObjectOfType<MinigameManager>();
+
         backgrounds = GameObject.FindGameObjectsWithTag("BG");
         characters = GameObject.FindGameObjectsWithTag("Char");
         interfaces = GameObject.FindGameObjectsWithTag("UI");
+        ingredients = GameObject.FindGameObjectsWithTag("Ingr");
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
@@ -98,11 +104,12 @@ public class SceneManager : MonoBehaviour
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 break;
-            case 2: // Minigame 1
+            case 2: // Cooking Minigame 1
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                m_minigameManager.startCooking(0);
                 break;
         }
     }
@@ -136,18 +143,25 @@ public class SceneManager : MonoBehaviour
         for (int i = 0; i < backgrounds.Length; i++) { backgrounds[i].SetActive(false); }
         for (int i = 0; i < characters.Length; i++) { characters[i].SetActive(false); }
         for (int i = 0; i < interfaces.Length; i++) { interfaces[i].SetActive(false); }
+        for (int i = 0; i < ingredients.Length; i++) { ingredients[i].SetActive(false); }
     }
 
     public void LoadCharacter(int n) { characters[n].SetActive(true); }
-    public void UnloadCharacter(int n) { characters[n].SetActive(false); }
     public void LoadBackground(int n) { backgrounds[n].SetActive(true); }
-    public void UnloadBackground(int n) { backgrounds[n].SetActive(false); }
     public void LoadUI(int n) { interfaces[n].SetActive(true); }
+    public void LoadIngredient(int n, float x, float y) {
+        ingredients[n].transform.position = new Vector2(x, y);
+        ingredients[n].SetActive(true);
+    }
+    public void UnloadCharacter(int n) { characters[n].SetActive(false); }
+    public void UnloadBackground(int n) { backgrounds[n].SetActive(false); }
     public void UnloadUI(int n) { interfaces[n].SetActive(false); }
+    public void UnloadIngredient(int n) { ingredients[n].SetActive(false); }
 
     public void UnloadAllCharacters() { for (int n = 0; n < characters.Length; n++) { characters[n].SetActive(false); } }
     public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
     public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
+    public void UnloadAllIngredients(int n) { ingredients[n].SetActive(false); }
 
     // =============== //
     // TEXT & DIALOGUE //
