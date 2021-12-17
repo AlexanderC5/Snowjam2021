@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 342}
   m_MaxSize: {x: 12004, y: 8042}
   vertical: 0
-  controlID: 49410
+  controlID: 61574
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_MinSize: {x: 478, y: 342}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 49411
+  controlID: 61548
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_MinSize: {x: 478, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 49406
+  controlID: 61549
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 146.79999}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 1c53efffaa3af1ffda85f1ff5876f7ffbcf8faff2807fbff1212fbfff898ffffdaa5ffffdca5ffffe0b5fffff0b5ffff46baffff1ed7ffff62ecffff60f0ffff46fbffffc0420000d2420000f442000018430000224300002643000038430000524300005a430000b6640000c8640000406500004865000050650000d0780000b4790000d8790000d0840000e28500007a9b00000c9c00003c9c00009a9c0000
@@ -302,7 +302,7 @@ MonoBehaviour:
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1091464
-  m_LastVerticalScrollValue: 124
+  m_LastVerticalScrollValue: 203.99997
   m_GlobalObjectId: 
   m_LockTracker:
     m_IsLocked: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 440.80002
-    width: 798.2
+    width: 803
     height: 382.59998
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
@@ -370,23 +370,23 @@ MonoBehaviour:
     m_SceneHandles: 
     m_ShowAllHits: 0
     m_SkipHidden: 0
-    m_SearchArea: 1
+    m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\A\Desktop\Projects\Snowjam Team 9
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e4430000
-    m_LastClickedID: 17380
+    m_SelectedIDs: fa430000
+    m_LastClickedID: 17402
     m_ExpandedIDs: 00000000e443000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -440,8 +440,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 7858efff
-    m_LastClickedInstanceID: -1091464
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 0000000090490000ea56000088730000346a000052430000785a0000745a0000
     m_RenameOverlay:
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 342}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 49383
+  controlID: 61575
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -852,4 +852,4 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -1091464
+  m_LastSelectedObjectID: -1107518

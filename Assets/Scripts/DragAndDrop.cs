@@ -51,19 +51,53 @@ public class DragAndDrop : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            dragging = false;
+            //Debug.Log(mousePos);
 
-            // if touching cutting board, send n, xy position and xy scale (4 elemnt array?)
-                // minigame manager will carry out the 
-            // else, send xy = -1f -1f -1f -1f
-
-            if (collider.bounds.Intersects(m_minigameManager.getIngr(1).GetComponent<Collider2D>().bounds))
+            if (dragging)
             {
-                m_minigameManager.touchingSink(this.name);
+                dragging = false;
+                //Debug.Log("Y1= " + (collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY());
+                //Debug.Log("Y2= " + (collider.bounds.center.y + collider.bounds.size.y / 2) / m_minigameManager.getScreenY());
+
+                // if touching cutting board, tell the minigameManager to check the recipe list
+                if (((collider.bounds.center.x - collider.bounds.size.x / 2) / m_minigameManager.getScreenX() >= m_minigameManager.cutbXbounds[0])
+                 && ((collider.bounds.center.x + collider.bounds.size.x / 2) / m_minigameManager.getScreenX() <= m_minigameManager.cutbXbounds[1])
+                 && ((collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY() >= m_minigameManager.cutbYbounds[0])
+                 && ((collider.bounds.center.y + collider.bounds.size.y / 2) / m_minigameManager.getScreenY() <= m_minigameManager.cutbYbounds[1]))
+                {
+                    m_minigameManager.onCuttingBoard(this.name);
+                }
+
+                // If touching sink, check if it can be filled with water
+                if (((collider.bounds.center.x - collider.bounds.size.x / 2) / m_minigameManager.getScreenX() >= m_minigameManager.sinkXbounds[0])
+                 && ((collider.bounds.center.x + collider.bounds.size.x / 2) / m_minigameManager.getScreenX() <= m_minigameManager.sinkXbounds[1])
+                 && ((collider.bounds.center.y - collider.bounds.size.y / 2) / m_minigameManager.getScreenY() >= m_minigameManager.sinkYbounds[0])
+                 && ((collider.bounds.center.y + collider.bounds.size.y / 2) / m_minigameManager.getScreenY() <= m_minigameManager.sinkYbounds[1]))
+                {
+                    m_minigameManager.touchingSink(this.name);
+                }
+
+
+
+                // OLD attempts at trying to use colliders to define the sink/cut_board bounds. Didn't work
+                // because they would sometimes jump in front of the other ingredients and prevent the other
+                // ingredients from being dragged, so I switched to using coordinate bounds:
+
+                /*
+                if (collider.bounds.Intersects(m_minigameManager.getIngr(0).GetComponent<Collider2D>().bounds))
+                {
+                    m_minigameManager.onCuttingBoard(this.name, true);
+                }
+                else m_minigameManager.onCuttingBoard(this.name, false);
+                */
+
+                /*
+                if (collider.bounds.Intersects(m_minigameManager.getIngr(1).GetComponent<Collider2D>().bounds))
+                {
+                    m_minigameManager.touchingSink(this.name);
+                }
+                */
             }
-            // If touching cutting board, check for other objects it can be combined with
-                // If successfully combined, load a new ingredient! At the current transform's x/y
-            // If touching sink, check if it can be filled with water
         }
     }
 

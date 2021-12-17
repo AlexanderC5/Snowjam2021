@@ -37,6 +37,9 @@ public class SceneManager : MonoBehaviour
     public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
 
+    private float sceneXSize; // Required to deal with changes in screen resolution
+    private float sceneYSize;
+
     // ===== //////////////////////////////////////////////////////////////////////////////////////
     // START //////////////////////////////////////////////////////////////////////////////////////
     // ===== //////////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +78,11 @@ public class SceneManager : MonoBehaviour
         sceneTitle.speed = animationSpeed;
         //windowOpacity = (byte) sliders[3].GetComponent<Slider>().value;
         //interfaces[0].GetComponent<Image>().color = new Color32(255, 255, 255, windowOpacity);
+
+        // Get the dimensions of the player's window. Origin is at bottom left corner.
+        sceneXSize = Screen.width;
+        sceneYSize = Screen.height;
+        //Debug.Log(sceneXSize);
     }
 
     public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
@@ -150,8 +158,8 @@ public class SceneManager : MonoBehaviour
     public void LoadCharacter(int n) { characters[n].SetActive(true); }
     public void LoadBackground(int n) { backgrounds[n].SetActive(true); }
     public void LoadUI(int n) { interfaces[n].SetActive(true); }
-    public void LoadIngredient(int n, float x, float y) {
-        if (x != -1) ingredients[n].transform.position = new Vector3(x, y, 0);
+    public void LoadIngredient(int n, float x, float y) { // x and y are percentages (0 to 1) of total screen size
+        if (x != -1) ingredients[n].transform.position = new Vector3(x * sceneXSize, y * sceneYSize, 0);
         ingredients[n].SetActive(true);
     }
     public void UnloadCharacter(int n) { characters[n].SetActive(false); }
@@ -235,5 +243,13 @@ public class SceneManager : MonoBehaviour
     public void sceneCleared()
     {
         LoadScene(currentScene + 1);
-    }    
+    }
+
+    // ================= //
+    // SCREEN RESOLUTION //
+    // ================= //
+
+    public float getScreenX() { return sceneXSize; }
+    public float getScreenY() { return sceneYSize; }
+
 }
