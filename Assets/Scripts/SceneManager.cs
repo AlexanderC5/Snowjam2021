@@ -79,12 +79,14 @@ public class SceneManager : MonoBehaviour
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
                 LoadBackground(1);
+                LoadUI(6); // Settings Button
                 LoadCharacter(0);
                 // Load first UI/BG/characters
                 break;
             case 2: // Minigame 1
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
+                LoadUI(6); // Settings Button
                 LoadBackground(3); // Cutting board background
                 // Load first UI/BG/characters
                 break;
