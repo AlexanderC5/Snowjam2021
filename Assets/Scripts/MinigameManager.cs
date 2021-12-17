@@ -6,34 +6,34 @@ public class MinigameManager : MonoBehaviour
 {
     private SceneManager m_SceneManager;
 
-    public enum INGRs { WATER, POT, MILK };
+    public enum INGRs { CUT_BOARD, SINK, WATER, POT, MILK };
 
     private List<int> ingrList = new List<int>();
 
-    public float[] ingrXbounds;
+    public float[] ingrXbounds; // Bounds on where the ingredients spawn in upon the start of the minigame
     public float[] ingrYbounds;
 
-    // Start is called before the first frame update
     void Awake()
     {
         m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void startCooking(int n)
+    public void startCooking(int n) // Paremeter = the minigame #
     {
         ingrList.Clear();
-        switch(n)
+        ingrList.Add((int)INGRs.CUT_BOARD);
+        ingrList.Add((int)INGRs.SINK);
+        switch (n)
         {
             case 0: // Mashed Potatoes
                 ingrList.Add((int)INGRs.WATER);
+                ingrList.Add((int)INGRs.POT);
                 //ingrList.Add((int)INGRs.MILK);
-                //ingrList.Add((int)INGRs.POT);
                 break;
             case 1: // Gingerbread Cookies
                 break;
@@ -49,7 +49,14 @@ public class MinigameManager : MonoBehaviour
     {
         foreach (int i in ingr)
         {
-            m_SceneManager.LoadIngredient(i, Random.Range(ingrXbounds[0], ingrXbounds[1]), Random.Range(ingrYbounds[0], ingrYbounds[1]));
+            if (i < 2) // For things that aren't randomly spawned
+            {
+                m_SceneManager.LoadIngredient(i, -1, -1);
+            }
+            else
+            {
+                m_SceneManager.LoadIngredient(i, Random.Range(ingrXbounds[0], ingrXbounds[1]), Random.Range(ingrYbounds[0], ingrYbounds[1]));
+            }
         }
     }
 }

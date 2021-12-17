@@ -17,11 +17,12 @@ public class SceneManager : MonoBehaviour
     private GameObject[] ingredients;
 
     // These enum types should list the game objects in the order they appear in Unity!
-    public enum BGs { TITLE, KITCHEN, COUNTERTOP };
+    public enum BGs { TITLE, KITCHEN, COUNTERTOP, ROOM, CELEBRATION };
     public enum CHARs { };
     public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
+    private int currentScene;
 
     // Animation Animators
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
@@ -85,9 +86,9 @@ public class SceneManager : MonoBehaviour
         crossFade.SetTrigger("UnFade");
 
         HideAll();
+        currentScene = n; // Set the scene!
         switch (n)
         {
-
             case 0: // Title Scene
                 sceneType = "menu";
                 LoadBackground((int)BGs.TITLE);
@@ -150,7 +151,7 @@ public class SceneManager : MonoBehaviour
     public void LoadBackground(int n) { backgrounds[n].SetActive(true); }
     public void LoadUI(int n) { interfaces[n].SetActive(true); }
     public void LoadIngredient(int n, float x, float y) {
-        ingredients[n].transform.position = new Vector2(x, y);
+        if (x != -1) ingredients[n].transform.position = new Vector3(x, y, 0);
         ingredients[n].SetActive(true);
     }
     public void UnloadCharacter(int n) { characters[n].SetActive(false); }
@@ -228,4 +229,9 @@ public class SceneManager : MonoBehaviour
     {
         Application.Quit();
     }
+    
+    public void sceneCleared()
+    {
+        LoadScene(currentScene + 1);
+    }    
 }
