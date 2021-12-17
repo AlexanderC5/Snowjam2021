@@ -24,3 +24,6 @@ Library/SceneVisibilityState.asset
 Library/StateCache/MainStageHierarchy/19/19d805018d40004cbf4fcb1c6eac2d17.json
 Library/StateCache/SceneView/fc/fc01b909adf031a978a1c23b08114814.json
 Temp/__Backupscenes/0.backup
+Library/ArtifactDB
+Library/SourceAssetDB
+Logs/AssetImportWorker0.log
