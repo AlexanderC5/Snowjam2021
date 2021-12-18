@@ -142,15 +142,12 @@ public class SceneManager : MonoBehaviour
                 m_dialogueManager.beginDialogueSegment(1); // Load Dialogue #1
                 break;
             case 4: // Cooking Minigame 2
-                /*
                 sceneType = "cooking";
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
                 startMusic(2);
                 m_minigameManager.startCooking(1);
-                */
-                LoadScene(5);
                 break;
             case 5: // VN Scene 3
                 sceneType = "VN";

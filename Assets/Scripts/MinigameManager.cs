@@ -9,8 +9,9 @@ public class MinigameManager : MonoBehaviour
     // CUT_BOARD and SINK are special ingredients - they're stationary, and don't have box colliders, but rather 
     //  arrays that store their bounds on the scene. This was done since adding colliders to these objects would
     //  sometimes block the other ingredients from being dragged.
-    public enum INGRs { CUT_BOARD, SINK, POT, POT_WATER, MILK, BUTTER, SALT, PEPPER, BOWL, KNIFE, POTATO,
-                        POTATO_PEELED, BUTTER_SLICE, PEELER, POTATO_STEAM, POTATO_BOWL, MIXER, POTATO_MASH, POTATO_GRAVY, GRAVY };
+    public enum INGRs { CUT_BOARD, SINK, POT, POT_WATER, MILK, BUTTER, SALT, PEPPER, BOWL, KNIFE,
+                        POTATO, POTATO_PEELED, BUTTER_SLICE, PEELER, POTATO_STEAM, POTATO_BOWL, MIXER, POTATO_MASH, POTATO_GRAVY, GRAVY, 
+                        BOWL_FILLED, SUGAR, SPICES, FLOUR, EGG, ICING, GINGERBREAD, GINGER_ICED };
 
     private List<int> ingrList = new List<int>(); // List of the ingredients currently available in the current minigame
     private List<int[]> recipeList = new List<int[]>(); // Each internal array stores ingr 1, ingr 2, resulting ingr, sfx
@@ -67,34 +68,34 @@ public class MinigameManager : MonoBehaviour
                 recipeList[0][0] = (int)INGRs.POTATO;        // Ingredient #1
                 recipeList[0][1] = (int)INGRs.PEELER;        // Ingredient #2
                 recipeList[0][2] = (int)INGRs.POTATO_PEELED; // Resulting ingredient
-                recipeList[0][3] = 0;                        // Combination SFX
+                recipeList[0][3] = 2;                        // Combination SFX
 
                 // Step 1
                 recipeList[1][0] = (int)INGRs.POTATO_PEELED;
                 recipeList[1][1] = (int)INGRs.POT_WATER;
                 recipeList[1][2] = (int)INGRs.POTATO_STEAM;
-                recipeList[1][3] = 0; // Combination SFX
+                recipeList[1][3] = 2; // Combination SFX
                 recipePrereqs[1].Add(0);
 
                 // Step 2
                 recipeList[2][0] = (int)INGRs.POTATO_STEAM;
                 recipeList[2][1] = (int)INGRs.BOWL;
                 recipeList[2][2] = (int)INGRs.POTATO_BOWL;
-                recipeList[2][3] = 0; // Combination SFX
+                recipeList[2][3] = 2; // Combination SFX
                 recipePrereqs[2].Add(1);
 
                 // Step 3
                 recipeList[3][0] = (int)INGRs.POTATO_BOWL;
                 recipeList[3][1] = (int)INGRs.MIXER;
                 recipeList[3][2] = (int)INGRs.POTATO_MASH;
-                recipeList[3][3] = 0; // Combination SFX
+                recipeList[3][3] = 2; // Combination SFX
                 recipePrereqs[3].Add(2);
 
                 // Step 4
                 recipeList[4][0] = (int)INGRs.POTATO_MASH;
                 recipeList[4][1] = (int)INGRs.BUTTER_SLICE;
                 recipeList[4][2] = (int)INGRs.POTATO_MASH;
-                recipeList[4][3] = 0; // Combination SFX
+                recipeList[4][3] = 2; // Combination SFX
                 recipePrereqs[4].Add(3);
                 recipePrereqs[4].Add(9);
 
@@ -102,28 +103,28 @@ public class MinigameManager : MonoBehaviour
                 recipeList[5][0] = (int)INGRs.POTATO_MASH;
                 recipeList[5][1] = (int)INGRs.MILK;
                 recipeList[5][2] = (int)INGRs.POTATO_MASH;
-                recipeList[5][3] = 0; // Combination SFX
+                recipeList[5][3] = 2; // Combination SFX
                 recipePrereqs[5].Add(3);
 
                 // Step 6
                 recipeList[6][0] = (int)INGRs.POTATO_MASH;
                 recipeList[6][1] = (int)INGRs.SALT;
                 recipeList[6][2] = (int)INGRs.POTATO_MASH;
-                recipeList[6][3] = 0; // Combination SFX
+                recipeList[6][3] = 2; // Combination SFX
                 recipePrereqs[6].Add(3);
 
                 // Step 7
                 recipeList[7][0] = (int)INGRs.POTATO_MASH;
                 recipeList[7][1] = (int)INGRs.PEPPER;
                 recipeList[7][2] = (int)INGRs.POTATO_MASH;
-                recipeList[7][3] = 0; // Combination SFX
+                recipeList[7][3] = 2; // Combination SFX
                 recipePrereqs[7].Add(3);
 
                 // Step 8
                 recipeList[8][0] = (int)INGRs.POTATO_MASH;
                 recipeList[8][1] = (int)INGRs.GRAVY;
                 recipeList[8][2] = (int)INGRs.POTATO_GRAVY;
-                recipeList[8][3] = 0; // Combination SFX
+                recipeList[8][3] = 2; // Combination SFX
                 recipePrereqs[8].Add(4);
                 recipePrereqs[8].Add(5);
                 recipePrereqs[8].Add(6);
@@ -133,19 +134,76 @@ public class MinigameManager : MonoBehaviour
                 recipeList[9][0] = (int)INGRs.KNIFE;
                 recipeList[9][1] = (int)INGRs.BUTTER;
                 recipeList[9][2] = (int)INGRs.BUTTER_SLICE;
-                recipeList[9][3] = 0; // Combination SFX
+                recipeList[9][3] = 2; // Combination SFX
 
                 sinkList.Add(new int[2]);
                 sinkList[0][0] = (int)INGRs.POT;
                 sinkList[0][1] = (int)INGRs.POT_WATER;
+                break;
+
+            case 1: // Gingerbread Cookies
+                ingrList.Add((int)INGRs.BOWL);
+                ingrList.Add((int)INGRs.SUGAR);
+                ingrList.Add((int)INGRs.SPICES);
+                ingrList.Add((int)INGRs.FLOUR);
+                ingrList.Add((int)INGRs.SALT);
+                ingrList.Add((int)INGRs.BUTTER);
+                ingrList.Add((int)INGRs.KNIFE);
+                ingrList.Add((int)INGRs.MILK);
+                ingrList.Add((int)INGRs.EGG);
+                ingrList.Add((int)INGRs.ICING);
+                ingrList.Add((int)INGRs.MIXER);
+
+                remainingRecipeSteps = 10;
+
+                // Step 0
+                recipeList.Add(new int[4] { (int)INGRs.BOWL, (int)INGRs.FLOUR, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 1
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.SUGAR, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 2
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.SPICES, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+                                
+                // Step 3
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.SALT, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 4
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.BUTTER_SLICE, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 5
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.MILK, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 6
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.EGG, (int)INGRs.BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 7
+                recipeList.Add(new int[4] { (int)INGRs.BOWL_FILLED, (int)INGRs.MIXER, (int)INGRs.GINGERBREAD, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>() { 1, 2, 3, 4, 5, 6 });
+
+                // Step 8
+                recipeList.Add(new int[4] { (int)INGRs.GINGERBREAD, (int)INGRs.ICING, (int)INGRs.GINGER_ICED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
+
+                // Step 9
+                recipeList.Add(new int[4] { (int)INGRs.BUTTER, (int)INGRs.KNIFE, (int)INGRs.BUTTER_SLICE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipePrereqs.Add(new List<int>());
 
                 break;
-            case 1: // Gingerbread Cookies
-                break;
+
             case 2: // Christmas Ham
                 break;
+
             case 3: // Ham Sandwiches
                 break;
+
         }
         LoadIngredients(ingrList);
     }
@@ -243,6 +301,7 @@ public class MinigameManager : MonoBehaviour
                             StopCooking();
                             StartCoroutine(minigameClear());
                         }
+                        break;
                     }
                 }
             }
