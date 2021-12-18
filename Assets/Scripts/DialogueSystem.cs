@@ -7,12 +7,14 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    private SceneManager m_sceneManager;
     //used to located dialogue in other systems
     //public static DialogueSystem instance;
     public ELEMENTS elements;
 
     void Awake()
     {
+        m_sceneManager = GameObject.FindObjectOfType<SceneManager>();
         //instance is only dialogue system in this scene
         //instance = this;
     }
@@ -64,7 +66,7 @@ public class DialogueSystem : MonoBehaviour
         while(speechText.text != targetSpeech)
         {
             speechText.text += targetSpeech[speechText.text.Length];
-            yield return new WaitForEndOfFrame();
+            if (!m_sceneManager.instantText) yield return new WaitForEndOfFrame(); // Does text flow instantly?
         }
 
         //text finished

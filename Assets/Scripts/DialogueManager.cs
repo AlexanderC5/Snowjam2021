@@ -62,7 +62,7 @@ public class DialogueManager : MonoBehaviour
             
             if(!string.IsNullOrEmpty(line))
             {
-                print(line);
+                //print(line);
                 if (line.StartsWith("["))
                 {
                     string special = line.Substring(1, line.IndexOf(']')- 1); //special = [Name] or [SFX]
@@ -172,8 +172,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (m_SceneManager.sceneType != "VN") return; // If not in VN segment, don't register clicks
         if (!m_SceneManager.DialogueOn()) return; // If in menu, don't register clicks
@@ -181,7 +180,7 @@ public class DialogueManager : MonoBehaviour
         //if (m_dialogueSystem.isSpeaking) return; // If speaking, return to prevent an unknown crash << TODO, figure this out!
         if (!m_dialogueSystem.isWaitingForUserInput) return;
 
-        if (Input.GetMouseButtonDown(0)) { advanceText();  }
+        if (Input.GetMouseButtonUp(0)) { advanceText();  }
     }
 
     private void advanceText()
@@ -200,10 +199,17 @@ public class DialogueManager : MonoBehaviour
                 if (lineType[index] == 'S')
                 {
                     temp = Int32.Parse(script[index]);
-                    print("SFX WORKED");
-                    print(temp);
-
-                    //m_SceneManager.playSFX(temp);
+                    //print("SFX WORKED");
+                    //print(temp);
+            //        m_SceneManager.playSFX(temp);
+                }
+                //play music
+                else if (lineType[index] == 'M')
+                {
+                    temp = Int32.Parse(script[index]);
+                    //print("Music  WORKED");
+                    //print(temp);
+                    m_SceneManager.startMusic(temp);
                 }
                 //dialogue/text to display
                 else if (lineType[index] == 'L')
@@ -272,10 +278,7 @@ public class DialogueManager : MonoBehaviour
                 //end scene
                 else if (lineType[index] == 'D')
                 {
-                    print("END WORKED");
-                    //m_SceneManager.UnloadAllBackgrounds();
-                    //m_SceneManager.UnloadAllCharacters();
-                    //m_SceneManager.UnloadAllUI();
+                    //print("END WORKED");
                     StartCoroutine(endDialogueScene());
                 }
                 else if (lineType[index] == 'B')
@@ -298,7 +301,7 @@ public class DialogueManager : MonoBehaviour
     {
         m_SceneManager.crossFade.SetTrigger("FadeToBlack");
         yield return new WaitForSeconds(time);
-        m_SceneManager.crossFade.SetTrigger("Unfade");
+        m_SceneManager.crossFade.SetTrigger("UnFade");
     }
 
     IEnumerator endDialogueScene()

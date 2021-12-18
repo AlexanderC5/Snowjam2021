@@ -11,10 +11,17 @@ public class SceneManager : MonoBehaviour
     private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
     public string sceneType = "menu"; // VN, cooking
 
-    private GameObject[] backgrounds;
-    private GameObject[] characters;
-    private GameObject[] interfaces;
-    private GameObject[] ingredients;
+    // These commented variables are old code used for assigning all of the game objects to these arrays
+    //  when Awake() is called. Since the build of the game orders the layers differently (I assume), these
+    //  have been replaced with Lists that are just filled out in Unity
+    //private GameObject[] backgrounds;
+    //private GameObject[] characters;
+    //private GameObject[] interfaces;
+    //private GameObject[] ingredients;
+    public List<GameObject> backgrounds;
+    public List<GameObject> characters;
+    public List<GameObject> interfaces;
+    public List<GameObject> ingredients;
 
     // These enum types should list the game objects in the order they appear in Unity!
     public enum BGs { TITLE, KITCHEN, COUNTERTOP, ROOM, CELEBRATION };
@@ -36,6 +43,8 @@ public class SceneManager : MonoBehaviour
     private AudioSource sound; // Plays sfx
     public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
     public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
+    public bool instantText;
+    public bool sceneSkipEnabled;
 
     private float sceneXSize; // Required to deal with changes in screen resolution
     private float sceneYSize;
@@ -49,10 +58,11 @@ public class SceneManager : MonoBehaviour
         m_minigameManager = GameObject.FindObjectOfType<MinigameManager>();
         m_dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 
-        backgrounds = GameObject.FindGameObjectsWithTag("BG");
-        characters = GameObject.FindGameObjectsWithTag("Char");
-        interfaces = GameObject.FindGameObjectsWithTag("UI");
-        ingredients = GameObject.FindGameObjectsWithTag("Ingr");
+        // OLD CODE
+        //backgrounds = GameObject.FindGameObjectsWithTag("BG");
+        //characters = GameObject.FindGameObjectsWithTag("Char");
+        //interfaces = GameObject.FindGameObjectsWithTag("UI");
+        //ingredients = GameObject.FindGameObjectsWithTag("Ingr");
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
@@ -83,9 +93,8 @@ public class SceneManager : MonoBehaviour
         // Get the dimensions of the player's window. Origin is at bottom left corner.
         sceneXSize = Screen.width;
         sceneYSize = Screen.height;
-        //Debug.Log(sceneXSize);
 
-        if (Input.GetKeyDown("q")) LoadScene(currentScene + 1); // Dev skip
+        if (Input.GetKeyDown("q") && sceneSkipEnabled) LoadScene(currentScene + 1); // Dev skip through scenes
     }
 
     public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
@@ -121,6 +130,7 @@ public class SceneManager : MonoBehaviour
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                startMusic(2);
                 m_minigameManager.startCooking(0);
                 break;
             case 3: // VN Scene 2
@@ -137,6 +147,7 @@ public class SceneManager : MonoBehaviour
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                startMusic(2);
                 m_minigameManager.startCooking(1);
                 */
                 LoadScene(5);
@@ -155,6 +166,7 @@ public class SceneManager : MonoBehaviour
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                startMusic(2);
                 m_minigameManager.startCooking(2);
                 */
                 LoadScene(7);
@@ -173,6 +185,7 @@ public class SceneManager : MonoBehaviour
                 DisableDialogue(); // Prevents clicking to progress text?
                 LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
                 LoadUI((int)UIs.SETTINGS); // Settings Button
+                startMusic(2);
                 m_minigameManager.startCooking(3);
                 */
                 LoadScene(9);
@@ -194,6 +207,7 @@ public class SceneManager : MonoBehaviour
                 break;
                 
             default: // Back to title for now
+                StopAllCoroutines();
                 sceneType = "menu";
                 LoadBackground((int)BGs.TITLE);
                 LoadUI((int)UIs.START); // Play Button
@@ -232,10 +246,10 @@ public class SceneManager : MonoBehaviour
 
     public void HideAll()
     {
-        for (int i = 0; i < backgrounds.Length; i++) { backgrounds[i].SetActive(false); }
-        for (int i = 0; i < characters.Length; i++) { characters[i].SetActive(false); }
-        for (int i = 0; i < interfaces.Length; i++) { interfaces[i].SetActive(false); }
-        for (int i = 0; i < ingredients.Length; i++) { ingredients[i].SetActive(false); }
+        for (int i = 0; i < backgrounds.Count; i++) { backgrounds[i].SetActive(false); }
+        for (int i = 0; i < characters.Count; i++) { characters[i].SetActive(false); }
+        for (int i = 0; i < interfaces.Count; i++) { interfaces[i].SetActive(false); }
+        for (int i = 0; i < ingredients.Count; i++) { ingredients[i].SetActive(false); }
     }
 
     public void LoadCharacter(int n) { characters[n].SetActive(true); }
@@ -250,13 +264,13 @@ public class SceneManager : MonoBehaviour
     public void UnloadUI(int n) { interfaces[n].SetActive(false); }
     public void UnloadIngredient(int n) { ingredients[n].SetActive(false); }
 
-    public void UnloadAllCharacters() { for (int n = 0; n < characters.Length; n++) { characters[n].SetActive(false); } }
-    public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Length; n++) { backgrounds[n].SetActive(false); } }
-    public void UnloadAllUI() { for (int n = 0; n < characters.Length; n++) { interfaces[n].SetActive(false); } }
+    public void UnloadAllCharacters() { for (int n = 0; n < characters.Count; n++) { characters[n].SetActive(false); } }
+    public void UnloadAllBackgrounds() { for (int n = 0; n < characters.Count; n++) { backgrounds[n].SetActive(false); } }
+    public void UnloadAllUI() { for (int n = 0; n < characters.Count; n++) { interfaces[n].SetActive(false); } }
     public void UnloadAllIngredients(int n) { ingredients[n].SetActive(false); }
 
     public GameObject getIngredient(int n) { return ingredients[n]; }
-    public int numIngredients() { return ingredients.Length; }
+    public int numIngredients() { return ingredients.Count; }
 
     // =============== //
     // TEXT & DIALOGUE //
@@ -288,9 +302,15 @@ public class SceneManager : MonoBehaviour
         interfaces[(int)UIs.SCENE_TITLE].GetComponentInChildren<Text>().text = str;
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
         yield return new WaitForSeconds(3f / animationSpeed); // Scene Title Stays on screen for this long
-        optionsMenu.SetTrigger("SlideOff");
+        sceneTitle.SetTrigger("SlideOff");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
         UnloadUI((int)UIs.SCENE_TITLE);
+    }
+
+    public void toggleInstantText()
+    {
+        if (instantText) instantText = false;
+        else instantText = true;
     }
 
     // =========================== //
@@ -321,6 +341,13 @@ public class SceneManager : MonoBehaviour
 
     public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
     {
+        StartCoroutine(CloseGame());
+    }
+
+    IEnumerator CloseGame()
+    {
+        crossFade.SetTrigger("FadeToBlack");
+        yield return new WaitForSeconds(1f / animationSpeed);
         Application.Quit();
     }
     
@@ -335,6 +362,11 @@ public class SceneManager : MonoBehaviour
         LoadScene(0);
     }
 
+    public void toggleSceneSkip()
+    {
+        if (sceneSkipEnabled) sceneSkipEnabled = false;
+        else sceneSkipEnabled = true;
+    }
 
     // ================= //
     // SCREEN RESOLUTION //

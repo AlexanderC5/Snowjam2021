@@ -1,5 +1,5 @@
-﻿[Scene]Act 3 - Finale
-[Music]3
+﻿[SCENE]Act 3 - Finale
+[MUSIC]3
 [BG]1
 
 
