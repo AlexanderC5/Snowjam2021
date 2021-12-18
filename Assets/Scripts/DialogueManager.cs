@@ -7,6 +7,7 @@ using System;
 public class DialogueManager : MonoBehaviour
 {
     private SceneManager m_SceneManager;
+    private DialogueSystem m_dialogueSystem;
     DialogueSystem dialogue;
 
     //script stores text to be displayed
@@ -22,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
+        m_dialogueSystem = GameObject.FindObjectOfType<DialogueSystem>();
     }
 
     public void beginDialogueSegment(int n) // This is called by Scene Manager when a dialogue scene is loaded
@@ -76,7 +78,6 @@ public class DialogueManager : MonoBehaviour
                     //thought dialouge... (may be multiple lines)
                     else if (special == "THOUGHT")
                     {
-                        
                         lineType.Add('E');
                         script.Add(curr);
                         speaking.Add(" ");
@@ -168,6 +169,9 @@ public class DialogueManager : MonoBehaviour
     {
         if (m_SceneManager.sceneType != "VN") return; // If not in VN segment, don't register clicks
         if (!m_SceneManager.DialogueOn()) return; // If in menu, don't register clicks
+        
+        //if (m_dialogueSystem.isSpeaking) return; // If speaking, return to prevent an unknown crash << TODO, figure this out!
+        if (!m_dialogueSystem.isWaitingForUserInput) return;
 
         if (Input.GetMouseButtonDown(0)) { advanceText();  }
     }
@@ -199,14 +203,25 @@ public class DialogueManager : MonoBehaviour
                     isLine = true;
                     if (lineType[index - 1] == 'E')
                     {
-
+                        if (speaking[index] == " ")
+                        {
+                            //nameplate disappear
+                            m_SceneManager.UnloadUI(1);
+                            dialogue.Say(script[index], speaking[index]);
+                        }
+                        else
+                        {
+                            // nameplate appear
+                            m_SceneManager.LoadUI(1);
+                            dialogue.Say(script[index], speaking[index]);
+                        }
                         //clear speech box and output line
                         dialogue.Say(script[index], speaking[index]);
 
                     }
                     else
                     {
-                        dialogue.Say(script[index], speaking[index]);
+                        dialogue.SayAdd(script[index], speaking[index]);
                     }
 
                 }
@@ -216,12 +231,12 @@ public class DialogueManager : MonoBehaviour
                     temp = Int32.Parse(script[index]);
                     if (speaking[index] == "Toa")
                     {
-                        print("TOA EXPRESSION WORKED");
+                        //print("TOA EXPRESSION WORKED");
                         //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
                     }
                     else //STUART
                     {
-                        print("STUART EXPRESSION WORKED");
+                        //print("STUART EXPRESSION WORKED");
                         //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
                     }
                 }
@@ -234,16 +249,16 @@ public class DialogueManager : MonoBehaviour
                 else if (lineType[index] == 'N')
                 {
                     temp = Int32.Parse(script[index]);
-                    print("ENTER CHARACTER WORKED");
-                    print(temp);
+                    //print("ENTER CHARACTER WORKED");
+                    //print(temp);
                     //m_SceneManager.LoadCharacter(temp);
                 }
                 //exit character
                 else if (lineType[index] == 'X')
                 {
                     temp = Int32.Parse(script[index]);
-                    print("EXIT CHARACTER WORKED");
-                    print(temp);
+                    //print("EXIT CHARACTER WORKED");
+                    //print(temp);
                     //m_SceneManager.UnloadCharacter(temp);
                 }
                 //end scene
@@ -258,18 +273,15 @@ public class DialogueManager : MonoBehaviour
                 else if (lineType[index] == 'B')
                 {
                     temp = Int32.Parse(script[index]);
-                    print("BG LOADED");
-                    print(temp);
+                    //print("BG LOADED");
+                    //print(temp);
 
                     if (temp == 10) { StartCoroutine(fadeBlack(3f)); } // Background 10 puts a fade to black overlay for 3 secs
                                                                        //m_SceneManager.LoadBackground(temp);
                     else { m_SceneManager.LoadBackground(temp); }
                 }
 
-
-
                 index++;
-
             }
         }
     }
@@ -283,8 +295,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator endDialogueScene()
     {
-        StopAllCoroutines();
-        yield return new WaitForSeconds(2f / m_SceneManager.animationSpeed);
+        yield return new WaitForSeconds(0.5f / m_SceneManager.animationSpeed);
         m_SceneManager.LoadScene(m_SceneManager.getScene() + 1); // Move on to next scene
     }
 }
