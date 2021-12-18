@@ -30,6 +30,7 @@ public class SceneManager : MonoBehaviour
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
     private int currentScene;
+    private IEnumerator loadingScene; // Prevents two scenes from being loaded at the same time -> crash
 
     // Animation Animators
     public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
@@ -37,8 +38,9 @@ public class SceneManager : MonoBehaviour
     public Animator optionsMenu;
     public Animator sceneTitle;
     //private byte windowOpacity;
+    public float textSpeed = 1.0f; // Text Speed! (increase to speed up)
 
-    private GameObject[] sliders; // Stores all of the sliders present in the options menu
+    public GameObject[] sliders; // Stores all of the sliders present in the options menu
     private AudioSource music; // Plays music
     private AudioSource sound; // Plays sfx
     public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
@@ -63,10 +65,11 @@ public class SceneManager : MonoBehaviour
         //characters = GameObject.FindGameObjectsWithTag("Char");
         //interfaces = GameObject.FindGameObjectsWithTag("UI");
         //ingredients = GameObject.FindGameObjectsWithTag("Ingr");
+        //sliders = GameObject.FindGameObjectsWithTag("Slider");
 
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
-        sliders = GameObject.FindGameObjectsWithTag("Slider");
+        
 
         crossFade.gameObject.SetActive(true); // Do this upon start so we can disable the black screen during testing
         crossFade.speed = animationSpeed;
@@ -84,6 +87,7 @@ public class SceneManager : MonoBehaviour
         music.volume = 0.01f * sliders[0].GetComponent<Slider>().value; // Make sure the music volume slider is sorted above the sfx vol slider!
         sound.volume = 0.01f * sliders[1].GetComponent<Slider>().value;
         animationSpeed = sliders[2].GetComponent<Slider>().value;
+        textSpeed = sliders[3].GetComponent<Slider>().value;
         crossFade.speed = animationSpeed;
         optionsMenu.speed = animationSpeed;
         sceneTitle.speed = animationSpeed;
@@ -97,7 +101,14 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKeyDown("q") && sceneSkipEnabled) LoadScene(currentScene + 1); // Dev skip through scenes
     }
 
-    public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
+    public void LoadScene(int n) // Prevents loading multiple scenes at once
+    {
+        if (loadingScene == null) // If not currently loading a scene, load
+        {
+            loadingScene = LoadScn(n);
+            StartCoroutine(loadingScene);
+        }
+    }
 
     IEnumerator LoadScn(int n)
     {
@@ -213,6 +224,7 @@ public class SceneManager : MonoBehaviour
                 startMusic(0);
                 break;
         }
+        loadingScene = null; // no longer loading! Can now load another scene!
     }
 
     public int getScene() { return currentScene; }

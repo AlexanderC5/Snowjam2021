@@ -7,27 +7,25 @@ using System;
 public class DialogueManager : MonoBehaviour
 {
     private SceneManager m_SceneManager;
-    private DialogueSystem m_dialogueSystem;
-    DialogueSystem dialogue;
+    private DialogueSystem dialogue;
 
     //script stores text to be displayed
-    new List <string> script = new List<string>();
-    //lineType stores what kind of line it is (music, bg, scene, name of cahracter, action, etc.)
-    new List <char> lineType = new List<char>();
+    private List<string> script = new List<string>();
+    //lineType stores what kind of line it is (music, bg, scene, name of character, action, etc.)
+    private List<char> lineType = new List<char>();
     //speaking stores who is speaking
-    new List <string> speaking = new List<string>();
+    private List <string> speaking = new List<string>();
 
     [SerializeField] private TextAsset[] txtAsset; // Array of text file assets
     private string txt;
 
-    int index = 0;
+    int index = 0; // keeps track of which line is being read in the script
     int temp;
-    bool isLine = false; //used to make sure a line is shown after each input
+    bool isLine = false; // used to make sure a line is shown after each input
 
     void Awake()
     {
         m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
-        m_dialogueSystem = GameObject.FindObjectOfType<DialogueSystem>();
         dialogue = GameObject.FindObjectOfType<DialogueSystem>();
     }
 
@@ -172,128 +170,142 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void LateUpdate() // Make sure to update the textbox AFTER any UI button presses (so you don't accidentally advance text)
     {
         if (m_SceneManager.sceneType != "VN") return; // If not in VN segment, don't register clicks
         if (!m_SceneManager.DialogueOn()) return; // If in menu, don't register clicks
         
-        //if (m_dialogueSystem.isSpeaking) return; // If speaking, return to prevent an unknown crash << TODO, figure this out!
-        if (!m_dialogueSystem.isWaitingForUserInput) return;
+        //if (dialogue.isSpeaking) return; // If speaking, return to prevent an unknown crash << TODO, figure this out!
+        //if (!dialogue.isWaitingForUserInput) return;
 
-        if (Input.GetMouseButtonUp(0)) { advanceText();  }
+        if (Input.GetMouseButtonUp(0)) {
+            if (!dialogue.isWaitingForUserInput) // If in the middle of writing text to text box
+            {
+                if (m_SceneManager.instantText == false) // If not instant text already
+                {
+                    StartCoroutine(finishTextBox());
+                }
+            }
+            else advanceText();
+        }
+    }
+
+    IEnumerator finishTextBox() // Quickly fills out the rest of the text if the user clicks while it's loading
+    {
+        m_SceneManager.instantText = true;
+        yield return new WaitForEndOfFrame();
+        m_SceneManager.instantText = false;
     }
 
     private void advanceText()
     {
         isLine = false;
-        while (!isLine)
+        while (!isLine) // Repeat until there's a line that can be displayed by the dialogue box
         {
-            if (!dialogue.isSpeaking || dialogue.isWaitingForUserInput)
-            {
-                //END OF SCRIPT
-                if (index >= script.Count)
-                {
-                    return;
-                }
-                //play sound effect
-                if (lineType[index] == 'S')
-                {
-                    temp = Int32.Parse(script[index]);
-                    //print("SFX WORKED");
-                    //print(temp);
-            //        m_SceneManager.playSFX(temp);
-                }
-                //play music
-                else if (lineType[index] == 'M')
-                {
-                    temp = Int32.Parse(script[index]);
-                    //print("Music  WORKED");
-                    //print(temp);
-                    m_SceneManager.startMusic(temp);
-                }
-                //dialogue/text to display
-                else if (lineType[index] == 'L')
-                {
-                    isLine = true;
-                    if (lineType[index - 1] == 'E')
-                    {
-                        if (speaking[index] == " ")
-                        {
-                            //nameplate disappear
-                            m_SceneManager.UnloadUI(1);
-                            dialogue.Say(script[index], speaking[index]);
-                        }
-                        else
-                        {
-                            // nameplate appear
-                            m_SceneManager.LoadUI(1);
-                            dialogue.Say(script[index], speaking[index]);
-                        }
-                        //clear speech box and output line
-                        dialogue.Say(script[index], speaking[index]);
+            // Error check just in case
+            if (dialogue.isSpeaking && !dialogue.isWaitingForUserInput) return;
 
+            //END OF SCRIPT
+            if (index >= script.Count) { return; }
+
+            //play SFX
+            if (lineType[index] == 'S')
+            {
+                temp = Int32.Parse(script[index]);
+                //print("SFX WORKED");
+                //print(temp);
+        //        m_SceneManager.playSFX(temp);
+            }
+            //play music
+            else if (lineType[index] == 'M')
+            {
+                temp = Int32.Parse(script[index]);
+                //print("Music  WORKED");
+                //print(temp);
+                m_SceneManager.startMusic(temp);
+            }
+            //dialogue/text to display
+            else if (lineType[index] == 'L')
+            {
+                isLine = true;
+                if (lineType[index - 1] == 'E')
+                {
+                    if (speaking[index] == " ") // If nobody is speaking (i.e. an inner thought)
+                    {
+                        //nameplate disappear
+                        m_SceneManager.UnloadUI(1);
+                        dialogue.Say(script[index], speaking[index]);
                     }
                     else
                     {
-                        dialogue.SayAdd(script[index], speaking[index]);
+                        // nameplate appear
+                        m_SceneManager.LoadUI(1);
+                        dialogue.Say(script[index], speaking[index]);
                     }
+                    //clear speech box and output line
+                    dialogue.Say(script[index], speaking[index]);
 
                 }
-                //character expression
-                else if (lineType[index] == 'A')
+                else
                 {
-                    temp = Int32.Parse(script[index]);
-                    if (speaking[index] == "Toa")
-                    {
-                        //print("TOA EXPRESSION WORKED");
-                        //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
-                    }
-                    else //STUART
-                    {
-                        //print("STUART EXPRESSION WORKED");
-                        //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
-                    }
-                }
-                //display title from script
-                else if (lineType[index] == 'T')
-                {
-                    m_SceneManager.DisplaySceneTitle(script[index]);
-                }
-                //enter character
-                else if (lineType[index] == 'N')
-                {
-                    temp = Int32.Parse(script[index]);
-                    //print("ENTER CHARACTER WORKED");
-                    //print(temp);
-                    m_SceneManager.LoadCharacter(temp);
-                }
-                //exit character
-                else if (lineType[index] == 'X')
-                {
-                    temp = Int32.Parse(script[index]);
-                    //print("EXIT CHARACTER WORKED");
-                    //print(temp);
-                    m_SceneManager.UnloadCharacter(temp);
-                }
-                //end scene
-                else if (lineType[index] == 'D')
-                {
-                    //print("END WORKED");
-                    StartCoroutine(endDialogueScene());
-                }
-                else if (lineType[index] == 'B')
-                {
-                    temp = Int32.Parse(script[index]);
-                    //print("BG LOADED");
-                    //print(temp);
-
-                    if (temp == 10) { StartCoroutine(fadeBlack(3f)); } // Background 10 puts a fade to black overlay for 3 secs
-                                                                       //m_SceneManager.LoadBackground(temp);
-                    else { m_SceneManager.LoadBackground(temp); }
+                    dialogue.SayAdd(script[index], speaking[index]);
                 }
 
-                index++;
             }
+            //character expression
+            else if (lineType[index] == 'A')
+            {
+                temp = Int32.Parse(script[index]);
+                if (speaking[index] == "Toa")
+                {
+                    //print("TOA EXPRESSION WORKED");
+                    //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                }
+                else //STUART
+                {
+                    //print("STUART EXPRESSION WORKED");
+                    //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                }
+            }
+            //display title from script
+            else if (lineType[index] == 'T')
+            {
+                m_SceneManager.DisplaySceneTitle(script[index]);
+            }
+            //enter character
+            else if (lineType[index] == 'N')
+            {
+                temp = Int32.Parse(script[index]);
+                //print("ENTER CHARACTER WORKED");
+                //print(temp);
+                m_SceneManager.LoadCharacter(temp);
+            }
+            //exit character
+            else if (lineType[index] == 'X')
+            {
+                temp = Int32.Parse(script[index]);
+                //print("EXIT CHARACTER WORKED");
+                //print(temp);
+                m_SceneManager.UnloadCharacter(temp);
+            }
+            //end scene
+            else if (lineType[index] == 'D')
+            {
+                //print("END WORKED");
+                StartCoroutine(endDialogueScene());
+            }
+            else if (lineType[index] == 'B')
+            {
+                temp = Int32.Parse(script[index]);
+                //print("BG LOADED");
+                //print(temp);
+
+                if (temp == 10) { StartCoroutine(fadeBlack(3f)); } // Background 10 puts a fade to black overlay for 3 secs
+                                                                    //m_SceneManager.LoadBackground(temp);
+                else { m_SceneManager.LoadBackground(temp); }
+            }
+
+            index++;
         }
     }
 

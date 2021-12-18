@@ -63,10 +63,20 @@ public class DialogueSystem : MonoBehaviour
 
         isWaitingForUserInput = false;
 
+        float textSpeedPos = 0f; // Overcomplicated way of implementing text speed, by loading more than 1 character
+                                 //  per every frame
+        int currentTextPos = 0;  // Stores position in loaded text
         while(speechText.text != targetSpeech)
         {
-            speechText.text += targetSpeech[speechText.text.Length];
+            textSpeedPos += m_sceneManager.textSpeed; // Add textSpeed # of characters
+            while (currentTextPos < textSpeedPos)
+            {
+                speechText.text += targetSpeech[speechText.text.Length];
+                currentTextPos++;
+                if (speechText.text == targetSpeech) break; // Don't load too many characters after the end of the speech
+            }
             if (!m_sceneManager.instantText) yield return new WaitForEndOfFrame(); // Does text flow instantly?
+            else yield return null;
         }
 
         //text finished
