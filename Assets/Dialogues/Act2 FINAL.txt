@@ -1,0 +1,187 @@
+[SCENE]Act 2 - Dessert
+[MUSIC]1
+[BG]1
+
+[Toa]
+[EXPRESSION]16
+[Stuart]
+[EXPRESSION]0
+[THOUGHT]
+
+After a moment of some hard work and good elbow grease, we finally finish the mashed potatoes.
+
+Viola, as the French would say. Not bad for two people following an online tutorial.
+
+I almost flop down on the couch to take a break. Then I remember that this is just the appetizer and we still have to make countless other dishes.
+
+God, I hate everything.
+
+[Toa]
+[EXPRESSION]19
+Hey, you hanging in there?
+[EXPRESSION]16
+
+[Stuart]
+[EXPRESSION]3
+[Stuart]
+More or less. Probably less.
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]14
+I'd say we're making good progress! What's next on the list?
+[EXPRESSION]12
+
+
+[Stuart]
+[EXPRESSION]3
+Let's see... well, we've got Pigs in Blankets, Puff Pastries, the Charcuterie Board...
+
+[THOUGHT]
+I continue to list off the unending list of dishes. It's longer than a line at the DMV.
+
+Out of the corner of my eye, I see a bead of sweat run down Toa's face.
+
+[Stuart]
+[EXPRESSION]0
+[Toa]
+[EXPRESSION]3
+Ah... well, at least we got one of them down.
+[EXPRESSION]0
+
+[THOUGHT]
+She readjusts her apron and rolls up her sleeves, ready to hop back into the fight.
+
+[Toa]
+[EXPRESSION]3
+The food's not going to cook itself, right?
+[EXPRESSION]0
+
+[Stuart]
+[EXPRESSION]3
+Right.
+[EXPRESSION]0
+
+[THOUGHT]
+Washing our hands and prepping the kitchen, we set off on our long culinary journey.
+
+Heeding the instructions of a short-tempered Brit yelling through the screen of our laptop, we find ourselves in a work trance.
+
+The sound of knives chopping and the stove pan sizzling rang, as the scent of butter and spices wafted through the Christmas air.
+
+We work in near silence, only speaking to pass instruments or ingredients to one another.
+
+Slowly but surely, we were knocking out the recipes. The dinner table began to swell with trays and food as the minutes flew by.
+
+Sometimes in our work grind, I notice that Toa has stopped. I turn to find her stealing a glance at me.
+
+[Stuart]
+[EXPRESSION]11
+Hm? Is there something on my face?
+[EXPRESSION]8
+
+[Toa]
+[EXPRESSION]3
+Nope.
+[EXPRESSION]13
+
+[THOUGHT]
+She smiles and gets back to her work. Strange, she's been doing that a lot recently. Maybe she's tired?
+
+[Toa]
+[EXPRESSION]2
+Is there something on <i>my</i> face?
+[EXPRESSION]1
+
+[Stuart]
+[EXPRESSION]1
+[THOUGHT]
+Crap. Now I was the one staring.
+
+[Stuart]
+[EXPRESSION]3
+...nope.
+[EXPRESSION]0
+
+[THOUGHT]
+And with that, we turn back to our cutting boards.
+
+[Stuart]
+[EXPRESSION]3
+Y'know, we'd probably have been done by now if our parents helped us with cooking all this.
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]7
+Well, it's not all bad. It just means we're spending more time together.
+[EXPRESSION]4
+
+[Stuart]
+[EXPRESSION]3
+Don't we already spend nearly every living moment together?
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]3
+School and classes don't count! We're surreounded by other people there. It's not like that's a bad thing, but it's nice to just relax with someone you really care about...
+[EXPRESSION]0
+
+[THOUGHT]
+She pauses, seemingly startled by her own words.
+
+[Toa]
+[EXPRESSION]14
+S-sorry, I didn't mean it like...
+[EXPRESSION]13
+
+[Stuart]
+[EXPRESSION]14
+It's alright. It means a lot.
+[EXPRESSION]13
+
+
+[Toa]
+[EXPRESSION]18
+Ah... I'm glad.
+
+[EXPRESSION]17
+[THOUGHT]
+As she turns back to her dish-in-progress, I see her face turn almost a bright red. There's a palpable awkwardness in the air.
+
+I'm not sure why she'd be so embarrased by that. Toa's always an open book, and there's no doubt that we care for each other deeply.
+
+Then the thought occurs to me.
+
+[Stuart]
+[EXPRESSION]13
+
+[THOUGHT]
+Does she...
+
+...
+
+[Stuart]
+[EXPRESSION]0
+
+[THOUGHT]
+Christ, stop getting your hopes up. Just cook the damn food.
+
+[Stuart]
+[EXPRESSION]15
+...so, what's next on the list?
+
+[EXPRESSION]12
+
+[THOUGHT]
+She looks relieved that the mood's been changed. She springs back up to normal with almost a child-like energy.
+
+[Toa]
+[EXPRESSION]15
+Gingerbread cookies!
+
+[EXPRESSION]13
+
+[THOUGHT]
+Gingerbread cookies it is.
+
+[END]

@@ -20,15 +20,26 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextAsset[] txtAsset; // Array of text file assets
     private string txt;
 
+    int index = 0;
+    int temp;
+    bool isLine = false; //used to make sure a line is shown after each input
+
     void Awake()
     {
         m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
         m_dialogueSystem = GameObject.FindObjectOfType<DialogueSystem>();
+        dialogue = GameObject.FindObjectOfType<DialogueSystem>();
     }
 
     public void beginDialogueSegment(int n) // This is called by Scene Manager when a dialogue scene is loaded
     {
-        dialogue = DialogueSystem.instance;
+        index = 0;
+        temp = 0;
+        isLine = false;
+        //dialogue = DialogueSystem.instance;
+        script.Clear();
+        lineType.Clear();
+        speaking.Clear();
         //txtAsset = new TextAsset(textDirectory + n + ".txt");
         txt = txtAsset[n].text; // Grab the correct text file for the dialogue segment
         ReadTextFile();
@@ -161,9 +172,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    int index = 0;
-    int temp;
-    bool isLine = false; //used to make sure a line is shown after each input
     // Update is called once per frame
     void Update()
     {
@@ -251,7 +259,7 @@ public class DialogueManager : MonoBehaviour
                     temp = Int32.Parse(script[index]);
                     //print("ENTER CHARACTER WORKED");
                     //print(temp);
-                    //m_SceneManager.LoadCharacter(temp);
+                    m_SceneManager.LoadCharacter(temp);
                 }
                 //exit character
                 else if (lineType[index] == 'X')
@@ -259,7 +267,7 @@ public class DialogueManager : MonoBehaviour
                     temp = Int32.Parse(script[index]);
                     //print("EXIT CHARACTER WORKED");
                     //print(temp);
-                    //m_SceneManager.UnloadCharacter(temp);
+                    m_SceneManager.UnloadCharacter(temp);
                 }
                 //end scene
                 else if (lineType[index] == 'D')

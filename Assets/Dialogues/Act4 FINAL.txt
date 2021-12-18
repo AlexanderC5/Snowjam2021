@@ -1,0 +1,267 @@
+[SCENE]Act 4 - Entree Reprise
+[MUSIC]1
+[BG]1
+
+[THOUGHT]
+There she is. The big ol’ ham. Contained by the forces of yours truly. As it bakes in the oven, we wipe the sweat off our brow and finally take a deep breath. We’re finished.
+
+[Stuart]
+[EXPRESSION]11
+I can’t believe it. We actually finished. And we’ve still got so much time to spare.
+[EXPRESSION]9
+
+
+[Toa]
+[EXPRESSION]14
+Told you! Nothing to worry about at all.
+[EXPRESSION]13
+
+[THOUGHT]
+We set a timer on the computer to remind us to take the ham out of the oven when it’s finished cooking.
+
+The cooking may be done, but there are still some… things… that we need to resolve.
+
+I glance at Toa. She clearly has the same thoughts I have.
+
+[Toa]
+[EXPRESSION]2
+Um… so…
+[EXPRESSION]1
+
+[Stuart]
+[EXPRESSION]14
+Do you want to watch a movie?
+[EXPRESSION]13
+
+[Toa]
+[EXPRESSION]14
+Yeah. That sounds great.
+[EXPRESSION]13
+
+[THOUGHT]
+We flop on the couch together, finally free to enjoy the time before the big dinner.
+
+[Stuart]
+[EXPRESSION]14
+Anything you wanna watch?
+[EXPRESSION]13
+10
+[Toa]
+[EXPRESSION]14
+Surprise me.
+[EXPRESSION]13
+
+[THOUGHT]
+I turn on a nature documentary. A monkey immediately begins screeching his lungs out.
+
+[Toa]
+[EXPRESSION]10
+Really?
+[EXPRESSION]13
+
+[THOUGHTS]
+We laugh, and I switch it to some campy romance movie. I don’t need to say why.
+
+We sit together as we watch the painfully mediocre acting. It’s a run-of-the-mill sappy romance plot, with a boy and a girl eventually falling in love with each other over the course of the movie.
+
+[Stuart]
+[EXPRESSION]3
+Oh my God, he’s so dense. She’s literally clinging to him.
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]2
+It’s part of the fun! It’d be boring if they just got together immediately, right?
+[EXPRESSION]5
+
+[Stuart]
+[EXPRESSION]3
+I mean, it’d save a lot of unnecessary drama.
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]6
+But that’s why we watch movies, right?
+[EXPRESSION]5
+
+[THOUGHT]
+I only gave a loose shrug. I wasn’t expecting Oscar worthy acting anyways. As we keep watching, Toa gradually moves closer to me.
+
+[Toa]
+[EXPRESSION]14
+It’s a bit chilly, isn’t it?
+[EXPRESSION]13
+
+[Stuart]
+[EXPRESSION]5
+[THOUGHT]
+It’s actually quite warm.
+
+[Stuart]
+[EXPRESSION]6
+Yeah, it is.
+[EXPRESSION]5
+
+[THOUGHT]
+Toa gets up, and grabs a quilt for us both. When she sits back down to drape it over us, she’s practically snuggled up against me.
+
+The only logical thing to do is to snuggle right back up.
+
+And so we sat there, basking in each other’s presence underneath the quilt. She laid her head on my shoulder, and I laid mine with hers. And we were content.
+
+There’s a tacit understanding between the two of us- how we feel. It doesn’t have to be said aloud.
+
+But it wouldn’t hurt to do it anyways.
+
+[Stuart]
+[EXPRESSION]6
+So… about the museum trip.
+[EXPRESSION]5
+
+[Toa]
+[EXPRESSION]2
+It’s a date.
+[EXPRESSION]13
+
+[Stuart]
+[EXPRESSION]6
+And so it is.
+[EXPRESSION]5
+
+[THOUGHT]
+I suppose it’s official then. We stayed together, lightly commentating on the campiness of the movie still playing, until the end credits finally rolled.
+
+Everything was perfect. I couldn’t ask for a-
+
+[Toa]
+[EXPRESSION]11
+Do you smell that?
+[EXPRESSION]0
+
+[Stuart]
+[EXPRESSION]4
+[THOUGHT]
+What? I freeze. I sniff.
+
+[Stuart]
+[EXPRESSION]0
+[THOUGHT]
+Yes, I do smell that.
+
+
+The smell of ham…
+
+[Stuart]
+[EXPRESSION]8
+[THOUGHT]
+Crispy ham…
+
+Increasingly more crispy ham…
+
+Wait.
+
+[Stuart]
+[EXPRESSION]11
+[THOUGHT]
+Oh my God.
+
+[Stuart]
+Toa?
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]3
+Yes?
+[EXPRESSION]0
+
+[Stuart]
+[EXPRESSION]3
+Did the timer for the ham go off?
+[EXPRESSION]0
+
+[THOUGHT]
+Sweat running down her forehead, she lifts herself off of me, tiptoes to the kitchen as if afraid to wake some sleeping giant, and checks the computer.
+
+It doesn’t turn on.
+
+[Toa]
+[EXPRESSION]3
+The computer ran out of battery. I think the ham was done about an hour ago.
+[EXPRESSION]4
+
+[Stuart]
+[EXPRESSION]11
+Ah.
+[EXPRESSION]0
+
+[THOUGHT]
+With a graceful movement, I hop off the couch and walk to the oven. The smoke gently lifting itself from the oven door is a brilliant sign.
+
+I gently open the door.
+
+[Stuart]
+[EXPRESSION]11
+It’s wonderful.
+
+[Toa]
+[EXPRESSION]11
+It’s burnt.
+
+[Stuart]
+[EXPRESSION]11
+It looks wonderfully burnt.
+
+[Toa]
+[EXPRESSION]11
+Stuart, it’s blacker than a medieval plague.
+
+[Stuart]
+[EXPRESSION]11
+We’re so screwed.
+
+[Toa]
+[EXPRESSION]11
+I know.
+
+[Stuart]
+[EXPRESSION]0
+[THOUGHT]
+I drop to the floor in total despair. It’s totally ruined. We can’t serve charcoal, that’s Santa’s job. Our families are coming home in less than an hour, and the main dish is completely destroyed.
+
+[Toa]
+[EXPRESSION]2
+I have an idea.
+[EXPRESSION]13
+
+[Stuart]
+[EXPRESSION]14
+I’m all ears.
+[EXPRESSION]13
+
+[Toa]
+[EXPRESSION]15
+The outside might be totally burnt, but we might still be able to use the inside for meat.
+[EXPRESSION]12
+
+[THOUGHT]
+Realizing she was onto something, I grab the burnt ham and carve into it.
+
+Toa’s right. The meat on the inside is still, somehow, good to eat.
+
+[Toa]
+[EXPRESSION]19
+Maybe we can make sandwiches out of the usable meat?
+[EXPRESSION]12
+
+[Stuart]
+[EXPRESSION]13
+Yeah, maybe we can. We can use the leftover bread from the last dishes.
+[EXPRESSION]0
+
+[Toa]
+[EXPRESSION]0
+
+[THOUGHT]
+No time to lose. We scrambled to grab everything we needed, and prepared to clutch this dinner.
+
+[END]

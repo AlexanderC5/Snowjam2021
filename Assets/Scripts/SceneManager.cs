@@ -84,6 +84,8 @@ public class SceneManager : MonoBehaviour
         sceneXSize = Screen.width;
         sceneYSize = Screen.height;
         //Debug.Log(sceneXSize);
+
+        if (Input.GetKeyDown("q")) LoadScene(currentScene + 1); // Dev skip
     }
 
     public void LoadScene(int n) { StartCoroutine(LoadScn(n)); } // This function is just to make life easier
@@ -99,6 +101,7 @@ public class SceneManager : MonoBehaviour
         switch (n)
         {
             case 0: // Title Scene
+                StopAllCoroutines();
                 sceneType = "menu";
                 LoadBackground((int)BGs.TITLE);
                 LoadUI((int)UIs.START); // Play Button
@@ -106,7 +109,7 @@ public class SceneManager : MonoBehaviour
                 LoadUI((int)UIs.EXIT); // Exit Button
                 startMusic(0); // Play Title Screen Music
                 break;
-            case 1: // Scene 1
+            case 1: // VN Scene 1
                 sceneType = "VN";
                 EnableDialogue(); // Allows clicking to progress text?
                 LoadUI((int)UIs.SETTINGS); // Settings Button
@@ -120,6 +123,76 @@ public class SceneManager : MonoBehaviour
                 LoadUI((int)UIs.SETTINGS); // Settings Button
                 m_minigameManager.startCooking(0);
                 break;
+            case 3: // VN Scene 2
+                sceneType = "VN";
+                EnableDialogue(); // Allows clicking to progress text?
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                LoadCharacter((int)CHARs.STUART);
+                LoadCharacter((int)CHARs.TOA);
+                m_dialogueManager.beginDialogueSegment(1); // Load Dialogue #1
+                break;
+            case 4: // Cooking Minigame 2
+                /*
+                sceneType = "cooking";
+                DisableDialogue(); // Prevents clicking to progress text?
+                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                m_minigameManager.startCooking(1);
+                */
+                LoadScene(5);
+                break;
+            case 5: // VN Scene 3
+                sceneType = "VN";
+                EnableDialogue(); // Allows clicking to progress text?
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                LoadCharacter((int)CHARs.STUART);
+                LoadCharacter((int)CHARs.TOA);
+                m_dialogueManager.beginDialogueSegment(2); // Load Dialogue #1
+                break;
+            case 6: // Cooking Minigame 3
+                /*
+                sceneType = "cooking";
+                DisableDialogue(); // Prevents clicking to progress text?
+                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                m_minigameManager.startCooking(2);
+                */
+                LoadScene(7);
+                break;
+            case 7: // VN Scene 4
+                sceneType = "VN";
+                EnableDialogue(); // Allows clicking to progress text?
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                LoadCharacter((int)CHARs.STUART);
+                LoadCharacter((int)CHARs.TOA);
+                m_dialogueManager.beginDialogueSegment(3); // Load Dialogue #1
+                break;
+            case 8: // Cooking Minigame 4
+                /*
+                sceneType = "cooking";
+                DisableDialogue(); // Prevents clicking to progress text?
+                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                m_minigameManager.startCooking(3);
+                */
+                LoadScene(9);
+                break;
+            case 9: // VN Scene 5
+                sceneType = "VN";
+                EnableDialogue(); // Allows clicking to progress text?
+                LoadUI((int)UIs.SETTINGS); // Settings Button
+                LoadCharacter((int)CHARs.STUART);
+                LoadCharacter((int)CHARs.TOA);
+                m_dialogueManager.beginDialogueSegment(4); // Load Dialogue #1
+                break; 
+            case 10: // Credits
+                sceneType = "credits";
+                DisableDialogue(); // Prevents clicking to progress text?
+                LoadBackground((int)BGs.CELEBRATION); // Cutting board background
+                startMusic(4);
+                StartCoroutine(gameClear());
+                break;
+                
             default: // Back to title for now
                 sceneType = "menu";
                 LoadBackground((int)BGs.TITLE);
@@ -255,6 +328,13 @@ public class SceneManager : MonoBehaviour
     {
         LoadScene(currentScene + 1);
     }
+
+    IEnumerator gameClear()
+    {
+        yield return new WaitForSeconds(60f);
+        LoadScene(0);
+    }
+
 
     // ================= //
     // SCREEN RESOLUTION //

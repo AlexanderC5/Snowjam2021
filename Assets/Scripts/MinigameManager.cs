@@ -10,7 +10,7 @@ public class MinigameManager : MonoBehaviour
     //  arrays that store their bounds on the scene. This was done since adding colliders to these objects would
     //  sometimes block the other ingredients from being dragged.
     public enum INGRs { CUT_BOARD, SINK, POT, POT_WATER, MILK, BUTTER, SALT, PEPPER, BOWL, KNIFE, POTATO,
-                        POTATO_PEELED, BUTTER_SLICE, PEELER };
+                        POTATO_PEELED, BUTTER_SLICE, PEELER, POTATO_STEAM, POTATO_BOWL, MIXER, POTATO_MASH, POTATO_GRAVY, GRAVY };
 
     private List<int> ingrList = new List<int>(); // List of the ingredients currently available in the current minigame
     private List<int[]> recipeList = new List<int[]>(); // Each internal array stores ingr 1, ingr 2, resulting ingr, sfx
@@ -48,15 +48,65 @@ public class MinigameManager : MonoBehaviour
                 ingrList.Add((int)INGRs.SALT);
                 ingrList.Add((int)INGRs.PEPPER);
                 ingrList.Add((int)INGRs.BOWL);
-                ingrList.Add((int)INGRs.KNIFE);
+                //ingrList.Add((int)INGRs.KNIFE);
                 ingrList.Add((int)INGRs.PEELER);
                 ingrList.Add((int)INGRs.POTATO);
+                ingrList.Add((int)INGRs.MIXER);
+                ingrList.Add((int)INGRs.GRAVY);
 
                 recipeList.Add(new int[4]);
                 recipeList[0][0] = (int)INGRs.POTATO;
                 recipeList[0][1] = (int)INGRs.PEELER;
                 recipeList[0][2] = (int)INGRs.POTATO_PEELED;
                 recipeList[0][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[1][0] = (int)INGRs.POTATO_PEELED;
+                recipeList[1][1] = (int)INGRs.POT_WATER;
+                recipeList[1][2] = (int)INGRs.POTATO_STEAM;
+                recipeList[1][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[2][0] = (int)INGRs.POTATO_STEAM;
+                recipeList[2][1] = (int)INGRs.BOWL;
+                recipeList[2][2] = (int)INGRs.POTATO_BOWL;
+                recipeList[2][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[3][0] = (int)INGRs.POTATO_BOWL;
+                recipeList[3][1] = (int)INGRs.MIXER;
+                recipeList[3][2] = (int)INGRs.POTATO_MASH;
+                recipeList[3][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[4][0] = (int)INGRs.POTATO_MASH;
+                recipeList[4][1] = (int)INGRs.BUTTER;
+                recipeList[4][2] = (int)INGRs.POTATO_MASH;
+                recipeList[4][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[5][0] = (int)INGRs.POTATO_MASH;
+                recipeList[5][1] = (int)INGRs.MILK;
+                recipeList[5][2] = (int)INGRs.POTATO_MASH;
+                recipeList[5][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[6][0] = (int)INGRs.POTATO_MASH;
+                recipeList[6][1] = (int)INGRs.SALT;
+                recipeList[6][2] = (int)INGRs.POTATO_MASH;
+                recipeList[6][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[7][0] = (int)INGRs.POTATO_MASH;
+                recipeList[7][1] = (int)INGRs.PEPPER;
+                recipeList[7][2] = (int)INGRs.POTATO_MASH;
+                recipeList[7][3] = 0; // Combination SFX
+
+                recipeList.Add(new int[4]);
+                recipeList[8][0] = (int)INGRs.POTATO_MASH;
+                recipeList[8][1] = (int)INGRs.GRAVY;
+                recipeList[8][2] = (int)INGRs.POTATO_GRAVY;
+                recipeList[8][3] = 0; // Combination SFX
 
                 sinkList.Add(new int[2]);
                 sinkList[0][0] = (int)INGRs.POT;
@@ -107,7 +157,7 @@ public class MinigameManager : MonoBehaviour
     }
 
     public void onCuttingBoard(string s) { checkCombination(s); } // Ingredient n was placed on the cutting board!
-    private void checkCombination(string s, bool keepFirstIngr = false)
+    private void checkCombination(string s)
     {
         int n = -100;
         for (int i = 0; i < m_SceneManager.numIngredients(); i++) // Find ouch which ingr n called this function
@@ -120,11 +170,20 @@ public class MinigameManager : MonoBehaviour
         }
         if (n == -100) return; // No ingredient found
 
+        Debug.Log("recipe: " + currentRecipePos + " | n " + n);
+        Debug.Log(recipeList[currentRecipePos][0] + " " + recipeList[currentRecipePos][1]);
+
         // Check if n is part of a recipe list with m
         int m = -1;
         if (recipeList[currentRecipePos][0] == n) { m = recipeList[currentRecipePos][1]; }
         else if (recipeList[currentRecipePos][1] == n) { m = recipeList[currentRecipePos][0]; }
-        else return; // Not part of a recipe list
+        else
+        {
+            Debug.Log("333");
+            return;
+        } // Not part of a recipe list
+
+        Debug.Log("TestingA");
 
         // Check if n and m are touching
         if (m > -1 && getIngr(n).GetComponent<Collider2D>().bounds.Intersects(getIngr(m).GetComponent<Collider2D>().bounds))
@@ -132,13 +191,18 @@ public class MinigameManager : MonoBehaviour
             m_SceneManager.LoadIngredient(recipeList[currentRecipePos][2],
                                               m_SceneManager.getIngredient(n).transform.position.x / m_SceneManager.getScreenX(),
                                               m_SceneManager.getIngredient(n).transform.position.y / m_SceneManager.getScreenY());
-            m_SceneManager.UnloadIngredient(recipeList[currentRecipePos][1]);
-            if (!keepFirstIngr) m_SceneManager.UnloadIngredient(recipeList[currentRecipePos][0]);
+            if (recipeList[currentRecipePos][1] != recipeList[currentRecipePos][2])
+            {
+                m_SceneManager.UnloadIngredient(recipeList[currentRecipePos][1]);
+            }
+            if (recipeList[currentRecipePos][0] != recipeList[currentRecipePos][2])
+            {
+                m_SceneManager.UnloadIngredient(recipeList[currentRecipePos][0]);
+            }
 
             //m_SceneManager.playSFX(recipeList[currentRecipePos][3]);
 
             currentRecipePos++; // Onward to the next recipe!
-            Debug.Log("AB" + recipeList.Count);
             if (currentRecipePos >= recipeList.Count) // Check if recipe is complete!
             {
                 StopCooking();

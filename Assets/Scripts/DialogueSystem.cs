@@ -8,13 +8,13 @@ using UnityEngine.UI;
 public class DialogueSystem : MonoBehaviour
 {
     //used to located dialogue in other systems
-    public static DialogueSystem instance;
+    //public static DialogueSystem instance;
     public ELEMENTS elements;
 
     void Awake()
     {
         //instance is only dialogue system in this scene
-        instance = this;
+        //instance = this;
     }
 
     // Say something and show it on the speech box
