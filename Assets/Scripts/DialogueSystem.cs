@@ -8,9 +8,8 @@ using UnityEngine.UI;
 public class DialogueSystem : MonoBehaviour
 {
     private SceneManager m_sceneManager;
-    //used to located dialogue in other systems
-    //public static DialogueSystem instance;
     public ELEMENTS elements;
+    //public static DialogueSystem instance; //used to located dialogue in other systems
 
     void Awake()
     {
@@ -76,7 +75,6 @@ public class DialogueSystem : MonoBehaviour
                 if (speechText.text == targetSpeech) break; // Don't load too many characters after the end of the speech
             }
             if (!m_sceneManager.instantText) yield return new WaitForEndOfFrame(); // Does text flow instantly?
-            else yield return null;
         }
 
         //text finished

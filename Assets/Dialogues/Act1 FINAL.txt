@@ -35,13 +35,10 @@ STUAAART, WHERE DID YOU PUT THE MEASURING CUPS?
 She's the other.
 
 
-[Stuart]
-[EXPRESSION]3
 [Toa]
 [EXPRESSION]0
-
-
 [Stuart]
+[EXPRESSION]3
 I don't know, you were the last one using them.
 
 
@@ -49,7 +46,6 @@ I don't know, you were the last one using them.
 [EXPRESSION]0
 [Toa]
 [EXPRESSION]3
-[Toa]
 I was?
 
 
@@ -59,9 +55,6 @@ She pauses. I can almost hear the clockwork gears grinding inside that head of h
 
 [Toa]
 [EXPRESSION]15
-
-
-[Toa]
 I was!
 
 
@@ -101,9 +94,6 @@ A clumsy one at that.
 [EXPRESSION]8
 [Stuart]
 [EXPRESSION]3
-
-
-[Stuart]
 Toa? Are you okay?
 
 
@@ -122,7 +112,6 @@ She pops up and dusts herself off, ready to zoom back to work.
 
 [Stuart]
 [EXPRESSION]3
-[Stuart]
 Jeez, be more careful. I don't wanna have to watch these cooking tutorials and you at the same time.
 
 
