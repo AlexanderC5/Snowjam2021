@@ -39,6 +39,7 @@ public class MinigameManager : MonoBehaviour
         ingrList.Clear();
         recipeList.Clear();
         sinkList.Clear();
+        recipePrereqs.Clear();
         ingrList.Add((int)INGRs.CUT_BOARD); // Cutting board and sink are always added
         ingrList.Add((int)INGRs.SINK);
         switch (n)

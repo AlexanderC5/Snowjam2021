@@ -4,7 +4,7 @@
 
 
 [Stuart]
-[Expression]12
+[EXPRESSION]12
 
 
 [THOUGHT]
@@ -18,7 +18,7 @@ But that's impossible. After all, it's almost Christmas dinner, and two dunces w
 
 
 [Stuart]
-[Expression]0
+[EXPRESSION]0
 
 
 [THOUGHT]

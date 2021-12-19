@@ -150,7 +150,7 @@ public class DialogueManager : MonoBehaviour
                     speaking.Add(speaking[speaking.Count-1]);
                 }
             }
-
+            
             else if (counter % 2 == 0) // Separate new text box by empty line
             {
                 script.Add("");
@@ -158,6 +158,7 @@ public class DialogueManager : MonoBehaviour
                 speaking.Add(speaking[speaking.Count-1]);
             }
             counter++;
+            
         }
     }
 
