@@ -3,6 +3,8 @@
 [BG]1
 
 
+[ENTER]0
+[ENTER]1
 [Stuart]
 [EXPRESSION]13
 

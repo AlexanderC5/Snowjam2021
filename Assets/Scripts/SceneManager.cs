@@ -7,7 +7,7 @@ public class SceneManager : MonoBehaviour
 {
     private MinigameManager m_minigameManager;
     private DialogueManager m_dialogueManager;
-    
+        
     private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
     public string sceneType = "menu"; // VN, cooking
 
@@ -22,11 +22,6 @@ public class SceneManager : MonoBehaviour
     public List<GameObject> characters;
     public List<GameObject> interfaces;
     public List<GameObject> ingredients;
-
-    // These enum types should list the game objects in the order they appear in Unity!
-    public enum BGs { TITLE, KITCHEN, COUNTERTOP, ROOM, CELEBRATION };
-    public enum CHARs { STUART, TOA };
-    public enum UIs { DIALOGUE, NAMEPLATE, START, OPTIONS, EXIT, OPT_MENU, SETTINGS, SCENE_TITLE };
 
     public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
     private int currentScene;
@@ -120,111 +115,62 @@ public class SceneManager : MonoBehaviour
         currentScene = n; // Set the scene!
         switch (n)
         {
-            case 0: // Title Scene
-                StopAllCoroutines();
-                sceneType = "menu";
-                LoadBackground((int)BGs.TITLE);
-                LoadUI((int)UIs.START); // Play Button
-                LoadUI((int)UIs.OPTIONS); // Options Button
-                LoadUI((int)UIs.EXIT); // Exit Button
-                startMusic(0); // Play Title Screen Music
+            // Visual Novel scenes
+            case 1: // Dialogue 0
+            case 3: // Dialogue 1
+            case 5: // Dialogue 2
+            case 7: // Dialogue 3
+            case 9: // Dialogue 4
+                loadVisualNovel();
+                m_dialogueManager.beginDialogueSegment((n + 1) / 2 - 1); // Load Dialogue #1
                 break;
-            case 1: // VN Scene 1
-                sceneType = "VN";
-                EnableDialogue(); // Allows clicking to progress text?
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter((int)CHARs.STUART);
-                m_dialogueManager.beginDialogueSegment(0); // Load Dialogue #1
+            
+            // Cooking Minigame scenes
+            case 2: // Minigame 0
+            case 4: // Minigame 1
+            //case 6: // Minigame 2
+            //case 8: // Minigame 3
+                loadCookingMinigame();
+                m_minigameManager.startCooking(n / 2 - 1);
                 break;
-            case 2: // Cooking Minigame 1
-                sceneType = "cooking";
-                DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                startMusic(2);
-                m_minigameManager.startCooking(0);
-                break;
-            case 3: // VN Scene 2
-                sceneType = "VN";
-                EnableDialogue(); // Allows clicking to progress text?
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter((int)CHARs.STUART);
-                LoadCharacter((int)CHARs.TOA);
-                m_dialogueManager.beginDialogueSegment(1); // Load Dialogue #1
-                break;
-            case 4: // Cooking Minigame 2
-                sceneType = "cooking";
-                DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                startMusic(2);
-                m_minigameManager.startCooking(1);
-                break;
-            case 5: // VN Scene 3
-                sceneType = "VN";
-                EnableDialogue(); // Allows clicking to progress text?
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter((int)CHARs.STUART);
-                LoadCharacter((int)CHARs.TOA);
-                m_dialogueManager.beginDialogueSegment(2); // Load Dialogue #1
-                break;
-            case 6: // Cooking Minigame 3
-                /*
-                sceneType = "cooking";
-                DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                startMusic(2);
-                m_minigameManager.startCooking(2);
-                */
-                LoadScene(7);
-                break;
-            case 7: // VN Scene 4
-                sceneType = "VN";
-                EnableDialogue(); // Allows clicking to progress text?
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter((int)CHARs.STUART);
-                LoadCharacter((int)CHARs.TOA);
-                m_dialogueManager.beginDialogueSegment(3); // Load Dialogue #1
-                break;
-            case 8: // Cooking Minigame 4
-                /*
-                sceneType = "cooking";
-                DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground((int)BGs.COUNTERTOP); // Cutting board background
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                startMusic(2);
-                m_minigameManager.startCooking(3);
-                */
-                LoadScene(9);
-                break;
-            case 9: // VN Scene 5
-                sceneType = "VN";
-                EnableDialogue(); // Allows clicking to progress text?
-                LoadUI((int)UIs.SETTINGS); // Settings Button
-                LoadCharacter((int)CHARs.STUART);
-                LoadCharacter((int)CHARs.TOA);
-                m_dialogueManager.beginDialogueSegment(4); // Load Dialogue #1
-                break; 
-            case 10: // Credits
+
+            // Credits
+            case 10:
                 sceneType = "credits";
-                DisableDialogue(); // Prevents clicking to progress text?
-                LoadBackground((int)BGs.CELEBRATION); // Cutting board background
+                DisableDialogue(); // Prevents clicking to progress text
+                LoadBackground(Values.B_CELEBRATION); // Final CG, yay
                 startMusic(4);
-                StartCoroutine(gameClear());
+                StartCoroutine(gameClear()); // Wait for 50s, go back to title
                 break;
-                
-            default: // Back to title for now
+            
+            // Title screen
+            default:
                 StopAllCoroutines();
                 sceneType = "menu";
-                LoadBackground((int)BGs.TITLE);
-                LoadUI((int)UIs.START); // Play Button
-                LoadUI((int)UIs.OPTIONS); // Options Button
-                LoadUI((int)UIs.EXIT); // Exit Button
+                LoadBackground(Values.B_TITLE);
+                LoadUI(Values.U_START); // Play Button
+                LoadUI(Values.U_OPTIONS); // Options Button
+                LoadUI(Values.U_EXIT); // Exit Button
                 startMusic(0);
                 break;
         }
         loadingScene = null; // no longer loading! Can now load another scene!
+    }
+
+    private void loadVisualNovel()
+    {
+        sceneType = "VN";
+        EnableDialogue(); // Allows clicking to progress text?
+        LoadUI(Values.U_SETTINGS); // Settings Button
+    }
+
+    private void loadCookingMinigame()
+    {
+        sceneType = "cooking";
+        DisableDialogue(); // Prevents clicking to progress text?
+        LoadBackground(Values.B_COUNTERTOP); // Cutting board background
+        LoadUI(Values.U_SETTINGS); // Settings Button
+        startMusic(2);
     }
 
     public int getScene() { return currentScene; }
@@ -367,7 +313,7 @@ public class SceneManager : MonoBehaviour
 
     IEnumerator gameClear()
     {
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(50f);
         LoadScene(0);
     }
 

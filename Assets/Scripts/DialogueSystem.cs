@@ -33,6 +33,8 @@ public class DialogueSystem : MonoBehaviour
         speaking = StartCoroutine(Speaking(speech, true, speaker));
     }
 
+    
+
     public void StopSpeaking()
     {
         if (isSpeaking)

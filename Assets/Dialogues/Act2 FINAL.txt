@@ -2,6 +2,8 @@
 [MUSIC]1
 [BG]1
 
+[ENTER]0
+[ENTER]1
 [Toa]
 [EXPRESSION]16
 [Stuart]

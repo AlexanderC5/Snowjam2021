@@ -3,6 +3,8 @@
 [BG]1
 
 
+[ENTER]0
+[ENTER]1
 [THOUGHT]
 After a moment of dragging and dropping ingredients with eagle-eye accuracy, we finally manage to finish the cookies.
 

@@ -2,6 +2,8 @@
 [MUSIC]1
 [BG]1
 
+[ENTER]0
+[ENTER]1
 [THOUGHT]
 There she is. The big ol’ ham. Contained by the forces of yours truly. As it bakes in the oven, we wipe the sweat off our brow and finally take a deep breath. We’re finished.
 
