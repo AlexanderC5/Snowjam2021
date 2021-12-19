@@ -1,259 +1,509 @@
 ﻿[SCENE]Act 5 - Finale
 [MUSIC]3
 [BG]1
+
+
 [ENTER]0
 [ENTER]1
 [Stuart]
 [EXPRESSION]13
+
+
 [Toa]
 [EXPRESSION]13
+
+
 [THOUGHT]
 [EXPRESSION]16
 I never knew a person was capable of making so many sandwiches in the span of thirty minutes.
+
+
 Quickly, we spread the plates out on the dinner table. 
+
+
 Right as we put down the last tray, the doorbell rings.
+
+
 [Stuart]
 [Expression]14
+
+
 [Stuart]
 That was close.
+
+
 [Stuart]
 [Expression]13
 [Toa]
 [Expression]6
+
+
 [Toa] Well, we did it, didn’t we?
+
+
 [Stuart]
 [Expression]14
 [Toa]
 [Expression]5
+
+
 [Stuart]
 We sure did.
+
+
 [Stuart]
 [Expression]13
+
+
 [THOUGHT]
 Running to the front, we open the door to greet our parents as they come inside. 
+
+
 It’s a joyous occasion, as we all sit down at the dinner table. 
 There’s an outpour of gasps and cheers as they see the food that we’ve painstakingly prepared for the entirety of the day.
+
+
 After all this time, it was finished.
+
+
 We sit down together, Toa next to me, as we pass the food and finally take the first bite.
+
+
 I have to say.
+
+
 It was worth it.
+
+
 The taste of butter, spices, sauces, and so much more melt into my mouth. 
+
+
 We all dig in to fill our stomachs with the fruits of our labor.
+
+
 Somehow, even the sandwiches were good.
+
+
 The sound of chatter, laughter, and cheers… it’s a memory that I will never forget. 
+
+
 Of course, I always took the chance to sneak a glance at Toa and vice versa. We’d pretend to not notice.
+
+
 After a while, we finished the desserts and reached the part of the dinner where our parents would chat about things completely irrelevant to me and Toa.
+
+
 Toa nudges me on the shoulder, grabbing my attention. 
+
+
 [Toa]
 [EXPRESSION]18
 Let’s go someplace else real quick?
+
+
 [Toa]
 [EXPRESSION]17
 [Stuart]
 [EXPRESSION]18
 Sure.
+
+
 [Stuart]
 [EXPRESSION]17
+
+
 [THOUGHT]
 We sneak away from the dinner table to go to someplace more isolated. 
+
+
 Our parents give us a quick glance, but then turn away back to their own gossip.
+
+
 They probably already know. Not that we care all that much.
+
+
 Moving through the corridors of the house, we find a spare room dimly lit by a mini Christmas tree. 
+
+
 It’s not nearly as large as the dining room, but it’s just as warm and homely. 
+
+
 Toa dashes in front of me right as I enter, running to grab something under her bed.
+
+
+
+
 [Stuart]
 [EXPRESSION]18
+
+
 [Stuart]
 Your guitar?
+
+
+
+
 [Stuart]
 [EXPRESSION]17
 [Toa]
 [EXPRESSION]14
+
+
 [Toa]
 A little music is always good for the heart.
+
+
 [Toa]
 [EXPRESSION]13
+
+
 [THOUGHT]
 I give a small grin and take a seat on the carpeted floor as Toa begins to tune the strings. 
+
+
 [Stuart]
 [EXPRESSION]4
+
+
 [MUSIC]3
+
+
 [THOUGHT]
 I close my eyes, listening to the gentle plucking of guitar strings and the dampened rustling of pine trees outside the window. 
+
+
 I could almost fall asleep before the sweet sound of Toa’s voice stirs me back.
+
+
+
+
 [Toa]
 [EXPRESSION]14
 [Toa]
 Hey sleepyhead, do you think our parents left us here by ourselves to cook so we could get some alone time?
+
+
+
+
 [Toa]
 [EXPRESSION]13
 [Stuart]
 [EXPRESSION]7
+
+
 [Stuart]
 It’s a cruel way to do it.
+
+
 [Stuart]
 [EXPRESSION]4
 [Toa]
 [EXPRESSION]18
+
+
 [Toa]
 But it worked, didn’t it?
+
+
 [Toa]
 [EXPRESSION]17
 [Stuart]
 [EXPRESSION]6
+
+
 [Stuart]
 It sure did.
+
+
 [Stuart]
 [EXPRESSION]5
+
+
 [THOUGHT]
 The final string is tuned. Toa puts down the guitar and sits down next to me. 
+
+
 Close. 
+
+
 Very close.
+
+
 [Stuart]
 [EXPRESSION]1
 [Toa]
 [EXPRESSION]1
+
+
 [THOUGHT]
 There’s only a sliver of air between our faces. My heart starts beating furiously, and I’m sure hers is as well.
+
+
 [Stuart]
 [EXPRESSION]2
 [Toa]
 [EXPRESSION]1
+
+
 [Stuart]
 Hey.
+
+
 [Stuart]
 [EXPRESSION]1
 [Toa]
 [EXPRESSION]2
+
+
 [Toa]
 Hey.
+
+
 [Stuart]
 [EXPRESSION]18
 [Toa]
 [EXPRESSION]1
+
+
 [Stuart]
 Thanks for being awesome.
+
+
 [Stuart]
 [EXPRESSION]17
 [Toa]
 [EXPRESSION]18
+
+
 [Toa]
 No you.
+
+
 [Toa]
 [EXPRESSION]17
+
+
 [THOUGHT]
 We smile, and I gently hold onto her hand. She gives a tight squeeze back.
+
+
 [Toa]
 [EXPRESSION]14
+
+
 [Toa]
 You’re my best friend, you know?
+
+
+
+
 [Stuart]
 [EXPRESSION]18
 [Toa]
 [EXPRESSION]13
+
+
 [Stuart]
 I’d hope more than that?
+
+
 [Stuart]
 [EXPRESSION]17
 [Toa]
 [EXPRESSION]18
+
+
 [Toa]
 Much more than that too, silly.
+
+
 [Toa]
 [EXPRESSION]5
 [Stuart]
 [EXPRESSION]9
+
+
 [THOUGHT]
 She lets go and engulfs me in a suffocating bear hug. 
+
+
 [Stuart]
 [EXPRESSION]5
+
+
 [THOUGHT]
 I can only think of how soft she is as we hold on to one another, frozen in time as the snow falls gently into the Christmas snow. 
+
+
 She pulls away for just a moment to look at me as I look back. 
+
+
 [Stuart]
 [EXPRESSION]13
 [Toa]
 [EXPRESSION]13
+
+
 [THOUGHT]
 We close in. 
+
+
 And then…
+
+
 [BG]10
+
+
 [THOUGHT]
 …
+
+
 [Stuart]
 [EXPRESSION]5
 [Toa]
 [EXPRESSION]5
+
+
 [Stuart]
 …
+
+
 [Toa]
 …
+
+
 [Stuart]
 [EXPRESSION]14
+
+
 [Stuart]
 That was nice.
+
+
 [Stuart]
 [EXPRESSION]13
 [Toa]
 [EXPRESSION]14
 It sure was~
+
+
 [Toa]
 [EXPRESSION]13
+
+
 [THOUGHT]
 Toa hops up like a bunny to grab her guitar. She gives a few test strums, then looks back towards me.
+
+
 [Toa]
 [EXPRESSION]14
+
+
 [Toa]
 You know… it’s been a while since I heard you sing.
+
+
 [Toa]
 [EXPRESSION]13
+
+
 [THOUGHT]
 She gives me a smug grin. Oh no. I know what she’s planning.
+
+
 [Stuart]
 [EXPRESSION]2
+
+
 [Stuart]
 That’s because I’m a terrible singer.
+
+
 [Stuart]
 [EXPRESSION]1
 [Toa]
 [EXPRESSION]18
+
+
 [Toa]
 Oh come on, your voice is amazing! 
+
+
 We called ourselves terrible cooks at the start of the day. 
+
+
 We managed to cook an entire Christmas dinner together, didn’t we? 
+
+
 Everything’s worth at least trying.
+
+
 [Toa]
 [EXPRESSION]17
+
+
 [THOUGHT]
 I hate that she’s right. I sigh in defeat.
+
+
 [Stuart]
 [EXPRESSION]18
+
+
 [Stuart]
 No one’s gonna hear us, right?
+
+
 [Stuart]
 [EXPRESSION]17
+
+
 [Toa]
 [EXPRESSION]6
+
+
 [Toa]
 Walls are soundproof. No one but me.
+
+
 [Stuart]
 [EXPRESSION]18
+
+
 [Toa]
 [EXPRESSION]13
+
+
 [Stuart]
 …fine.
+
+
 [Stuart]
 [EXPRESSION]17
+
+
 [THOUGHT]
 I snuggle up next to Toa, and clear my throat. She has her guitar ready to go.
+
+
 [Stuart]
 [EXPRESSION]18
+
+
 [Stuart]
 Ready? 
+
+
+
+
 [Stuart]
 [EXPRESSION]17
 [Toa]
 [EXPRESSION]14
+
+
 [Toa]
 Always.
+
+
 [END]

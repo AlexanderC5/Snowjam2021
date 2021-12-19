@@ -44,8 +44,11 @@ public class DialogueManager : MonoBehaviour
 
         foreach (string line in lines)
         {            
-            // The "line.Length > 1" hopefully will catch errors in the web build?
-            if(!string.IsNullOrEmpty(line) || line.Length > 1 || line == "\n")
+            if(!string.IsNullOrEmpty(line)) // ERROR - This if statement does not do anything in the WebGL build. It seems like
+                                            //  the lines are no longer null once the file is compressed/packaged? I checked
+                                            //  for "\n" and "\r" strings as well, but didn't find anything. Though now that I
+                                            //  think about it, I should've checked for the chars, not the strings. In any case
+                                            //  for now I just removed all of the white space from the dialogue txts.
             {
                 //print(line);
                 if (line.StartsWith("["))

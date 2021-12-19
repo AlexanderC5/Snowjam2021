@@ -1,157 +1,283 @@
 ﻿[SCENE]Act 3 - Entree
 [MUSIC]1
 [BG]1
+
+
 [ENTER]0
 [ENTER]1
 [THOUGHT]
 After a moment of dragging and dropping ingredients with eagle-eye accuracy, we finally manage to finish the cookies.
+
+
 They look delightful. The light brown hue of the little men contrasts with the brilliant white frosting that decorates their faces and their clothing. The homely scent of baked desserts is simply divine.
+
+
 [Toa]
 [EXPRESSION]6
 They look wonderful, don’t they?
 [EXPRESSION]5
+
+
 [Stuart]
 [EXPRESSION]6
 They really do.
 [EXPRESSION]5
+
+
 [THOUGHT]
 We spend a minute just admiring our work. I still don’t quite understand how two culinary failures could make something like this, but I’m not complaining.
+
+
 Toa draws closer to me, and gives me a gentle nudge.
+
+
 [Toa]
 [EXPRESSION]14
 What’s next?
 [EXPRESSION]13
+
+
 [Stuart]
 [EXPRESSION]3
 Alright, last thing on the list. The big ol’ Christmas Ham.
 [EXPRESSION]0
+
+
 [THOUGHT]
 Big is an understatement. That thing is huge. I’m more than a bit nervous. This is the entree- the main course.
+
+
 We’ve done every other dish just fine, but that was just beginner’s luck. We can’t afford to mess this up.
+
+
 [Toa]
 [EXPRESSION]18
 Hey, uh, do you wanna take a five-minute breather first? We’ve been at this for a while.
 [EXPRESSION]16
+
+
 [THOUGHT]
 It’s like she can read my mind. I give a meek nod, and we plop down on the kitchen floor, glad to take a tiny break before the grand finale. 
+
+
 We sit there, side by side, just taking in the warm air of the fireplace and enjoying each other’s company in a homely silence.
+
+
 I probably could have stayed like that for the entire night.
+
+
 I hoped Toa was thinking the same.
+
+
 [Toa]
 [EXPRESSION]15
 How’s your research with that professor going?
 [EXPRESSION]12
+
+
 [Stuart]
 [EXPRESSION]15
-Ah, it’s going pretty good. Right now we’re...
+Ah, it’s going pretty good. Right now we’re…
+
+
 [THOUGHT]
 I spew out all the various experiments I’d been working on in the past semester to her, losing myself in an almost trance-like state. Pipettes. Centrifuges. Lab rats. You name it.
-Toa isn’t a STEM girl. Far from it. But that never stops her from listening to me blabber about my classes and my research.
+
+
+Toa isn’t a STEM girl. Far from it. But that never stops her from listening to me blabber about my classes and my research. 
+
+
 [Stuart]
-...so after that, we used the samples from the RNA isolation to...
+…so after that, we used the samples from the RNA isolation to…
 [EXPRESSION]12
+
+
 [Toa]
 [EXPRESSION]7
 Sorry, what’s RNA isolation again?
 [EXPRESSION]4
+
+
 [Stuart]
 [EXPRESSION]10
-Oh, I forgot to explain. Basically, when we get a tissue sample from an animal, we homogenize that and extract the genetic material inside it to...
+Oh, I forgot to explain. Basically, when we get a tissue sample from an animal, we homogenize that and extract the genetic material inside it to…
 [EXPRESSION]15
+
+
 [THOUGHT]
 And thus my trance goes on, finally only stopping when I realize that I should actually let Toa speak for once.
+
+
 [Stuart]
 [EXPRESSION]11
 Sorry, I’ve been rambling. How’s your research going?
 [EXPRESSION]12
+
+
 [Toa]
 [EXPRESSION]6
 Don’t be sorry, I love listening~
+
+
 [EXPRESSION]14
-Mmm... well, I think I’ve got a lead on that source I was talking about to you last night. So, it turns out, according to his diary, Captain Johnson was actually a part of this group that...
+Mmm… well, I think I’ve got a lead on that source I was talking about to you last night. So, it turns out, according to his diary, Captain Johnson was actually a part of this group that…
+
+
 [THOUGHT]
 I smile and listen intently to every word Toa spouts out of her mouth. She might not be the best in science, but she’s a walking history and literature encyclopedia. 
+
+
 I don’t completely understand everything she’s talking about, but that doesn’t really matter. I want to know more about what she loves to do by herself, whatever it may be. I know for certain that’s how Toa also sees things.
+
+
 That’s how it’s always been.
+
+
 [Toa]
-...so yeah. I’m gonna have to call the military museum to see if they have any more information about him. I really feel good about this!
+…so yeah. I’m gonna have to call the military museum to see if they have any more information about him. I really feel good about this!
 [EXPRESSION]13
+
+
 [Stuart]
 [EXPRESSION]14
 How far away is the museum?
 [EXPRESSION]13
+
+
 [Toa]
 [EXPRESSION]15
 About 13 miles from here. Why?
 [EXPRESSION]12
+
+
 [Stuart]
 [EXPRESSION]14
 Why just call? If you want, we can drive down there after Christmas. I’m sure they’ll be open.
 [EXPRESSION]13
+
+
 [Toa]
 [EXPRESSION]10
 Wait.
+
+
 REALLY?
+
+
 [Stuart]
 [EXPRESSION]14
 Yeah, of course. It might be fun to just look at everything together too.
 [EXPRESSION]13
+
+
 [Toa]
 [EXPRESSION]14
 Oh my God, yes! Let’s do it!
 [EXPRESSION]15
+
+
 [THOUGHT]
 She flips out her phone in the blink of an eye. I’m simultaneously impressed and slightly terrified of how fast she’s typing.
+
+
 [Toa]
 [EXPRESSION]14
 Okay, so we can get tickets on the 27th at 10 AM in the morning. If we leave at around 8, we can get there on time to see everything.
 [EXPRESSION]13
+
+
 [Stuart]
 [EXPRESSION]6
 Sounds good. You sound very excited for this.
 [EXPRESSION]5
+
+
 [Toa]
 [EXPRESSION]14
 Of course I am! It’ll be the greatest date ever!
 [EXPRESSION]13
+
+
 [MUSIC]3
+
+
 [Stuart]
 [EXPRESSION]9
 [THOUGHT]
-...
+…
+
+
 What?
+
+
 [Toa]
 [EXPRESSION]9
+
+
 [THOUGHT]
 She pauses. I pause. 
+
+
 Oh my God.
+
+
 I can feel my heart pounding against my chest like a war drum. 
-She really does...
+
+
+She really does…
+
+
 [Toa]
 [EXPRESSION]18
-I, uh, I, uh, I-I-I mean... we set the date! Yeah!
+I, uh, I, uh, I-I-I mean… we set the date! Yeah!
 [EXPRESSION]17
+
+
 [THOUGHT]
 That was as discreet as a flaming oil rig screaming down the highway.
+
+
 I’m not hallucinating, right?
+
+
 Toa likes me. In that way.
-As much as I want to smile like a maniac in joy, Toa’s obviously in distress. Technically, our five minutes of break aren’t up yet, but...
+
+
+As much as I want to smile like a maniac in joy, Toa’s obviously in distress. Technically, our five minutes of break aren’t up yet, but…
+
+
 [Stuart]
 [EXPRESSION]18
 Oh, would you look at that? Break time’s over. Let’s get to making that ham.
 [EXPRESSION]17
+
+
 [Toa]
 [EXPRESSION]17
+
+
 [THOUGHT]
 Toa sighs in relief, thankful that I’ve given her an out. At least for now.
+
+
 Like the quick recoverer she is, she hops up next to me and cracks her knuckles.
+
+
 [Toa]
 [EXPRESSION]15
 Alrighty!
 [EXPRESSION]12
+
+
 [Stuart]
 [EXPRESSION]1
+
+
 [THOUGHT]
 We’re almost done. Let’s just get this ham done, and then we can sort out our thoughts later.
+
+
 It takes every inch of my being to stop my hands from shaking from a freak amalgamation of anxiety and excitement.
+
+
 [END]

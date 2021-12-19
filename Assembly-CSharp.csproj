@@ -62,15 +62,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\Dialogues\Backup Dialogues (With whitespace)\Act1 FINAL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Dialogues\Backup Dialogues (With whitespace)\Act2 FINAL.txt" />
+    <None Include="Assets\Dialogues\Backup Dialogues (With whitespace)\Act5 FINAL.txt" />
     <None Include="Assets\Dialogues\Act4 FINAL.txt" />
     <None Include="Assets\Dialogues\Act1 FINAL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Dialogues\Backup Dialogues (With whitespace)\Act4 FINAL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Dialogues\Test (OLD).txt" />
     <None Include="Assets\Dialogues\Act3 FINAL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Dialogues\Backup Dialogues (With whitespace)\Act3 FINAL.txt" />
     <None Include="Assets\Dialogues\Act5 FINAL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
