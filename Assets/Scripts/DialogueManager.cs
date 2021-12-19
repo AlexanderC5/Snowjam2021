@@ -7,10 +7,12 @@ public class DialogueManager : MonoBehaviour
 {
     private SceneManager m_sceneManager;
     private DialogueSystem dialogue;
+    private CharacterManager m_characterManager; // To change expressions / bounce
 
     private List<string> script = new List<string>();    // Stores text to be displayed
     private List<char> lineType = new List<char>();      // Stores what kind of line it is (music, bg, scene, name of character, action, etc.)
     private List <string> speaking = new List<string>(); // Stores stores who is speaking
+    //private string previousSpeaker = ""; // Who was the last person to speak? -> Bounce their sprite if speaker changes. Unused until bouncing animation is in.
 
     [SerializeField] private TextAsset[] txtAsset;       // Array of text file assets. Add text files in the Unity Editor!
     private string txt;
@@ -20,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         m_sceneManager = GameObject.FindObjectOfType<SceneManager>();
+        m_characterManager = GameObject.FindObjectOfType<CharacterManager>();
         dialogue = GameObject.FindObjectOfType<DialogueSystem>();
     }
 
@@ -173,7 +176,11 @@ public class DialogueManager : MonoBehaviour
         
         if (Input.GetMouseButtonUp(0)) { // Click to finish current line or move to next line
             if (!dialogue.isWaitingForUserInput) { StartCoroutine(finishTextBox()); }
-            else advanceText();
+            else
+            {
+                m_sceneManager.playSFX(Values.S_POP);
+                advanceText();
+            }
         }
     }
 
@@ -195,7 +202,10 @@ public class DialogueManager : MonoBehaviour
                 isLine = true;
 
                 if (speaking[index] == " ") { m_sceneManager.UnloadUI(1); } // Hide the nameplate if it's an inner thought
-                else { m_sceneManager.LoadUI(1); }                          // Show nameplate if it's spoken aloud
+                else // Show nameplate if it's spoken aloud
+                {
+                    m_sceneManager.LoadUI(1);
+                }
 
                 dialogue.Say(script[index], speaking[index]); // Clear speech box and output line
             }
@@ -207,12 +217,12 @@ public class DialogueManager : MonoBehaviour
                 if (speaking[index] == "Toa")
                 {
                     //print("TOA EXPRESSION WORKED");
-                    //TODO: CHARACTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                    m_characterManager.SetExpression(Values.C_TOA, temp);
                 }
                 else //STUART
                 {
                     //print("STUART EXPRESSION WORKED");
-                    //TODO: CHARCTER FACIAL FEATURE CHANGE FROM CHARACTER MANAGER
+                    m_characterManager.SetExpression(Values.C_STUART, temp);
                 }
             }
 
@@ -221,7 +231,7 @@ public class DialogueManager : MonoBehaviour
             {
                 temp = Int32.Parse(script[index]);
                 //print("SFX WORKED:" + temp);
-     //           m_sceneManager.playSFX(temp);
+                m_sceneManager.playSFX(temp);
             }
 
             // Music
@@ -269,6 +279,19 @@ public class DialogueManager : MonoBehaviour
             }
 
             index++; // Move on to the next line!
+
+            /*
+            // Bounce character - Unimplimented
+            if (speaking[index] != previousSpeaker) // Change the speaker
+            {
+                if (speaking[index] == "Stuart")
+                    m_characterManager.BounceCharacter(0);
+                else if (speaking[index] == "Toa")
+                    m_characterManager.BounceCharacter(1);
+
+                previousSpeaker = speaking[index];
+            }
+            */
         }
     }
 
@@ -285,8 +308,10 @@ public class DialogueManager : MonoBehaviour
     IEnumerator fadeBlack(float time) // Background ID:10 fades to black
     {
         m_sceneManager.crossFade.SetTrigger("FadeToBlack");
+        m_sceneManager.DisableDialogue(); // Prevent clicking through text during the fade
         yield return new WaitForSeconds(time);
         m_sceneManager.crossFade.SetTrigger("UnFade");
+        m_sceneManager.EnableDialogue();
     }
 
     IEnumerator endDialogueScene() // Wait a bit after the final click and then move on to next scene

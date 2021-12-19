@@ -41,7 +41,7 @@ She hums a happy Christmas tune to herself as she scoops up the cups and scrambl
 That's Toa, my best friend for what feels like forever. Our families have been incredibly tight knit, even before we were born.
 I honestly can't recall a memory where she wasn't there by my side. Every gathering, every vacation, every holiday, we'd spend together.
 In a way, she's almost like a sister to me.
-[SFX]2
+[SFX]3
 [Toa]
 [EXPRESSION]11
 AGH-
@@ -67,7 +67,7 @@ Jeez, be more careful. I don't wanna have to watch these cooking tutorials and y
 [Stuart]
 [EXPRESSION]0
 [Toa]
-[EXPRESSION]20
+[EXPRESSION]19
 [Toa]
 I'm fine, don't worry about me! Are <i>you</i> okay?
 [Toa]
@@ -76,7 +76,7 @@ I'm fine, don't worry about me! Are <i>you</i> okay?
 Am I? God, I've been so wound up this entire day. How are we supposed to cook dinner for two whole families by tonight?
 The clock's ticking until our parents come back from last minute Christmas shopping.
 [Stuart]
-[EXPRESSION]20
+[EXPRESSION]19
 [Stuart]
 I'm alive and my heart's still beating. I'll survive. Thanks for asking.
 [Stuart]
@@ -94,7 +94,7 @@ She pauses and leans in, studying my face for a few seconds.
 [THOUGHT]
 She's... quite close.
 [Toa]
-[EXPRESSION]20
+[EXPRESSION]19
 Hey, I know you're worried about tonight. I am too... but try and keep your chin up, okay? I promise it'll be okay!
 [Toa]
 [EXPRESSION]12
@@ -128,7 +128,7 @@ Alright Toa, let's get down to business.
 [Toa]
 To defeat the Huns?
 [Stuart]
-[EXPRESSION]20
+[EXPRESSION]19
 [Toa]
 [EXPRESSION]16
 [Stuart]

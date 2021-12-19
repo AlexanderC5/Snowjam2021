@@ -255,7 +255,15 @@ public class SceneManager : MonoBehaviour
     //                                                                                           //
     // ========================================================================================= //
 
-    public void playSFX(int n) { sound.PlayOneShot(sfx[n]); }
+    public void playSFX(int n)
+    {
+        if (n >= sfx.Count || n < 0)
+        {
+            Debug.Log("Invalid SFX. No SFX was played!");
+            return;
+        }
+        sound.PlayOneShot(sfx[n]);
+    }
 
     public void startMusic(int n)
     {

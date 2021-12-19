@@ -56,9 +56,11 @@
     <Compile Include="Assets\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
     <Compile Include="Assets\Scripts\MinigameManager.cs" />
+    <Compile Include="Assets\Scripts\Values.cs" />
     <Compile Include="Assets\Scripts\SceneManager.cs" />
     <Compile Include="Assets\Scripts\DialogueSystem.cs" />
-    <Compile Include="Assets\Scripts\Values.cs" />
+    <Compile Include="Assets\Scripts\CharacterManager.cs" />
+    <Compile Include="Assets\Scripts\CharacterExpressions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
