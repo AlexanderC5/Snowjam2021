@@ -66,34 +66,34 @@ public class MinigameManager : MonoBehaviour
                 recipeList[0][0] = Values.I_POTATO;        // Ingredient #1
                 recipeList[0][1] = Values.I_PEELER;        // Ingredient #2
                 recipeList[0][2] = Values.I_POTATO_PEELED; // Resulting ingredient
-                recipeList[0][3] = 2;                        // Combination SFX
+                recipeList[0][3] = Values.S_PEELING;                        // Combination SFX
 
                 // Step 1
                 recipeList[1][0] = Values.I_POTATO_PEELED;
                 recipeList[1][1] = Values.I_POT_WATER;
                 recipeList[1][2] = Values.I_POTATO_STEAM;
-                recipeList[1][3] = 2; // Combination SFX
+                recipeList[1][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[1].Add(0);
 
                 // Step 2
                 recipeList[2][0] = Values.I_POTATO_STEAM;
                 recipeList[2][1] = Values.I_BOWL;
                 recipeList[2][2] = Values.I_POTATO_BOWL;
-                recipeList[2][3] = 2; // Combination SFX
+                recipeList[2][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[2].Add(1);
 
                 // Step 3
                 recipeList[3][0] = Values.I_POTATO_BOWL;
                 recipeList[3][1] = Values.I_MIXER;
                 recipeList[3][2] = Values.I_POTATO_MASH;
-                recipeList[3][3] = 2; // Combination SFX
+                recipeList[3][3] = Values.S_POTATO_MASH; // Combination SFX
                 recipePrereqs[3].Add(2);
 
                 // Step 4
                 recipeList[4][0] = Values.I_POTATO_MASH;
                 recipeList[4][1] = Values.I_BUTTER_SLICE;
                 recipeList[4][2] = Values.I_POTATO_MASH;
-                recipeList[4][3] = 2; // Combination SFX
+                recipeList[4][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[4].Add(3);
                 recipePrereqs[4].Add(9);
 
@@ -101,28 +101,28 @@ public class MinigameManager : MonoBehaviour
                 recipeList[5][0] = Values.I_POTATO_MASH;
                 recipeList[5][1] = Values.I_MILK;
                 recipeList[5][2] = Values.I_POTATO_MASH;
-                recipeList[5][3] = 2; // Combination SFX
+                recipeList[5][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[5].Add(3);
 
                 // Step 6
                 recipeList[6][0] = Values.I_POTATO_MASH;
                 recipeList[6][1] = Values.I_SALT;
                 recipeList[6][2] = Values.I_POTATO_MASH;
-                recipeList[6][3] = 2; // Combination SFX
+                recipeList[6][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[6].Add(3);
 
                 // Step 7
                 recipeList[7][0] = Values.I_POTATO_MASH;
                 recipeList[7][1] = Values.I_PEPPER;
                 recipeList[7][2] = Values.I_POTATO_MASH;
-                recipeList[7][3] = 2; // Combination SFX
+                recipeList[7][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[7].Add(3);
 
                 // Step 8
                 recipeList[8][0] = Values.I_POTATO_MASH;
                 recipeList[8][1] = Values.I_GRAVY;
                 recipeList[8][2] = Values.I_POTATO_GRAVY;
-                recipeList[8][3] = 2; // Combination SFX
+                recipeList[8][3] = Values.S_POP; // Combination SFX
                 recipePrereqs[8].Add(4);
                 recipePrereqs[8].Add(5);
                 recipePrereqs[8].Add(6);
@@ -132,7 +132,7 @@ public class MinigameManager : MonoBehaviour
                 recipeList[9][0] = Values.I_KNIFE;
                 recipeList[9][1] = Values.I_BUTTER;
                 recipeList[9][2] = Values.I_BUTTER_SLICE;
-                recipeList[9][3] = 2; // Combination SFX
+                recipeList[9][3] = Values.S_KNIFE_CHOP; // Combination SFX
 
                 sinkList.Add(new int[2]);
                 sinkList[0][0] = Values.I_POT;
@@ -155,43 +155,43 @@ public class MinigameManager : MonoBehaviour
                 remainingRecipeSteps = 10;
 
                 // Step 0
-                recipeList.Add(new int[4] { Values.I_BOWL, Values.I_FLOUR, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL, Values.I_FLOUR, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 1
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SUGAR, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SUGAR, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 2
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SPICES, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SPICES, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
                                 
                 // Step 3
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SALT, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_SALT, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 4
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_BUTTER_SLICE, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_BUTTER_SLICE, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 5
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_MILK, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_MILK, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 6
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_EGG, Values.I_BOWL_FILLED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_EGG, Values.I_BOWL_FILLED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 7
-                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_MIXER, Values.I_GINGERBREAD, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BOWL_FILLED, Values.I_MIXER, Values.I_GINGERBREAD, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>() { 1, 2, 3, 4, 5, 6 });
 
                 // Step 8
-                recipeList.Add(new int[4] { Values.I_GINGERBREAD, Values.I_ICING, Values.I_GINGER_ICED, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_GINGERBREAD, Values.I_ICING, Values.I_GINGER_ICED, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 9
-                recipeList.Add(new int[4] { Values.I_BUTTER, Values.I_KNIFE, Values.I_BUTTER_SLICE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BUTTER, Values.I_KNIFE, Values.I_BUTTER_SLICE, Values.S_KNIFE_CHOP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 break;
@@ -206,35 +206,35 @@ public class MinigameManager : MonoBehaviour
                 remainingRecipeSteps = 4;
 
                 // Step 0
-                recipeList.Add(new int[4] { Values.I_HAM, Values.I_SALT, Values.I_HAM, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_HAM, Values.I_SALT, Values.I_HAM, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 1
-                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_SALT, Values.I_PINE_HAM, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_SALT, Values.I_PINE_HAM, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 2
-                recipeList.Add(new int[4] { Values.I_PINE_HAM_CLOVE, Values.I_SALT, Values.I_PINE_HAM_CLOVE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_PINE_HAM_CLOVE, Values.I_SALT, Values.I_PINE_HAM_CLOVE, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 3
-                recipeList.Add(new int[4] { Values.I_HAM, Values.I_PEPPER, Values.I_HAM, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_HAM, Values.I_PEPPER, Values.I_HAM, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 4
-                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_PEPPER, Values.I_PINE_HAM, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_PEPPER, Values.I_PINE_HAM, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 5
-                recipeList.Add(new int[4] { Values.I_PINE_HAM_CLOVE, Values.I_PEPPER, Values.I_PINE_HAM_CLOVE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_PINE_HAM_CLOVE, Values.I_PEPPER, Values.I_PINE_HAM_CLOVE, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 6
-                recipeList.Add(new int[4] { Values.I_HAM, Values.I_PINEAPPLE, Values.I_PINE_HAM, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_HAM, Values.I_PINEAPPLE, Values.I_PINE_HAM, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 7
-                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_CLOVES, Values.I_PINE_HAM_CLOVE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_PINE_HAM, Values.I_CLOVES, Values.I_PINE_HAM_CLOVE, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 break;
@@ -254,43 +254,43 @@ public class MinigameManager : MonoBehaviour
                 remainingRecipeSteps = 10;
 
                 // Step 0
-                recipeList.Add(new int[4] { Values.I_MAYO, Values.I_SPOON, Values.I_SPOON_MAYO, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_MAYO, Values.I_SPOON, Values.I_SPOON_MAYO, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 1
-                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_TOMATO, Values.I_TOMATO_SLICE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_TOMATO, Values.I_TOMATO_SLICE, Values.S_KNIFE_CHOP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 2
-                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_LETTUCE, Values.I_LETTUCE_LEAF, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_LETTUCE, Values.I_LETTUCE_LEAF, Values.S_KNIFE_CHOP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 3
-                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_PINE_HAM_CLOVE, Values.I_HAM_SLICE, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_PINE_HAM_CLOVE, Values.I_HAM_SLICE, Values.S_KNIFE_CHOP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 4
-                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_BREAD_LOAF, Values.I_BREAD_A, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_KNIFE, Values.I_BREAD_LOAF, Values.I_BREAD_A, Values.S_KNIFE_CHOP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 5
-                recipeList.Add(new int[4] { Values.I_BREAD_A, Values.I_SPOON_MAYO, Values.I_BREAD_B, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BREAD_A, Values.I_SPOON_MAYO, Values.I_BREAD_B, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 6
-                recipeList.Add(new int[4] { Values.I_BREAD_B, Values.I_TOMATO_SLICE, Values.I_BREAD_C, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BREAD_B, Values.I_TOMATO_SLICE, Values.I_BREAD_C, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 7
-                recipeList.Add(new int[4] { Values.I_BREAD_C, Values.I_LETTUCE_LEAF, Values.I_BREAD_D, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BREAD_C, Values.I_LETTUCE_LEAF, Values.I_BREAD_D, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 8
-                recipeList.Add(new int[4] { Values.I_BREAD_D, Values.I_CHEESE_SLICE, Values.I_BREAD_E, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BREAD_D, Values.I_CHEESE_SLICE, Values.I_BREAD_E, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 // Step 9
-                recipeList.Add(new int[4] { Values.I_BREAD_E, Values.I_HAM_SLICE, Values.I_SANDWICH, 2 }); // Ingr1, Ingr2, IngrResult, SFX
+                recipeList.Add(new int[4] { Values.I_BREAD_E, Values.I_HAM_SLICE, Values.I_SANDWICH, Values.S_POP }); // Ingr1, Ingr2, IngrResult, SFX
                 recipePrereqs.Add(new List<int>());
 
                 break;
@@ -376,7 +376,7 @@ public class MinigameManager : MonoBehaviour
                             else m_SceneManager.UnloadIngredient(recipeList[i][0]);
                         }
 
-                        //m_SceneManager.playSFX(recipeList[currentRecipePos][3]); // Play Combination SFX
+                        m_SceneManager.playSFX(recipeList[i][3]); // Play Combination SFX
 
                         remainingRecipeSteps--; // Onward to the next recipe!
 
@@ -421,6 +421,7 @@ public class MinigameManager : MonoBehaviour
     {
         m_SceneManager.DisplaySceneTitle("Cooking Complete!"); // Victory Message
         //Debug.Log("Minigame clear");
+        m_SceneManager.playSFX(Values.S_COOKING_COMPLETE);
         yield return new WaitForSeconds(5f / m_SceneManager.animationSpeed);
         m_SceneManager.LoadScene(m_SceneManager.getScene() + 1); // Move on to next scene
     }

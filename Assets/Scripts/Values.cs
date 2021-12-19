@@ -90,8 +90,36 @@ public class Values : MonoBehaviour
     public const int I_SANDWICH = 49;
 
     // SFX (S)
-
+    public const int S_POP = 0;
+    public const int S_TEXT_A = 1;
+    public const int S_TEXT_B = 2;
+    public const int S_FALLING = 3;
+    public const int S_COOKING_COMPLETE = 4;
+    public const int S_SINK_RUNNING = 5;
+    public const int S_OVEN_DING = 6;
+    public const int S_PEELING = 7;
+    public const int S_KNIFE_CHOP = 8;
+    public const int S_POTATO_MASH = 9;
 
     // Expressions (E)
-
+    public const int E_Conc = 0;
+    public const int E_ConcBlush = 1;
+    public const int E_ConcBlushTalk = 2;
+    public const int E_ConcTalk = 3;
+    public const int E_EyeC = 4;
+    public const int E_EyeCBlush = 5;
+    public const int E_EyeCBlushTalk = 6;
+    public const int E_EyeCTalk = 7;
+    public const int E_Shock = 8;
+    public const int E_ShockBlush = 9;
+    public const int E_ShockBlushTalk = 10;
+    public const int E_ShockTalk = 11;
+    public const int E_Smile = 12;
+    public const int E_SmileBlush = 13;
+    public const int E_SmileBlushTalk = 14;
+    public const int E_SmileTalk = 15;
+    public const int E_Support = 16;
+    public const int E_SupportBlush = 17;
+    public const int E_SupportBlushTalk = 18;
+    public const int E_SupportTalk = 19;
 }
