@@ -5,67 +5,53 @@ using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
+    // These use Find() commands to link up with the correct Game Objects/Componenets
     private MinigameManager m_minigameManager;
     private DialogueManager m_dialogueManager;
-        
-    private bool isDialogueEnabled = false; // disables Dialogue when not in a VN segment
-    public string sceneType = "menu"; // VN, cooking
-
-    // These commented variables are old code used for assigning all of the game objects to these arrays
-    //  when Awake() is called. Since the build of the game orders the layers differently (I assume), these
-    //  have been replaced with Lists that are just filled out in Unity
-    //private GameObject[] backgrounds;
-    //private GameObject[] characters;
-    //private GameObject[] interfaces;
-    //private GameObject[] ingredients;
-    public List<GameObject> backgrounds;
-    public List<GameObject> characters;
-    public List<GameObject> interfaces;
-    public List<GameObject> ingredients;
-
-    public int initialScene = 0; // Change this in the Unity Editor to start from a different scene
-    private int currentScene;
-    private IEnumerator loadingScene; // Prevents two scenes from being loaded at the same time -> crash
-
-    // Animation Animators
-    public float animationSpeed = 1.0f; // Cross fade spee (increase to speed up)
-    public Animator crossFade; // Cross fade
-    public Animator optionsMenu;
-    public Animator sceneTitle;
-    //private byte windowOpacity;
-    public float textSpeed = 1.0f; // Text Speed! (increase to speed up)
-
-    public GameObject[] sliders; // Stores all of the sliders present in the options menu
     private AudioSource music; // Plays music
     private AudioSource sound; // Plays sfx
-    public List<AudioClip> musics; // Lists all music tracks - can be added directly in the Unity editor
-    public List<AudioClip> sfx; // List of all sfx - can be added directly in the Unity editor
+    
+    // These values can be changed directly in the Unity editor, and are public to make life easier
+    public int initialScene = 0;
+    public float animationSpeed = 1.0f; // (increase to speed up)
+    public float textSpeed = 1.0f;      // (increase to speed up)
     public bool instantText;
     public bool sceneSkipEnabled;
+
+    // These objects are manually added in the Unity editor
+    public List<GameObject> backgrounds; //
+    public List<GameObject> characters;  //
+    public List<GameObject> interfaces;  //
+    public List<GameObject> ingredients; //
+    public List<AudioClip> musics;       // Lists all music tracks - can be added directly in the Unity editor
+    public List<AudioClip> sfx;          // List of all sfx - can be added directly in the Unity editor
+    public GameObject[] sliders;         // Stores all of the sliders present in the options menu
+    public Animator crossFade;           // Cross fade
+    public Animator optionsMenu;         //
+    public Animator sceneTitle;          //
+
+    // These variables are private
+    private int currentScene;               // Scene #
+    private IEnumerator loadingScene;       // Prevents two scenes from being loaded at the same time -> crash
+    private bool isDialogueEnabled;         // Disables Dialogue when not in a VN segment
+    private string sceneType = "menu";      // VN, cooking. Used to disable dialogue when menus are opened.
 
     private float sceneXSize; // Required to deal with changes in screen resolution
     private float sceneYSize;
 
-    // ===== //////////////////////////////////////////////////////////////////////////////////////
-    // START //////////////////////////////////////////////////////////////////////////////////////
-    // ===== //////////////////////////////////////////////////////////////////////////////////////
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                      START / UPDATE                                       //
+    //                                                                                           //
+    // ========================================================================================= //
 
     void Start()
     {
         m_minigameManager = GameObject.FindObjectOfType<MinigameManager>();
         m_dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
-
-        // OLD CODE
-        //backgrounds = GameObject.FindGameObjectsWithTag("BG");
-        //characters = GameObject.FindGameObjectsWithTag("Char");
-        //interfaces = GameObject.FindGameObjectsWithTag("UI");
-        //ingredients = GameObject.FindGameObjectsWithTag("Ingr");
-        //sliders = GameObject.FindGameObjectsWithTag("Slider");
-
         music = GetComponent<AudioSource>();
         sound = GameObject.FindGameObjectWithTag("SFX").GetComponent<AudioSource>();
         
-
         crossFade.gameObject.SetActive(true); // Do this upon start so we can disable the black screen during testing
         crossFade.speed = animationSpeed;
         optionsMenu.gameObject.SetActive(true);
@@ -96,6 +82,12 @@ public class SceneManager : MonoBehaviour
         if (Input.GetKeyDown("q") && sceneSkipEnabled) LoadScene(currentScene + 1); // Dev skip through scenes
     }
 
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                     SCENE MANAGEMENT                                      //
+    //                                                                                           //
+    // ========================================================================================= //
+
     public void LoadScene(int n) // Prevents loading multiple scenes at once
     {
         if (loadingScene == null) // If not currently loading a scene, load
@@ -122,19 +114,19 @@ public class SceneManager : MonoBehaviour
             case 7: // Dialogue 3
             case 9: // Dialogue 4
                 loadVisualNovel();
-                m_dialogueManager.beginDialogueSegment((n + 1) / 2 - 1); // Load Dialogue #1
+                m_dialogueManager.beginDialogueSegment((n + 1) / 2 - 1);
                 break;
             
             // Cooking Minigame scenes
             case 2: // Minigame 0
             case 4: // Minigame 1
-            //case 6: // Minigame 2
-            //case 8: // Minigame 3
+            case 6: // Minigame 2
+            case 8: // Minigame 3
                 loadCookingMinigame();
                 m_minigameManager.startCooking(n / 2 - 1);
                 break;
 
-            // Credits
+            // Game Complete!
             case 10:
                 sceneType = "credits";
                 DisableDialogue(); // Prevents clicking to progress text
@@ -175,29 +167,21 @@ public class SceneManager : MonoBehaviour
 
     public int getScene() { return currentScene; }
 
-    // ============= //
-    // MUSIC & SOUND //
-    // ============= //
+    public string SceneType() { return sceneType; }
 
-    public void playSFX(int n)
+    public void sceneCleared() { LoadScene(currentScene + 1); }
+
+    IEnumerator gameClear()
     {
-        sound.PlayOneShot(sfx[n]);
+        yield return new WaitForSeconds(50f);
+        LoadScene(0);
     }
 
-    public void startMusic(int n)
-    {
-        music.clip = musics[n];
-        music.Play();
-    }
-
-    public void stopAllMusic()
-    {
-        music.Pause();
-    }
-
-    // ======================== //
-    // LOADING SPRITES & IMAGES //
-    // ======================== //
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                     LOADING SPRITES                                       //
+    //                                                                                           //
+    // ========================================================================================= //
 
     public void HideAll()
     {
@@ -227,61 +211,72 @@ public class SceneManager : MonoBehaviour
     public GameObject getIngredient(int n) { return ingredients[n]; }
     public int numIngredients() { return ingredients.Count; }
 
-    // =============== //
-    // TEXT & DIALOGUE //
-    // =============== //
+
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                     TEXT / DIALOGUE                                       //
+    //                                                                                           //
+    // ========================================================================================= //
 
     public void DisableDialogue()
     {
         isDialogueEnabled = false;
-        UnloadUI((int)UIs.DIALOGUE); // Unload dialogue box
-        UnloadUI((int)UIs.NAMEPLATE); // Unload nameplate
+        UnloadUI(Values.U_DIALOGUE); // Unload dialogue box
+        UnloadUI(Values.U_NAMEPLATE); // Unload nameplate
     }
     public void EnableDialogue()
     {
         isDialogueEnabled = true;
-        LoadUI((int)UIs.DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
-        LoadUI((int)UIs.NAMEPLATE); // Load Nameplate
+        LoadUI(Values.U_DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
+        LoadUI(Values.U_NAMEPLATE); // Load Nameplate
     }
-    public bool DialogueOn() { return isDialogueEnabled; }
+    public bool IsDialogueOn() { return isDialogueEnabled; }
 
-    public void DisplaySceneTitle(string str)
-    {
-        StartCoroutine(DispSceneTitle(str));
-    }
+    public void DisplaySceneTitle(string str) { StartCoroutine(DispSceneTitle(str)); }
 
     IEnumerator DispSceneTitle(string str)
     {
         yield return new WaitForSeconds(1f / animationSpeed); // Wait for scene fade transition to finish
-        LoadUI((int)UIs.SCENE_TITLE);
-        interfaces[(int)UIs.SCENE_TITLE].GetComponentInChildren<Text>().text = str;
+        LoadUI(Values.U_SCENE_TITLE);
+        interfaces[Values.U_SCENE_TITLE].GetComponentInChildren<Text>().text = str;
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
         yield return new WaitForSeconds(3f / animationSpeed); // Scene Title Stays on screen for this long
         sceneTitle.SetTrigger("SlideOff");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
-        UnloadUI((int)UIs.SCENE_TITLE);
+        UnloadUI(Values.U_SCENE_TITLE);
     }
 
-    public void toggleInstantText()
+    public void toggleInstantText() { instantText = !instantText; }
+
+
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                      MUSIC / SOUND                                        //
+    //                                                                                           //
+    // ========================================================================================= //
+
+    public void playSFX(int n) { sound.PlayOneShot(sfx[n]); }
+
+    public void startMusic(int n)
     {
-        if (instantText) instantText = false;
-        else instantText = true;
+        music.clip = musics[n];
+        music.Play();
     }
 
-    // =========================== //
-    // BUTTONS & SCENE TRANSITIONS //
-    // =========================== //
-    
+    public void stopAllMusic() { music.Pause(); }
 
-    public void PlayButtonPressed()
-    {
-        LoadScene(1);
-    }
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                     BUTTONS / MENUS                                       //
+    //                                                                                           //
+    // ========================================================================================= //
+
+    public void PlayButtonPressed() { LoadScene(1); }
 
     public void OptionsWindowOpened() { StartCoroutine(OptnOpen()); }
     IEnumerator OptnOpen()
     {
-        LoadUI((int)UIs.OPT_MENU);
+        LoadUI(Values.U_OPT_MENU);
         DisableDialogue();
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
     }
@@ -290,31 +285,17 @@ public class SceneManager : MonoBehaviour
     {
         optionsMenu.SetTrigger("SlideOff");
         yield return new WaitForSeconds(2f / 3 / animationSpeed);
-        UnloadUI((int)UIs.OPT_MENU);
+        UnloadUI(Values.U_OPT_MENU);
         if (sceneType == "VN") EnableDialogue();
     }
 
-    public void ExitButtonPressed() // This button will only work in a Built Application (i.e. WebGL version posted to itch)
-    {
-        StartCoroutine(CloseGame());
-    }
+    public void ExitButtonPressed() { StartCoroutine(CloseGame()); }
 
     IEnumerator CloseGame()
     {
         crossFade.SetTrigger("FadeToBlack");
         yield return new WaitForSeconds(1f / animationSpeed);
         Application.Quit();
-    }
-    
-    public void sceneCleared()
-    {
-        LoadScene(currentScene + 1);
-    }
-
-    IEnumerator gameClear()
-    {
-        yield return new WaitForSeconds(50f);
-        LoadScene(0);
     }
 
     public void toggleSceneSkip()
@@ -323,9 +304,12 @@ public class SceneManager : MonoBehaviour
         else sceneSkipEnabled = true;
     }
 
-    // ================= //
-    // SCREEN RESOLUTION //
-    // ================= //
+
+    // ========================================================================================= //
+    //                                                                                           //
+    //                                    SCREEN RESOLUTION                                      //
+    //                                                                                           //
+    // ========================================================================================= //
 
     public float getScreenX() { return sceneXSize; }
     public float getScreenY() { return sceneYSize; }

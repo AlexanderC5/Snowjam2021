@@ -5,7 +5,7 @@ using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    private SceneManager m_SceneManager;
+    private SceneManager m_sceneManager;
     private DialogueSystem dialogue;
 
     private List<string> script = new List<string>();    // Stores text to be displayed
@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        m_SceneManager = GameObject.FindObjectOfType<SceneManager>();
+        m_sceneManager = GameObject.FindObjectOfType<SceneManager>();
         dialogue = GameObject.FindObjectOfType<DialogueSystem>();
     }
 
@@ -40,11 +40,12 @@ public class DialogueManager : MonoBehaviour
     {
         string[] lines = txt.Split(System.Environment.NewLine.ToCharArray()); // Split txt by newline into an array
 
-        int counter = 0;
+        //int counter = 0;
 
         foreach (string line in lines)
         {            
-            if(!string.IsNullOrEmpty(line))
+            // The "line.Length > 1" hopefully will catch errors in the web build?
+            if(!string.IsNullOrEmpty(line) || line.Length > 1 || line == "\n")
             {
                 //print(line);
                 if (line.StartsWith("["))
@@ -150,7 +151,7 @@ public class DialogueManager : MonoBehaviour
                     speaking.Add(speaking[speaking.Count-1]);
                 }
             }
-            
+            /*
             else if (counter % 2 == 0) // Separate new text box by empty line
             {
                 script.Add("");
@@ -158,14 +159,14 @@ public class DialogueManager : MonoBehaviour
                 speaking.Add(speaking[speaking.Count-1]);
             }
             counter++;
-            
+            */
         }
     }
 
     void LateUpdate() // Make sure to update the textbox AFTER any UI button presses (so you don't accidentally advance text)
     {
-        if (m_SceneManager.sceneType != "VN") return; // If not in a VN scene, don't register clicks
-        if (!m_SceneManager.DialogueOn()) return; // If in a menu, don't register clicks
+        if (m_sceneManager.SceneType() != "VN") return; // If not in a VN scene, don't register clicks
+        if (!m_sceneManager.IsDialogueOn()) return; // If in a menu, don't register clicks
         
         if (Input.GetMouseButtonUp(0)) { // Click to finish current line or move to next line
             if (!dialogue.isWaitingForUserInput) { StartCoroutine(finishTextBox()); }
@@ -190,8 +191,8 @@ public class DialogueManager : MonoBehaviour
             {
                 isLine = true;
 
-                if (speaking[index] == " ") { m_SceneManager.UnloadUI(1); } // Hide the nameplate if it's an inner thought
-                else { m_SceneManager.LoadUI(1); }                          // Show nameplate if it's spoken aloud
+                if (speaking[index] == " ") { m_sceneManager.UnloadUI(1); } // Hide the nameplate if it's an inner thought
+                else { m_sceneManager.LoadUI(1); }                          // Show nameplate if it's spoken aloud
 
                 dialogue.Say(script[index], speaking[index]); // Clear speech box and output line
             }
@@ -217,7 +218,7 @@ public class DialogueManager : MonoBehaviour
             {
                 temp = Int32.Parse(script[index]);
                 //print("SFX WORKED:" + temp);
-     //           m_SceneManager.playSFX(temp);
+     //           m_sceneManager.playSFX(temp);
             }
 
             // Music
@@ -225,18 +226,18 @@ public class DialogueManager : MonoBehaviour
             {
                 temp = Int32.Parse(script[index]);
                 //print("Music  WORKED: " + temp);
-                m_SceneManager.startMusic(temp);
+                m_sceneManager.startMusic(temp);
             }
 
             // Scene Title
-            else if (lineType[index] == 'T') { m_SceneManager.DisplaySceneTitle(script[index]); }
+            else if (lineType[index] == 'T') { m_sceneManager.DisplaySceneTitle(script[index]); }
 
             // Enter character
             else if (lineType[index] == 'N')
             {
                 temp = Int32.Parse(script[index]);
                 //print("ENTER CHARACTER WORKED: " + temp);
-                m_SceneManager.LoadCharacter(temp);
+                m_sceneManager.LoadCharacter(temp);
             }
 
             // Exit character
@@ -244,7 +245,7 @@ public class DialogueManager : MonoBehaviour
             {
                 temp = Int32.Parse(script[index]);
                 //print("EXIT CHARACTER WORKED: " + temp);
-                m_SceneManager.UnloadCharacter(temp);
+                m_sceneManager.UnloadCharacter(temp);
             }
 
             // End scene
@@ -260,8 +261,8 @@ public class DialogueManager : MonoBehaviour
                 //print("BG LOADED: " + temp);
 
                 if (temp == 10) { StartCoroutine(fadeBlack(3f)); } // Background 10 puts a fade to black overlay for 3 secs
-                                                                    //m_SceneManager.LoadBackground(temp);
-                else { m_SceneManager.LoadBackground(temp); }
+                                                                    //m_sceneManager.LoadBackground(temp);
+                else { m_sceneManager.LoadBackground(temp); }
             }
 
             index++; // Move on to the next line!
@@ -270,24 +271,24 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator finishTextBox() // Quickly fills out the rest of the text if the user clicks while it's loading.
     {
-        if (m_SceneManager.instantText == false) // If not instant text already
+        if (m_sceneManager.instantText == false) // If not instant text already
         {
-            m_SceneManager.instantText = true;
+            m_sceneManager.instantText = true;
             yield return new WaitForEndOfFrame();
-            m_SceneManager.instantText = false;
+            m_sceneManager.instantText = false;
         }
     }
 
     IEnumerator fadeBlack(float time) // Background ID:10 fades to black
     {
-        m_SceneManager.crossFade.SetTrigger("FadeToBlack");
+        m_sceneManager.crossFade.SetTrigger("FadeToBlack");
         yield return new WaitForSeconds(time);
-        m_SceneManager.crossFade.SetTrigger("UnFade");
+        m_sceneManager.crossFade.SetTrigger("UnFade");
     }
 
     IEnumerator endDialogueScene() // Wait a bit after the final click and then move on to next scene
     {
-        yield return new WaitForSeconds(0.5f / m_SceneManager.animationSpeed);
-        m_SceneManager.LoadScene(m_SceneManager.getScene() + 1); // Move on to next scene
+        yield return new WaitForSeconds(0.5f / m_sceneManager.animationSpeed);
+        m_sceneManager.LoadScene(m_sceneManager.getScene() + 1); // Move on to next scene
     }
 }
