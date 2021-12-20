@@ -240,7 +240,7 @@ public class MinigameManager : MonoBehaviour
                 break;
 
             case 3: // Ham Sandwiches
-                knifeUses = 4;
+                knifeUses = 4000; // The knife is now indestructible just to make life easier. (i.e. fix a bug)
 
                 ingrList.Add(Values.I_BREAD_LOAF);
                 ingrList.Add(Values.I_MAYO);
@@ -371,7 +371,7 @@ public class MinigameManager : MonoBehaviour
                         if (recipeList[i][0] != recipeList[i][2])
                         {
                             // If the first tool is a knife and thre are still knife uses left, decrease knife durability:
-                            if (recipeList[i][0] == Values.I_KNIFE && knifeUses > 1) knifeUses--;
+                            if (recipeList[i][0] == Values.I_KNIFE && knifeUses > 1) { knifeUses--; }
 
                             else m_SceneManager.UnloadIngredient(recipeList[i][0]);
                         }

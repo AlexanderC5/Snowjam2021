@@ -5,7 +5,9 @@
 [ENTER]1
 [THOUGHT]
 After a moment of dragging and dropping ingredients with eagle-eye accuracy, we finally manage to finish the cookies.
-They look delightful. The light brown hue of the little men contrasts with the brilliant white frosting that decorates their faces and their clothing. The homely scent of baked desserts is simply divine.
+They look delightful.
+The light brown hue of the little men contrasts with the brilliant white frosting that decorates their faces and their clothing.
+The homely scent of baked desserts is simply divine.
 [Toa]
 [EXPRESSION]6
 They look wonderful, don’t they?
@@ -45,7 +47,8 @@ How’s your research with that professor going?
 [EXPRESSION]15
 Ah, it’s going pretty good. Right now we’re...
 [THOUGHT]
-I spew out all the various experiments I’d been working on in the past semester to her, losing myself in an almost trance-like state. Pipettes. Centrifuges. Lab rats. You name it.
+I spew out all the various experiments I’d been working on in the past semester to her, losing myself in an almost trance-like state.
+Pipettes. Centrifuges. Lab rats. You name it.
 Toa isn’t a STEM girl. Far from it. But that never stops her from listening to me blabber about my classes and my research.
 [Stuart]
 ...so after that, we used the samples from the RNA isolation to...
@@ -68,10 +71,12 @@ Sorry, I’ve been rambling. How’s your research going?
 [EXPRESSION]6
 Don’t be sorry, I love listening~
 [EXPRESSION]14
-Mmm... well, I think I’ve got a lead on that source I was talking about to you last night. So, it turns out, according to his diary, Captain Johnson was actually a part of this group that...
+Mmm... well, I think I’ve got a lead on that source I was talking about to you last night.
+So, it turns out, according to his diary, Captain Johnson was actually a part of this group that...
 [THOUGHT]
 I smile and listen intently to every word Toa spouts out of her mouth. She might not be the best in science, but she’s a walking history and literature encyclopedia. 
-I don’t completely understand everything she’s talking about, but that doesn’t really matter. I want to know more about what she loves to do by herself, whatever it may be. I know for certain that’s how Toa also sees things.
+I don’t completely understand everything she’s talking about, but that doesn’t really matter. I want to know more about what she loves to do by herself, whatever it may be.
+I know for certain that’s how Toa also sees things.
 That’s how it’s always been.
 [Toa]
 ...so yeah. I’m gonna have to call the military museum to see if they have any more information about him. I really feel good about this!

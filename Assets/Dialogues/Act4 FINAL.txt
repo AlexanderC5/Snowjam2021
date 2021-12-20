@@ -35,7 +35,6 @@ We flop on the couch together, finally free to enjoy the time before the big din
 [EXPRESSION]14
 Anything you wanna watch?
 [EXPRESSION]13
-10
 [Toa]
 [EXPRESSION]14
 Surprise me.
@@ -48,7 +47,8 @@ Really?
 [EXPRESSION]13
 [THOUGHT]
 We laugh, and I switch it to some campy romance movie. I don’t need to say why.
-We sit together as we watch the painfully mediocre acting. It’s a run-of-the-mill sappy romance plot, with a boy and a girl eventually falling in love with each other over the course of the movie.
+We sit together as we watch the painfully mediocre acting.
+It’s a run-of-the-mill sappy romance plot, with a boy and a girl eventually falling in love with each other over the course of the movie.
 [Stuart]
 [EXPRESSION]3
 Oh my God, he’s so dense. She’s literally clinging to him.
@@ -169,7 +169,9 @@ I know.
 [Stuart]
 [EXPRESSION]0
 [THOUGHT]
-I drop to the floor in total despair. It’s totally ruined. We can’t serve charcoal, that’s Santa’s job. Our families are coming home in less than an hour, and the main dish is completely destroyed.
+I drop to the floor in total despair.
+It’s totally ruined.
+We can’t serve charcoal, that’s Santa’s job. Our families are coming home in less than an hour, and the main dish is completely destroyed.
 [Toa]
 [EXPRESSION]2
 I have an idea.

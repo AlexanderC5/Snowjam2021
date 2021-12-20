@@ -35,6 +35,7 @@ public class SceneManager : MonoBehaviour
     private IEnumerator loadingScene;       // Prevents two scenes from being loaded at the same time -> crash
     private bool isDialogueEnabled;         // Disables Dialogue when not in a VN segment
     private string sceneType = "menu";      // VN, cooking. Used to disable dialogue when menus are opened.
+    private bool namePlateExists;           // Stores whether the nameplate should be displayed after closing the options menu
 
     private float sceneXSize; // Required to deal with changes in screen resolution
     private float sceneYSize;
@@ -222,13 +223,18 @@ public class SceneManager : MonoBehaviour
     {
         isDialogueEnabled = false;
         UnloadUI(Values.U_DIALOGUE); // Unload dialogue box
-        UnloadUI(Values.U_NAMEPLATE); // Unload nameplate
+        if (interfaces[Values.U_NAMEPLATE].activeSelf)
+        {
+            namePlateExists = true;
+            UnloadUI(Values.U_NAMEPLATE); // Unload nameplate
+        }
+        else namePlateExists = false;
     }
     public void EnableDialogue()
     {
         isDialogueEnabled = true;
         LoadUI(Values.U_DIALOGUE); // Load dialogue box (make sure dialogue box is first UI element)
-        LoadUI(Values.U_NAMEPLATE); // Load Nameplate
+        if (namePlateExists) LoadUI(Values.U_NAMEPLATE); // Load Nameplate if it has been unloaded to open the menu
     }
     public bool IsDialogueOn() { return isDialogueEnabled; }
 
@@ -312,6 +318,10 @@ public class SceneManager : MonoBehaviour
         else sceneSkipEnabled = true;
     }
 
+    public void restartScene()
+    {
+        LoadScene(currentScene);
+    }
 
     // ========================================================================================= //
     //                                                                                           //
